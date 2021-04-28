@@ -5,18 +5,131 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context=".UI.CreateShopActivity"
-    android:background="@mipmap/bg_shop2">
+    android:background="@drawable/bg_shop">
 
     <TextView
+        android:id="@+id/tv_0"
         app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        android:layout_marginTop="10dp"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Selamat datang di Online Shop"
+        android:textColor="@color/black"
+        android:textStyle="bold"
+        android:textSize="20dp"
+        android:gravity="center_horizontal"/>
+
+    <TextView
+        android:id="@+id/tv_1"
+        app:layout_constraintTop_toBottomOf="@+id/tv_0"
+        app:layout_constraintLeft_toLeftOf="parent"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Informasi Toko"
+        android:textStyle="bold"
+        android:textSize="17dp"
+        android:layout_marginTop="25dp"
+        android:layout_marginLeft="20dp"/>
+
+    <com.google.android.material.textfield.TextInputLayout
+        android:id="@+id/tl_0"
+        app:layout_constraintTop_toBottomOf="@+id/tv_1"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="Welcome to this Application"
-        android:textColor="@color/black"
-        android:textStyle="bold"
-        android:textSize="17dp"
-        android:gravity="center_horizontal"/>
+        android:layout_marginTop="10dp"
+        android:layout_marginHorizontal="20dp"
+        app:counterMaxLength="50"
+        app:counterEnabled="true"
+        app:counterTextAppearance="@color/red_200">
+        <com.google.android.material.textfield.TextInputEditText
+            android:id="@+id/et_create_name"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@color/white"
+            android:hint="Nama Toko"
+            android:textColorHint="@color/black"
+            android:maxLength="50"/>
+    </com.google.android.material.textfield.TextInputLayout>
+
+    <com.google.android.material.textfield.TextInputLayout
+        android:id="@+id/tl_1"
+        app:layout_constraintTop_toBottomOf="@+id/tl_0"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="5dp"
+        android:layout_marginHorizontal="20dp"
+        app:counterMaxLength="100"
+        app:counterEnabled="true"
+        app:counterTextAppearance="@color/red_200">
+        <com.google.android.material.textfield.TextInputEditText
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@color/white"
+            android:hint="Alamat Toko"
+            android:textColorHint="@color/black"
+            android:maxLength="100"/>
+    </com.google.android.material.textfield.TextInputLayout>
+
+    <TextView
+        android:id="@+id/tv_2"
+        app:layout_constraintTop_toBottomOf="@+id/tl_1"
+        app:layout_constraintLeft_toLeftOf="parent"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="20dp"
+        android:text="Link Toko"
+        android:textColor="@color/black"/>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        app:layout_constraintTop_toBottomOf="@+id/tv_2"
+        app:layout_constraintLeft_toLeftOf="parent">
+        <TextView
+            android:id="@+id/tv_3"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="20dp"
+            android:layout_marginTop="-11dp"
+            android:gravity="left"
+            android:padding="10dp"
+            android:text="Online.shop/"
+            android:textColor="@color/red_500"
+            android:background="@drawable/bg_link"/>
+
+        <com.google.android.material.textfield.TextInputLayout
+            android:id="@+id/tl_2"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginRight="20dp"
+            app:counterEnabled="true"
+            app:counterMaxLength="50"
+            app:counterTextAppearance="@color/red_200"
+            android:layout_alignParentRight="true">
+
+            <com.google.android.material.textfield.TextInputEditText
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@color/white"
+                android:maxLength="50" />
+        </com.google.android.material.textfield.TextInputLayout>
+    </LinearLayout>
+
+    <Button
+        android:id="@+id/btn_create_submit"
+        app:layout_constraintBottom_toBottomOf="parent"
+        android:layout_marginHorizontal="20dp"
+        android:layout_marginBottom="50dp"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="submit"
+        android:backgroundTint="#FFA9C3"/>
 
 </androidx.constraintlayout.widget.ConstraintLayout>
