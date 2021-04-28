@@ -1,4 +1,4 @@
-package com.example.onlineshop;
+package com.example.onlineshop.UI;
 
 import androidx.appcompat.app.AppCompatActivity;
 
@@ -9,6 +9,8 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
+
+import com.example.onlineshop.R;
 
 public class RegisterActivity extends AppCompatActivity {
 
@@ -30,7 +32,9 @@ public class RegisterActivity extends AppCompatActivity {
         btn_login.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                startActivity(new Intent(getApplicationContext(),LoginActivity.class));
+                Intent intent = new Intent(getApplicationContext(), LoginActivity.class);
+                intent.addFlags(Intent.FLAG_ACTIVITY_NO_ANIMATION);
+                startActivity(intent);
             }
         });
         btn_register.setOnClickListener(new View.OnClickListener() {
