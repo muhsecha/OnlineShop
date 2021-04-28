@@ -42,8 +42,6 @@ public class LoginActivity extends AppCompatActivity {
         btn_login = findViewById(R.id.btn_login);
 
         progressDialog = new ProgressDialog(this);
-        SharedPreferences sp = getSharedPreferences("login", MODE_PRIVATE);
-        sp.edit().putString("logged", sp.getString("logged", "missing")).apply();
 
         btn_register.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -51,7 +49,6 @@ public class LoginActivity extends AppCompatActivity {
                 Intent intent = new Intent(getApplicationContext(),RegisterActivity.class);
                 intent.addFlags(Intent.FLAG_ACTIVITY_NO_ANIMATION);
                 startActivity(intent);
-//                startActivity(new Intent(getApplicationContext(),RegisterActivity.class));
             }
         });
 
@@ -92,11 +89,9 @@ public class LoginActivity extends AppCompatActivity {
                                             SharedPreferences sp = getSharedPreferences("login", MODE_PRIVATE);
                                             sp.edit().putString("logged", response.getString("data")).apply();
 
-                                            Toast.makeText(getApplicationContext(), "sukses", Toast.LENGTH_SHORT).show();
-
-                                            /*Intent intent = new Intent(getApplicationContext(), MainActivity.class);
+                                            Intent intent = new Intent(getApplicationContext(), MainActivity.class);
                                             startActivity(intent);
-                                            finish();*/
+                                            finish();
                                             progressDialog.dismiss();
                                         } else {
                                             Toast.makeText(getApplicationContext(), "gagal", Toast.LENGTH_SHORT).show();
