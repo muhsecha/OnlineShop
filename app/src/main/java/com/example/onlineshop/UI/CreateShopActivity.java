@@ -52,7 +52,6 @@ public class CreateShopActivity extends AppCompatActivity {
         spCity.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
             public void onItemSelected(AdapterView<?> adapterView, View view, int position, long id) {
-                Toast.makeText(CreateShopActivity.this, cityList.get(position), Toast.LENGTH_SHORT).show();
                 city = cityList.get(position);
             }
 
@@ -79,7 +78,11 @@ public class CreateShopActivity extends AppCompatActivity {
                     etLink.setError("Required");
                 }
 
-                if (!isEmpty) {
+                if (city == null) {
+                    Toast.makeText(CreateShopActivity.this, "Required address", Toast.LENGTH_SHORT).show();
+                }
+
+                if (!isEmpty && city != null) {
                     progressDialog.setTitle("Loading...");
                     progressDialog.show();
 

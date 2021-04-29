@@ -60,16 +60,10 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             app:layout_constraintTop_toBottomOf="@+id/tl_0"
-            app:smsp_floatingLabelColor="#1976D2"
             app:smsp_hint="Alamat Toko"
             app:smsp_isSearchable="true"
-            app:smsp_itemColor="#512DA8"
-            app:smsp_itemListColor="#7C4DFF"
-            app:smsp_itemListHintBackgroundColor="#808080"
-            app:smsp_itemListHintColor="#FFFFFF"
-            app:smsp_multilineError="false"
-            app:smsp_selectedItemListColor="#FF5252"
-        android:layout_marginHorizontal="20dp"/>
+            app:smsp_searchHeaderBackgroundColor="#D31A43"
+            android:layout_marginHorizontal="20dp"/>
 
     <TextView
         android:id="@+id/tv_2"
