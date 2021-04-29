@@ -116,6 +116,7 @@ public class CreateShopActivity extends AppCompatActivity {
 
                                 @Override
                                 public void onError(ANError anError) {
+                                    Toast.makeText(CreateShopActivity.this, Constants.ERROR, Toast.LENGTH_SHORT).show();
                                     progressDialog.dismiss();
 
                                     if (anError.getErrorCode() != 0) {
@@ -162,6 +163,7 @@ public class CreateShopActivity extends AppCompatActivity {
 
                     @Override
                     public void onError(ANError anError) {
+                        Toast.makeText(CreateShopActivity.this, Constants.ERROR, Toast.LENGTH_SHORT).show();
                         progressDialog.dismiss();
 
                         if (anError.getErrorCode() != 0) {

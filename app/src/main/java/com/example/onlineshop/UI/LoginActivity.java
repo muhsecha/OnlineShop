@@ -105,6 +105,7 @@ public class LoginActivity extends AppCompatActivity {
 
                                 @Override
                                 public void onError(ANError anError) {
+                                    Toast.makeText(LoginActivity.this, Constants.ERROR, Toast.LENGTH_SHORT).show();
                                     progressDialog.dismiss();
 
                                     if (anError.getErrorCode() != 0) {
