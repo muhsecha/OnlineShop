@@ -8,6 +8,10 @@ import android.util.Log;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import com.chivorn.smartmaterialspinner.SmartMaterialSpinner;
+
+import java.util.List;
+
 public class SplashActivity extends AppCompatActivity {
 
     @Override
@@ -15,17 +19,17 @@ public class SplashActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
 
         SharedPreferences sp = getSharedPreferences("login", MODE_PRIVATE);
-        String user = sp.getString("logged", "");
+        String tokenUser = sp.getString("token_user", "");
 
         new Handler().postDelayed(new Runnable() {
             @Override
             public void run() {
-                if (user.isEmpty()) {
+                if (tokenUser.isEmpty()) {
                     Intent intent = new Intent(SplashActivity.this, LoginActivity.class);
                     startActivity(intent);
                     finish();
                 } else {
-                    Intent intent = new Intent(SplashActivity.this, MainActivity.class);
+                    Intent intent = new Intent(SplashActivity.this, CreateShopActivity.class);
                     startActivity(intent);
                     finish();
                 }

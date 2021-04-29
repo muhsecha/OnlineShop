@@ -22,6 +22,7 @@ import com.androidnetworking.interfaces.JSONObjectRequestListener;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import com.example.onlineshop.Constants;
 import com.example.onlineshop.R;
 
 public class LoginActivity extends AppCompatActivity {
@@ -74,7 +75,7 @@ public class LoginActivity extends AppCompatActivity {
                     progressDialog.setTitle("Loading...");
                     progressDialog.show();
 
-                    AndroidNetworking.post("https://api-olshop.ascomycota.my.id/api/login")
+                    AndroidNetworking.post(Constants.API + "/login")
                             .addBodyParameter("email", email)
                             .addBodyParameter("password", password)
                             .setPriority(Priority.MEDIUM)
@@ -87,7 +88,7 @@ public class LoginActivity extends AppCompatActivity {
 
                                         if (status.equals("success")) {
                                             SharedPreferences sp = getSharedPreferences("login", MODE_PRIVATE);
-                                            sp.edit().putString("logged", response.getString("data")).apply();
+                                            sp.edit().putString("token_user", response.getString("data")).apply();
 
                                             Intent intent = new Intent(getApplicationContext(), MainActivity.class);
                                             startActivity(intent);

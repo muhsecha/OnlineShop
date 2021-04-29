@@ -21,6 +21,7 @@ import com.androidnetworking.interfaces.JSONObjectRequestListener;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import com.example.onlineshop.Constants;
 import com.example.onlineshop.R;
 
 public class RegisterActivity extends AppCompatActivity {
@@ -98,7 +99,7 @@ public class RegisterActivity extends AppCompatActivity {
                     progressDialog.setTitle("Loading...");
                     progressDialog.show();
 
-                    AndroidNetworking.post("https://api-olshop.ascomycota.my.id/api/register")
+                    AndroidNetworking.post(Constants.API + "/register")
                             .addBodyParameter("name", name)
                             .addBodyParameter("email", email)
                             .addBodyParameter("phone_number", phoneNumber)
