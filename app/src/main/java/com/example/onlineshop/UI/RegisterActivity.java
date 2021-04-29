@@ -50,6 +50,7 @@ public class RegisterActivity extends AppCompatActivity {
                 Intent intent = new Intent(getApplicationContext(), LoginActivity.class);
                 intent.addFlags(Intent.FLAG_ACTIVITY_NO_ANIMATION);
                 startActivity(intent);
+                finish();
             }
         });
         btn_register.setOnClickListener(new View.OnClickListener() {
