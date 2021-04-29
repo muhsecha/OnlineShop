@@ -55,20 +55,11 @@
             android:maxLength="50"/>
     </com.google.android.material.textfield.TextInputLayout>
 
-    <com.google.android.material.textfield.TextInputLayout
-        android:id="@+id/tl_1"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginHorizontal="20dp"
-        app:layout_constraintHorizontal_bias="0.0"
-        app:layout_constraintLeft_toLeftOf="parent"
-        app:layout_constraintRight_toRightOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/tl_0">
-
-        <com.chivorn.smartmaterialspinner.SmartMaterialSpinner
+    <com.chivorn.smartmaterialspinner.SmartMaterialSpinner
             android:id="@+id/sp_city"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            app:layout_constraintTop_toBottomOf="@+id/tl_0"
             app:smsp_floatingLabelColor="#1976D2"
             app:smsp_hint="Alamat Toko"
             app:smsp_isSearchable="true"
@@ -77,17 +68,17 @@
             app:smsp_itemListHintBackgroundColor="#808080"
             app:smsp_itemListHintColor="#FFFFFF"
             app:smsp_multilineError="false"
-            app:smsp_selectedItemListColor="#FF5252" />
-
-    </com.google.android.material.textfield.TextInputLayout>
+            app:smsp_selectedItemListColor="#FF5252"
+        android:layout_marginHorizontal="20dp"/>
 
     <TextView
         android:id="@+id/tv_2"
-        app:layout_constraintTop_toBottomOf="@+id/tl_1"
+        app:layout_constraintTop_toBottomOf="@+id/sp_city"
         app:layout_constraintLeft_toLeftOf="parent"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginLeft="20dp"
+        android:layout_marginTop="10dp"
         android:text="Link Toko"
         android:textColor="@color/black"/>
 

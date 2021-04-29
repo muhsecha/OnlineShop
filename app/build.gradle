@@ -38,4 +38,5 @@ dependencies {
 
     implementation 'com.amitshekhar.android:android-networking:1.0.2'
     implementation 'com.github.chivorns:smartmaterialspinner:1.5.0'
+    implementation 'de.hdodenhof:circleimageview:3.1.0'
 }
