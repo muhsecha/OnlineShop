@@ -86,7 +86,7 @@ public class CreateShopActivity extends AppCompatActivity {
                     progressDialog.setTitle("Loading...");
                     progressDialog.show();
 
-                    SharedPreferences sp = getSharedPreferences("login", MODE_PRIVATE);
+                    SharedPreferences sp = getSharedPreferences("online_shop", MODE_PRIVATE);
                     String tokenUser = sp.getString("token_user", "");
 
                     AndroidNetworking.post(Constants.API + "/shops")
@@ -103,11 +103,9 @@ public class CreateShopActivity extends AppCompatActivity {
                                         String status = response.getString("status");
 
                                         if (status.equals("success")) {
-                                            Toast.makeText(getApplicationContext(), "sukses", Toast.LENGTH_SHORT).show();
-//                                            Intent intent = new Intent(getApplicationContext(), MainActivity.class);
-//                                            startActivity(intent);
-//                                            finish();
-                                            progressDialog.dismiss();
+                                            JSONObject data = response.getJSONObject("data");
+                                            String id = data.getString("id");
+                                            changeShop(id);
                                         } else {
                                             Toast.makeText(getApplicationContext(), "gagal", Toast.LENGTH_SHORT).show();
                                             progressDialog.dismiss();
@@ -159,6 +157,55 @@ public class CreateShopActivity extends AppCompatActivity {
 
                             spCity.setItem(cityList);
                             progressDialog.dismiss();
+                        } catch (JSONException e) {
+                            e.printStackTrace();
+                        }
+                    }
+
+                    @Override
+                    public void onError(ANError anError) {
+                        Toast.makeText(CreateShopActivity.this, Constants.ERROR, Toast.LENGTH_SHORT).show();
+                        progressDialog.dismiss();
+
+                        if (anError.getErrorCode() != 0) {
+                            Log.d("TAG", "onError errorCode : " + anError.getErrorCode());
+                            Log.d("TAG", "onError errorBody : " + anError.getErrorBody());
+                            Log.d("TAG", "onError errorDetail : " + anError.getErrorDetail());
+                        } else {
+                            Log.d("TAG", "onError errorDetail : " + anError.getErrorDetail());
+                        }
+                    }
+                });
+    }
+
+    private void changeShop(String id) {
+        progressDialog.setTitle("Loading...");
+        progressDialog.show();
+
+        SharedPreferences sp = getSharedPreferences("online_shop", MODE_PRIVATE);
+        String tokenUser = sp.getString("token_user", "");
+
+        AndroidNetworking.post(Constants.API + "/login-shop")
+                .addBodyParameter("shop_id", id)
+                .addHeaders("Authorization", "Bearer " + tokenUser)
+                .setPriority(Priority.MEDIUM)
+                .build()
+                .getAsJSONObject(new JSONObjectRequestListener() {
+                    @Override
+                    public void onResponse(JSONObject response) {
+                        try {
+                            String status = response.getString("status");
+
+                            if (status.equals("success")) {
+                                SharedPreferences sp = getSharedPreferences("online_shop", MODE_PRIVATE);
+                                sp.edit().putString("token_shop", response.getString("data")).apply();
+
+                                Intent intent = new Intent(getApplicationContext(), ChangeShopActivity.class);
+                                startActivity(intent);
+                                finish();
+
+                                progressDialog.dismiss();
+                            }
                         } catch (JSONException e) {
                             e.printStackTrace();
                         }

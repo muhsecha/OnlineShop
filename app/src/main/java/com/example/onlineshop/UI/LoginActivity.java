@@ -88,7 +88,7 @@ public class LoginActivity extends AppCompatActivity {
                                         String status = response.getString("status");
 
                                         if (status.equals("success")) {
-                                            SharedPreferences sp = getSharedPreferences("login", MODE_PRIVATE);
+                                            SharedPreferences sp = getSharedPreferences("online_shop", MODE_PRIVATE);
                                             sp.edit().putString("token_user", response.getString("data")).apply();
 
                                             Intent intent = new Intent(getApplicationContext(), MainActivity.class);
