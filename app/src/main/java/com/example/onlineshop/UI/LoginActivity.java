@@ -61,6 +61,7 @@ public class LoginActivity extends AppCompatActivity {
                 String password = et_pass.getText().toString().trim();
 
                 boolean isEmpty = false;
+                boolean isInvalidLengthPassword = false;
 
                 if (email.isEmpty()) {
                     isEmpty = true;
@@ -72,7 +73,12 @@ public class LoginActivity extends AppCompatActivity {
                     et_pass.setError("Required");
                 }
 
-                if (!isEmpty) {
+                if (password.length() < 6) {
+                    isInvalidLengthPassword = true;
+                    et_pass.setError("The password must be at least 6 characters");
+                }
+
+                if (!isEmpty && !isInvalidLengthPassword) {
                     progressDialog.setTitle("Loading...");
                     progressDialog.show();
 
@@ -86,6 +92,7 @@ public class LoginActivity extends AppCompatActivity {
                                 public void onResponse(JSONObject response) {
                                     try {
                                         String status = response.getString("status");
+                                        String message = response.getString("message");
 
                                         if (status.equals("success")) {
                                             SharedPreferences sp = getSharedPreferences("online_shop", MODE_PRIVATE);
@@ -96,7 +103,7 @@ public class LoginActivity extends AppCompatActivity {
                                             finish();
                                             progressDialog.dismiss();
                                         } else {
-                                            Toast.makeText(getApplicationContext(), "gagal", Toast.LENGTH_SHORT).show();
+                                            Toast.makeText(getApplicationContext(), message, Toast.LENGTH_SHORT).show();
                                             progressDialog.dismiss();
                                         }
                                     } catch (JSONException e) {

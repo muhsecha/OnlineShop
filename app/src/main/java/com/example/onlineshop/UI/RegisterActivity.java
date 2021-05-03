@@ -18,6 +18,7 @@ import com.androidnetworking.common.Priority;
 import com.androidnetworking.error.ANError;
 import com.androidnetworking.interfaces.JSONObjectRequestListener;
 
+import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
@@ -64,6 +65,7 @@ public class RegisterActivity extends AppCompatActivity {
 
                 boolean isEmpty = false;
                 boolean isInvalidPassword = false;
+                boolean isInvalidLengthPassword = false;
 
                 if (name.isEmpty()) {
                     isEmpty = true;
@@ -90,13 +92,23 @@ public class RegisterActivity extends AppCompatActivity {
                     et_confirm_pass.setError("Required");
                 }
 
+                if (password.length() < 6) {
+                    isInvalidLengthPassword = true;
+                    et_pass.setError("The password must be at least 6 characters");
+                }
+
+                if (confirmPassword.length() < 6) {
+                    isInvalidLengthPassword = true;
+                    et_confirm_pass.setError("The password must be at least 6 characters");
+                }
+
                 if (!password.equals(confirmPassword)) {
                     isInvalidPassword = true;
                     et_confirm_pass.setError("Password & Confirm Password don't match");
                 }
 
 
-                if (!isEmpty && !isInvalidPassword) {
+                if (!isEmpty && !isInvalidPassword && !isInvalidLengthPassword) {
                     progressDialog.setTitle("Loading...");
                     progressDialog.show();
 
@@ -113,15 +125,34 @@ public class RegisterActivity extends AppCompatActivity {
                                 public void onResponse(JSONObject response) {
                                     try {
                                         String status = response.getString("status");
+                                        JSONObject message = response.getJSONObject("message");
 
                                         if (status.equals("success")) {
                                             Intent intent = new Intent(getApplicationContext(), LoginActivity.class);
                                             startActivity(intent);
                                             finish();
+
                                             progressDialog.dismiss();
                                         } else {
-                                            Toast.makeText(getApplicationContext(), "gagal", Toast.LENGTH_SHORT).show();
-                                            progressDialog.dismiss();
+                                            try {
+                                                JSONArray email = message.getJSONArray("email");
+                                                et_email.setError(email.optString(0));
+
+                                                progressDialog.dismiss();
+                                            } catch (JSONException e) {
+                                                e.printStackTrace();
+                                                progressDialog.dismiss();
+                                            }
+
+                                            try {
+                                                JSONArray phone = message.getJSONArray("phone_number");
+                                                et_phone.setError(phone.optString(0));
+
+                                                progressDialog.dismiss();
+                                            } catch (JSONException e) {
+                                                e.printStackTrace();
+                                                progressDialog.dismiss();
+                                            }
                                         }
                                     } catch (JSONException e) {
                                         e.printStackTrace();
