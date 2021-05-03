@@ -1,16 +1,27 @@
 package com.example.onlineshop.UI;
 
+import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.cardview.widget.CardView;
 
+import android.content.DialogInterface;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.androidnetworking.AndroidNetworking;
+import com.androidnetworking.common.Priority;
+import com.androidnetworking.error.ANError;
+import com.androidnetworking.interfaces.JSONObjectRequestListener;
 import com.example.onlineshop.R;
+
+import org.json.JSONException;
+import org.json.JSONObject;
 
 import de.hdodenhof.circleimageview.CircleImageView;
 
@@ -38,7 +49,21 @@ public class MainActivity extends AppCompatActivity {
         iv_logout.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Toast.makeText(MainActivity.this, "Logout Success", Toast.LENGTH_SHORT).show();
+                new AlertDialog.Builder(MainActivity.this)
+                        .setMessage("Apakah anda yakin ingin keluar ?")
+                        .setNegativeButton("Tidak", null)
+                        .setPositiveButton("Ya", new DialogInterface.OnClickListener() {
+                            public void onClick(DialogInterface arg0, int arg1) {
+                                SharedPreferences sp = getSharedPreferences("online_shop", MODE_PRIVATE);
+                                SharedPreferences.Editor editor = sp.edit();
+                                editor.clear();
+                                editor.apply();
+
+                                Intent intent = new Intent(MainActivity.this, LoginActivity.class);
+                                startActivity(intent);
+                                finish();
+                            }
+                        }).create().show();
             }
         });
 
