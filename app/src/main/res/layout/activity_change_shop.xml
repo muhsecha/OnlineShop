@@ -26,9 +26,9 @@
         android:layout_height="wrap_content"
         android:layout_gravity="bottom|right"
         android:layout_margin="16dp"
-        app:srcCompat="@drawable/plus"
-        style="@style/ThemeOverlay.App.FloatingActionButton"/>
+        app:srcCompat="@drawable/plus"/>
 
 </androidx.coordinatorlayout.widget.CoordinatorLayout>
+
 
 </androidx.constraintlayout.widget.ConstraintLayout>
