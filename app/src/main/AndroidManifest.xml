@@ -11,11 +11,14 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/Theme.OnlineShop">
-        <activity android:name=".UI.DashboardActivity"><intent-filter>
-            <action android:name="android.intent.action.MAIN" />
+        <activity android:name=".UI.CreateProductActivity"></activity>
+        <activity android:name=".UI.DashboardActivity">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
 
-            <category android:name="android.intent.category.LAUNCHER" />
-        </intent-filter></activity>
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>
         <activity android:name=".UI.ChangeShopActivity" />
         <activity android:name=".UI.SettingActivity" />
         <activity android:name=".UI.CreateShopActivity" />
@@ -23,9 +26,7 @@
         <activity android:name=".UI.LoginActivity" />
         <activity
             android:name=".UI.SplashActivity"
-            android:theme="@style/SplashTheme">
-
-        </activity>
+            android:theme="@style/SplashTheme"></activity>
         <activity android:name=".UI.MainActivity" />
     </application>
 
