@@ -11,7 +11,8 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/Theme.OnlineShop">
-        <activity android:name=".UI.CreateCategoryActivity"></activity>
+        <activity android:name=".UI.ShopInfoActivity"></activity>
+        <activity android:name=".UI.CreateCategoryActivity" />
         <activity android:name=".UI.CreateProductActivity" />
         <activity android:name=".UI.DashboardActivity">
             <intent-filter>

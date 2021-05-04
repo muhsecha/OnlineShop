@@ -1,30 +1,14 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout
-    xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".UI.CreateShopActivity"
-    android:background="@drawable/bg_shop">
-
-    <TextView
-        android:id="@+id/tv_0"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintLeft_toLeftOf="parent"
-        app:layout_constraintRight_toRightOf="parent"
-        android:layout_marginTop="10dp"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text="Selamat datang di Online Shop"
-        android:textColor="@color/black"
-        android:textStyle="bold"
-        android:textSize="20dp"
-        android:gravity="center_horizontal"/>
+    tools:context=".UI.ShopInfoActivity">
 
     <TextView
         android:id="@+id/tv_1"
-        app:layout_constraintTop_toBottomOf="@+id/tv_0"
+        app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintLeft_toLeftOf="parent"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -32,7 +16,7 @@
         android:textStyle="bold"
         android:textSize="17dp"
         android:layout_marginTop="25dp"
-        android:layout_marginLeft="20dp"/>
+        android:layout_marginStart="20dp"/>
 
     <com.google.android.material.textfield.TextInputLayout
         android:id="@+id/tl_0"
@@ -57,14 +41,14 @@
     </com.google.android.material.textfield.TextInputLayout>
 
     <com.chivorn.smartmaterialspinner.SmartMaterialSpinner
-            android:id="@+id/sp_city"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            app:layout_constraintTop_toBottomOf="@+id/tl_0"
-            app:smsp_hint="Alamat Toko"
-            app:smsp_isSearchable="true"
-            app:smsp_searchHeaderBackgroundColor="#D31A43"
-            android:layout_marginHorizontal="20dp"/>
+        android:id="@+id/sp_city"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:layout_constraintTop_toBottomOf="@+id/tl_0"
+        app:smsp_hint="Alamat Toko"
+        app:smsp_isSearchable="true"
+        app:smsp_searchHeaderBackgroundColor="#D31A43"
+        android:layout_marginHorizontal="20dp"/>
 
     <TextView
         android:id="@+id/tv_2"
@@ -78,6 +62,7 @@
         android:textColor="@color/black"/>
 
     <LinearLayout
+        android:id="@+id/ll4"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="horizontal"
@@ -114,6 +99,34 @@
         </com.google.android.material.textfield.TextInputLayout>
     </LinearLayout>
 
+    <TextView
+        android:id="@+id/tv_11"
+        app:layout_constraintTop_toBottomOf="@+id/ll4"
+        app:layout_constraintLeft_toLeftOf="parent"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Logo Toko"
+        android:layout_marginStart="20dp"
+        android:layout_marginTop="10dp"
+        android:textColor="@color/black"/>
+    <ImageView
+        android:id="@+id/iv_logo_shop"
+        app:layout_constraintTop_toBottomOf="@+id/tv_11"
+        app:layout_constraintLeft_toLeftOf="parent"
+        android:layout_marginHorizontal="20dp"
+        android:layout_marginVertical="20dp"
+        android:layout_width="match_parent"
+        android:layout_height="100dp"
+        android:background="@drawable/bg_btn_white"/>
+
+    <ImageView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:src="@drawable/ic_baseline_add_circle_outline_24"
+        app:layout_constraintBottom_toBottomOf="@+id/iv_logo_shop"
+        app:layout_constraintEnd_toEndOf="@+id/iv_logo_shop"
+        app:layout_constraintStart_toStartOf="@+id/iv_logo_shop"
+        app:layout_constraintTop_toTopOf="@+id/iv_logo_shop" />
     <Button
         android:id="@+id/btn_submit"
         app:layout_constraintBottom_toBottomOf="parent"
