@@ -11,7 +11,8 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/Theme.OnlineShop">
-        <activity android:name=".UI.CreateProductActivity"></activity>
+        <activity android:name=".UI.CreateCategoryActivity"></activity>
+        <activity android:name=".UI.CreateProductActivity" />
         <activity android:name=".UI.DashboardActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -26,7 +27,7 @@
         <activity android:name=".UI.LoginActivity" />
         <activity
             android:name=".UI.SplashActivity"
-            android:theme="@style/SplashTheme"></activity>
+            android:theme="@style/SplashTheme" />
         <activity android:name=".UI.MainActivity" />
     </application>
 
