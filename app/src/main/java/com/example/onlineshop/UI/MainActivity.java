@@ -77,7 +77,8 @@ public class MainActivity extends AppCompatActivity {
         cd_product.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-
+                Intent intent = new Intent(MainActivity.this, DashboardActivity.class);
+                startActivity(intent);
             }
         });
 

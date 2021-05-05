@@ -11,27 +11,37 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/Theme.OnlineShop">
-        <activity android:name=".UI.CreateDiscountActivity"></activity>
+        <activity android:name=".UI.CreateDiscountActivity" />
         <activity android:name=".UI.DiscountActivity" />
         <activity android:name=".UI.ShopInfoActivity" />
         <activity android:name=".UI.CreateCategoryActivity" />
         <activity android:name=".UI.CreateProductActivity" />
-        <activity android:name=".UI.DashboardActivity">
+        <activity android:name=".UI.DashboardActivity" />
+        <activity android:name=".UI.ChangeShopActivity" />
+        <activity android:name=".UI.SettingActivity" />
+        <activity android:name=".UI.CreateShopActivity" />
+        <activity android:name=".UI.RegisterActivity" />
+        <activity android:name=".UI.LoginActivity" />
+        <activity android:name=".UI.MainActivity" />
+        <activity
+            android:name=".UI.SplashActivity"
+            android:theme="@style/SplashTheme">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".UI.ChangeShopActivity" />
-        <activity android:name=".UI.SettingActivity" />
-        <activity android:name=".UI.CreateShopActivity" />
-        <activity android:name=".UI.RegisterActivity" />
-        <activity android:name=".UI.LoginActivity" />
-        <activity
-            android:name=".UI.SplashActivity"
-            android:theme="@style/SplashTheme" />
-        <activity android:name=".UI.MainActivity" />
+
+        <provider
+            android:name="androidx.core.content.FileProvider"
+            android:authorities="@string/file_provider"
+            android:exported="false"
+            android:grantUriPermissions="true">
+            <meta-data
+                android:name="android.support.FILE_PROVIDER_PATHS"
+                android:resource="@xml/file_paths" />
+        </provider>
     </application>
 
 </manifest>
