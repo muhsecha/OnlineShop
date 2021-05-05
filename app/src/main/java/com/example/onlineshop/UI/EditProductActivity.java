@@ -1,5 +1,7 @@
 package com.example.onlineshop.UI;
 
+import androidx.appcompat.app.AppCompatActivity;
+
 import android.app.ProgressDialog;
 import android.content.ContentResolver;
 import android.content.ContentUris;
@@ -20,8 +22,6 @@ import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.Toast;
 
-import androidx.appcompat.app.AppCompatActivity;
-
 import com.androidnetworking.AndroidNetworking;
 import com.androidnetworking.common.Priority;
 import com.androidnetworking.error.ANError;
@@ -30,6 +30,7 @@ import com.androidnetworking.interfaces.UploadProgressListener;
 import com.bumptech.glide.Glide;
 import com.example.onlineshop.Constants;
 import com.example.onlineshop.R;
+import com.example.onlineshop.models.Product;
 import com.kroegerama.imgpicker.BottomSheetImagePicker;
 import com.kroegerama.imgpicker.ButtonType;
 
@@ -39,7 +40,7 @@ import org.json.JSONObject;
 import java.io.File;
 import java.util.List;
 
-public class CreateProductActivity extends AppCompatActivity implements BottomSheetImagePicker.OnImagesSelectedListener {
+public class EditProductActivity extends AppCompatActivity implements BottomSheetImagePicker.OnImagesSelectedListener{
     private EditText etName, etDesc, etPrice, etStock;
     private Button btnSubmit;
     private ProgressDialog progressDialog;
@@ -49,7 +50,7 @@ public class CreateProductActivity extends AppCompatActivity implements BottomSh
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_create_product);
+        setContentView(R.layout.activity_edit_product);
 
         etName = findViewById(R.id.et_name);
         etDesc = findViewById(R.id.et_desc);
@@ -60,6 +61,21 @@ public class CreateProductActivity extends AppCompatActivity implements BottomSh
         ivAdd = findViewById(R.id.iv_add);
 
         progressDialog = new ProgressDialog(this);
+        ivProduct.setBackground(null);
+        ivAdd.setVisibility(View.GONE);
+
+        Intent intent = getIntent();
+        Product product = intent.getParcelableExtra("Item Data");
+        etName.setText(product.getName());
+        etDesc.setText(product.getDesc());
+        etPrice.setText(product.getPrice());
+        etStock.setText(product.getStock());
+
+        if (!product.getImage().equals("null")) {
+            Glide.with(this)
+                    .load(Constants.STORAGE + product.getImage())
+                    .into(ivProduct);
+        }
 
         btnSubmit.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -99,7 +115,7 @@ public class CreateProductActivity extends AppCompatActivity implements BottomSh
                     String tokenShop = sp.getString("token_shop", "");
 
                     if (file == null) {
-                        AndroidNetworking.post(Constants.API + "/products")
+                        AndroidNetworking.put(Constants.API + "/products/" + product.getId())
                                 .addHeaders("Authorization", "Bearer " + tokenShop)
                                 .addBodyParameter("name", name)
                                 .addBodyParameter("desc", desc)
@@ -114,7 +130,7 @@ public class CreateProductActivity extends AppCompatActivity implements BottomSh
                                             String status = response.getString("status");
 
                                             if (status.equals("success")) {
-                                                Intent intent = new Intent(CreateProductActivity.this, DashboardActivity.class);
+                                                Intent intent = new Intent(EditProductActivity.this, DashboardActivity.class);
                                                 startActivity(intent);
                                                 finish();
 
@@ -127,7 +143,7 @@ public class CreateProductActivity extends AppCompatActivity implements BottomSh
 
                                     @Override
                                     public void onError(ANError anError) {
-                                        Toast.makeText(CreateProductActivity.this, Constants.ERROR, Toast.LENGTH_SHORT).show();
+                                        Toast.makeText(EditProductActivity.this, Constants.ERROR, Toast.LENGTH_SHORT).show();
                                         progressDialog.dismiss();
 
                                         if (anError.getErrorCode() != 0) {
@@ -140,7 +156,7 @@ public class CreateProductActivity extends AppCompatActivity implements BottomSh
                                     }
                                 });
                     } else {
-                        AndroidNetworking.upload(Constants.API + "/products")
+                        AndroidNetworking.upload(Constants.API + "/products/" + product.getId() + "?_method=PUT")
                                 .addHeaders("Authorization", "Bearer " + tokenShop)
                                 .addMultipartFile("image", file)
                                 .addMultipartParameter("name", name)
@@ -162,7 +178,7 @@ public class CreateProductActivity extends AppCompatActivity implements BottomSh
                                             String status = response.getString("status");
 
                                             if (status.equals("success")) {
-                                                Intent intent = new Intent(CreateProductActivity.this, DashboardActivity.class);
+                                                Intent intent = new Intent(EditProductActivity.this, DashboardActivity.class);
                                                 startActivity(intent);
                                                 finish();
 
@@ -175,7 +191,7 @@ public class CreateProductActivity extends AppCompatActivity implements BottomSh
 
                                     @Override
                                     public void onError(ANError anError) {
-                                        Toast.makeText(CreateProductActivity.this, Constants.ERROR, Toast.LENGTH_SHORT).show();
+                                        Toast.makeText(EditProductActivity.this, Constants.ERROR, Toast.LENGTH_SHORT).show();
                                         progressDialog.dismiss();
 
                                         if (anError.getErrorCode() != 0) {
@@ -207,8 +223,6 @@ public class CreateProductActivity extends AppCompatActivity implements BottomSh
         for (Uri uri : list) {
             Glide.with(this).load(uri).into(ivProduct);
             file = new File(getUriRealPath(this, uri));
-            ivProduct.setBackground(null);
-            ivAdd.setVisibility(View.GONE);
         }
     }
 

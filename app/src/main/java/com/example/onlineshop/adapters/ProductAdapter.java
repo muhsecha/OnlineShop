@@ -1,14 +1,21 @@
 package com.example.onlineshop.adapters;
 
+import android.content.Intent;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.bumptech.glide.Glide;
+import com.example.onlineshop.Constants;
 import com.example.onlineshop.R;
+import com.example.onlineshop.UI.EditCategoryActivity;
+import com.example.onlineshop.UI.EditProductActivity;
 import com.example.onlineshop.models.Product;
 
 import java.util.ArrayList;
@@ -32,6 +39,21 @@ public class ProductAdapter extends RecyclerView.Adapter<ProductAdapter.ProductV
         Product product = listProduct.get(position);
         holder.tvName.setText(product.getName());
         holder.tvPrice.setText(product.getPrice());
+
+        if (!product.getImage().equals("null")) {
+            Glide.with(holder.itemView.getContext())
+                    .load(Constants.STORAGE + product.getImage())
+                    .into(holder.ivProduct);
+        }
+
+        holder.ivEdit.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(holder.itemView.getContext(), EditProductActivity.class);
+                intent.putExtra("Item Data", listProduct.get(holder.getAdapterPosition()));
+                holder.itemView.getContext().startActivity(intent);
+            }
+        });
     }
 
     @Override
@@ -41,11 +63,14 @@ public class ProductAdapter extends RecyclerView.Adapter<ProductAdapter.ProductV
 
     public class ProductViewHolder extends RecyclerView.ViewHolder {
         TextView tvName, tvPrice;
+        ImageView ivProduct, ivEdit;
 
         public ProductViewHolder(@NonNull View itemView) {
             super(itemView);
             tvName = itemView.findViewById(R.id.tv_name);
             tvPrice = itemView.findViewById(R.id.tv_price);
+            ivProduct = itemView.findViewById(R.id.iv_product);
+            ivEdit = itemView.findViewById(R.id.iv_edit);
         }
     }
 }

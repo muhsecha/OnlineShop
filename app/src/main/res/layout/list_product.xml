@@ -24,7 +24,7 @@
                 android:background="@drawable/bg_list_product">
 
                 <ImageView
-                    android:id="@+id/iv_product_list"
+                    android:id="@+id/iv_product"
                     android:layout_width="60dp"
                     android:layout_height="60dp"
                     android:layout_marginLeft="10dp"
@@ -40,7 +40,7 @@
                     android:layout_marginTop="5dp"
                     android:text="Bakpao"
                     android:textColor="@color/red_200"
-                    app:layout_constraintLeft_toRightOf="@id/iv_product_list"
+                    app:layout_constraintLeft_toRightOf="@id/iv_product"
                     app:layout_constraintTop_toTopOf="parent" />
 
                 <TextView
@@ -51,7 +51,7 @@
                     android:layout_marginBottom="5dp"
                     android:gravity="center_vertical"
                     android:text="Rp. 5000"
-                    app:layout_constraintLeft_toRightOf="@id/iv_product_list"
+                    app:layout_constraintLeft_toRightOf="@id/iv_product"
                     app:layout_constraintTop_toBottomOf="@+id/tv_name" />
 
                 <TextView
@@ -65,10 +65,11 @@
                     android:paddingVertical="2dp"
                     android:text="Jajanan"
                     android:textColor="@color/white"
-                    app:layout_constraintLeft_toRightOf="@+id/iv_product_list"
+                    app:layout_constraintLeft_toRightOf="@+id/iv_product"
                     app:layout_constraintTop_toBottomOf="@+id/tv_price" />
 
                 <ImageView
+                    android:id="@+id/iv_edit"
                     android:layout_width="25dp"
                     android:layout_height="25dp"
                     android:layout_marginRight="30dp"
