@@ -13,6 +13,7 @@
         android:theme="@style/Theme.OnlineShop">
         <activity android:name=".UI.CreateDiscountActivity" />
         <activity android:name=".UI.DiscountActivity" />
+        <activity android:name=".UI.EditCategoryActivity" />
         <activity android:name=".UI.ShopInfoActivity" />
         <activity android:name=".UI.CreateCategoryActivity" />
         <activity android:name=".UI.CreateProductActivity" />

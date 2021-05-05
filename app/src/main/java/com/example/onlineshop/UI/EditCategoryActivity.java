@@ -1,5 +1,7 @@
 package com.example.onlineshop.UI;
 
+import androidx.appcompat.app.AppCompatActivity;
+
 import android.app.ProgressDialog;
 import android.content.Intent;
 import android.content.SharedPreferences;
@@ -10,19 +12,18 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
 
-import androidx.appcompat.app.AppCompatActivity;
-
 import com.androidnetworking.AndroidNetworking;
 import com.androidnetworking.common.Priority;
 import com.androidnetworking.error.ANError;
 import com.androidnetworking.interfaces.JSONObjectRequestListener;
 import com.example.onlineshop.Constants;
 import com.example.onlineshop.R;
+import com.example.onlineshop.models.ProductCategory;
 
 import org.json.JSONException;
 import org.json.JSONObject;
 
-public class CreateCategoryActivity extends AppCompatActivity {
+public class EditCategoryActivity extends AppCompatActivity {
     private EditText etName;
     private Button btnSubmit;
     private ProgressDialog progressDialog;
@@ -30,12 +31,15 @@ public class CreateCategoryActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_create_category);
+        setContentView(R.layout.activity_edit_category);
 
         etName = findViewById(R.id.et_name);
         btnSubmit = findViewById(R.id.btn_submit);
 
         progressDialog = new ProgressDialog(this);
+        Intent intent = getIntent();
+        ProductCategory productCategory = intent.getParcelableExtra("Item Data");
+        etName.setText(productCategory.getName());
 
         btnSubmit.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -56,7 +60,7 @@ public class CreateCategoryActivity extends AppCompatActivity {
                     SharedPreferences sp = getSharedPreferences("online_shop", MODE_PRIVATE);
                     String tokenShop = sp.getString("token_shop", "");
 
-                    AndroidNetworking.post(Constants.API + "/product-categories")
+                    AndroidNetworking.put(Constants.API + "/product-categories/" + productCategory.getId())
                             .addHeaders("Authorization", "Bearer " + tokenShop)
                             .addBodyParameter("name", name)
                             .setPriority(Priority.MEDIUM)
@@ -68,7 +72,7 @@ public class CreateCategoryActivity extends AppCompatActivity {
                                         String status = response.getString("status");
 
                                         if (status.equals("success")) {
-                                            Intent intent = new Intent(CreateCategoryActivity.this, DashboardActivity.class);
+                                            Intent intent = new Intent(EditCategoryActivity.this, DashboardActivity.class);
                                             startActivity(intent);
                                             finish();
 
@@ -81,7 +85,7 @@ public class CreateCategoryActivity extends AppCompatActivity {
 
                                 @Override
                                 public void onError(ANError anError) {
-                                    Toast.makeText(CreateCategoryActivity.this, Constants.ERROR, Toast.LENGTH_SHORT).show();
+                                    Toast.makeText(EditCategoryActivity.this, Constants.ERROR, Toast.LENGTH_SHORT).show();
                                     progressDialog.dismiss();
 
                                     if (anError.getErrorCode() != 0) {
