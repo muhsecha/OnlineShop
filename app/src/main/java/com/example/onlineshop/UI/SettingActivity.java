@@ -27,5 +27,13 @@ public class SettingActivity extends AppCompatActivity {
                 startActivity(new Intent(getApplicationContext(), ChangeShopActivity.class));
             }
         });
+
+        ln_info.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(SettingActivity.this, ShopInfoActivity.class);
+                startActivity(intent);
+            }
+        });
     }
 }
