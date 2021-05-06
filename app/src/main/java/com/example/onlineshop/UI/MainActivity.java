@@ -92,7 +92,8 @@ public class MainActivity extends AppCompatActivity {
         cd_profile.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-
+                Intent intent = new Intent(MainActivity.this, DiscountActivity.class);
+                startActivity(intent);
             }
         });
 

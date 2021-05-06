@@ -1,6 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout
-    xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
@@ -8,9 +7,9 @@
     tools:context=".UI.DiscountActivity">
 
     <com.google.android.material.appbar.AppBarLayout
-        app:layout_constraintTop_toTopOf="parent"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content">
+        android:layout_height="wrap_content"
+        app:layout_constraintTop_toTopOf="parent">
 
         <com.google.android.material.appbar.MaterialToolbar
             android:id="@+id/topAppBar"
@@ -29,13 +28,13 @@
         <!-- Main content -->
 
         <com.google.android.material.floatingactionbutton.FloatingActionButton
-            android:id="@+id/btn_add"
+            android:id="@+id/fab_add"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="bottom|right"
             android:layout_margin="16dp"
-            app:srcCompat="@drawable/plus"
-            android:backgroundTint="@color/red_200"/>
+            android:backgroundTint="@color/red_200"
+            app:srcCompat="@drawable/plus" />
 
     </androidx.coordinatorlayout.widget.CoordinatorLayout>
 
