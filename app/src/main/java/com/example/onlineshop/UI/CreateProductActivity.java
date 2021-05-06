@@ -15,6 +15,7 @@ import android.provider.DocumentsContract;
 import android.provider.MediaStore;
 import android.util.Log;
 import android.view.View;
+import android.widget.AdapterView;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
@@ -28,15 +29,21 @@ import com.androidnetworking.error.ANError;
 import com.androidnetworking.interfaces.JSONObjectRequestListener;
 import com.androidnetworking.interfaces.UploadProgressListener;
 import com.bumptech.glide.Glide;
+import com.chivorn.smartmaterialspinner.SmartMaterialSpinner;
 import com.example.onlineshop.Constants;
 import com.example.onlineshop.R;
+import com.example.onlineshop.models.Product;
+import com.example.onlineshop.models.ProductCategory;
 import com.kroegerama.imgpicker.BottomSheetImagePicker;
 import com.kroegerama.imgpicker.ButtonType;
 
+import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.io.File;
+import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 
 public class CreateProductActivity extends AppCompatActivity implements BottomSheetImagePicker.OnImagesSelectedListener {
@@ -45,6 +52,9 @@ public class CreateProductActivity extends AppCompatActivity implements BottomSh
     private ProgressDialog progressDialog;
     private ImageView ivProduct, ivAdd;
     private File file;
+    private String productCategoryId;
+    private SmartMaterialSpinner spCategory;
+    private ArrayList<ProductCategory> listProductCategory = new ArrayList<>();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -58,6 +68,7 @@ public class CreateProductActivity extends AppCompatActivity implements BottomSh
         btnSubmit = findViewById(R.id.btn_submit);
         ivProduct = findViewById(R.id.iv_product);
         ivAdd = findViewById(R.id.iv_add);
+        spCategory = findViewById(R.id.sp_category);
 
         progressDialog = new ProgressDialog(this);
 
@@ -98,13 +109,20 @@ public class CreateProductActivity extends AppCompatActivity implements BottomSh
                     SharedPreferences sp = getSharedPreferences("online_shop", MODE_PRIVATE);
                     String tokenShop = sp.getString("token_shop", "");
 
+                    HashMap<String, String> body = new HashMap<>();
+                    body.put("name", name);
+                    body.put("desc", desc);
+                    body.put("price", price);
+                    body.put("stock", stock);
+
+                    if (productCategoryId != null) {
+                        body.put("product_category_id", productCategoryId);
+                    }
+
                     if (file == null) {
                         AndroidNetworking.post(Constants.API + "/products")
                                 .addHeaders("Authorization", "Bearer " + tokenShop)
-                                .addBodyParameter("name", name)
-                                .addBodyParameter("desc", desc)
-                                .addBodyParameter("price", price)
-                                .addBodyParameter("stock", stock)
+                                .addBodyParameter(body)
                                 .setPriority(Priority.MEDIUM)
                                 .build()
                                 .getAsJSONObject(new JSONObjectRequestListener() {
@@ -117,8 +135,6 @@ public class CreateProductActivity extends AppCompatActivity implements BottomSh
                                                 Intent intent = new Intent(CreateProductActivity.this, DashboardActivity.class);
                                                 startActivity(intent);
                                                 finish();
-
-                                                progressDialog.dismiss();
                                             }
                                         } catch (JSONException e) {
                                             e.printStackTrace();
@@ -143,10 +159,7 @@ public class CreateProductActivity extends AppCompatActivity implements BottomSh
                         AndroidNetworking.upload(Constants.API + "/products")
                                 .addHeaders("Authorization", "Bearer " + tokenShop)
                                 .addMultipartFile("image", file)
-                                .addMultipartParameter("name", name)
-                                .addMultipartParameter("desc", desc)
-                                .addMultipartParameter("price", price)
-                                .addMultipartParameter("stock", stock)
+                                .addMultipartParameter(body)
                                 .setPriority(Priority.HIGH)
                                 .build()
                                 .setUploadProgressListener(new UploadProgressListener() {
@@ -165,8 +178,6 @@ public class CreateProductActivity extends AppCompatActivity implements BottomSh
                                                 Intent intent = new Intent(CreateProductActivity.this, DashboardActivity.class);
                                                 startActivity(intent);
                                                 finish();
-
-                                                progressDialog.dismiss();
                                             }
                                         } catch (JSONException e) {
                                             e.printStackTrace();
@@ -191,6 +202,21 @@ public class CreateProductActivity extends AppCompatActivity implements BottomSh
                 }
             }
         });
+
+        spCategory.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+            @Override
+            public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
+                ProductCategory productCategory = listProductCategory.get(i);
+                productCategoryId = productCategory.getId();
+            }
+
+            @Override
+            public void onNothingSelected(AdapterView<?> adapterView) {
+
+            }
+        });
+
+        getProductCategories();
     }
 
     public void imagePicker(View view) {
@@ -210,6 +236,59 @@ public class CreateProductActivity extends AppCompatActivity implements BottomSh
             ivProduct.setBackground(null);
             ivAdd.setVisibility(View.GONE);
         }
+    }
+
+    private void getProductCategories() {
+        progressDialog.setTitle("Loading...");
+        progressDialog.show();
+
+        SharedPreferences sp = getSharedPreferences("online_shop", MODE_PRIVATE);
+        String tokenShop = sp.getString("token_shop", "");
+
+        AndroidNetworking.get(Constants.API + "/product-categories")
+                .addHeaders("Authorization", "Bearer " + tokenShop)
+                .setPriority(Priority.LOW)
+                .build()
+                .getAsJSONObject(new JSONObjectRequestListener() {
+                    @Override
+                    public void onResponse(JSONObject response) {
+                        try {
+                            String status = response.getString("status");
+
+                            if (status.equals("success")) {
+                                JSONArray data = response.getJSONArray("data");
+
+                                for (int i = 0; i < data.length(); i++) {
+                                    JSONObject item = data.getJSONObject(i);
+
+                                    ProductCategory productCategory = new ProductCategory();
+                                    productCategory.setId(item.getString("id"));
+                                    productCategory.setName(item.getString("name"));
+                                    listProductCategory.add(productCategory);
+                                }
+
+                                spCategory.setItem(listProductCategory);
+                                progressDialog.dismiss();
+                            }
+                        } catch (JSONException e) {
+                            e.printStackTrace();
+                        }
+                    }
+
+                    @Override
+                    public void onError(ANError anError) {
+                        Toast.makeText(CreateProductActivity.this, Constants.ERROR, Toast.LENGTH_SHORT).show();
+                        progressDialog.dismiss();
+
+                        if (anError.getErrorCode() != 0) {
+                            Log.d("TAG", "onError errorCode : " + anError.getErrorCode());
+                            Log.d("TAG", "onError errorBody : " + anError.getErrorBody());
+                            Log.d("TAG", "onError errorDetail : " + anError.getErrorDetail());
+                        } else {
+                            Log.d("TAG", "onError errorDetail : " + anError.getErrorDetail());
+                        }
+                    }
+                });
     }
 
     /*

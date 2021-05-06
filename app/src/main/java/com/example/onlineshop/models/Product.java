@@ -4,10 +4,10 @@ import android.os.Parcel;
 import android.os.Parcelable;
 
 public class Product implements Parcelable {
-    private String id, name, desc, price, stock, image;
+    private String id, name, desc, price, stock, image, productCategoryId;
 
     public Product() {
-        
+
     }
 
     protected Product(Parcel in) {
@@ -17,6 +17,23 @@ public class Product implements Parcelable {
         price = in.readString();
         stock = in.readString();
         image = in.readString();
+        productCategoryId = in.readString();
+    }
+
+    @Override
+    public void writeToParcel(Parcel dest, int flags) {
+        dest.writeString(id);
+        dest.writeString(name);
+        dest.writeString(desc);
+        dest.writeString(price);
+        dest.writeString(stock);
+        dest.writeString(image);
+        dest.writeString(productCategoryId);
+    }
+
+    @Override
+    public int describeContents() {
+        return 0;
     }
 
     public static final Creator<Product> CREATOR = new Creator<Product>() {
@@ -79,18 +96,11 @@ public class Product implements Parcelable {
         this.image = image;
     }
 
-    @Override
-    public int describeContents() {
-        return 0;
+    public String getProductCategoryId() {
+        return productCategoryId;
     }
 
-    @Override
-    public void writeToParcel(Parcel parcel, int i) {
-        parcel.writeString(id);
-        parcel.writeString(name);
-        parcel.writeString(desc);
-        parcel.writeString(price);
-        parcel.writeString(stock);
-        parcel.writeString(image);
+    public void setProductCategoryId(String productCategoryId) {
+        this.productCategoryId = productCategoryId;
     }
 }

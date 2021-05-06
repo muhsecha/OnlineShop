@@ -53,4 +53,9 @@ public class ProductCategory implements Parcelable {
         parcel.writeString(id);
         parcel.writeString(name);
     }
+
+    @Override
+    public String toString() {
+        return name;
+    }
 }

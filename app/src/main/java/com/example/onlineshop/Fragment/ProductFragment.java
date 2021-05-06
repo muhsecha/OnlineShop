@@ -158,6 +158,7 @@ public class ProductFragment extends Fragment {
                                     product.setPrice(item.getString("price"));
                                     product.setStock(item.getString("stock"));
                                     product.setImage(item.getString("image"));
+                                    product.setProductCategoryId(item.getString("product_category_id"));
                                     listProduct.add(product);
                                 }
 
