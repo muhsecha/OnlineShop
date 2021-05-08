@@ -8,6 +8,7 @@
     tools:context=".UI.DiscountActivity">
 
     <com.google.android.material.appbar.AppBarLayout
+        android:id="@+id/abl2"
         app:layout_constraintTop_toTopOf="parent"
         android:layout_width="match_parent"
         android:layout_height="wrap_content">
@@ -21,6 +22,12 @@
             app:navigationIcon="@drawable/ic_baseline_arrow_back_ios_24"
             app:title="Discount" />
     </com.google.android.material.appbar.AppBarLayout>
+
+    <androidx.recyclerview.widget.RecyclerView
+        app:layout_constraintTop_toBottomOf="@id/abl2"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        tools:listitem="@layout/list_discount"/>
 
     <androidx.coordinatorlayout.widget.CoordinatorLayout
         android:layout_width="match_parent"
