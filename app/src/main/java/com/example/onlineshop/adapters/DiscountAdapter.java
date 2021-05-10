@@ -1,14 +1,19 @@
 package com.example.onlineshop.adapters;
 
+import android.content.Intent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.EditText;
+import android.widget.ImageView;
+import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.onlineshop.R;
+import com.example.onlineshop.UI.EditDiscountActivity;
+import com.example.onlineshop.UI.EditProductActivity;
 import com.example.onlineshop.models.Discount;
 
 import java.util.ArrayList;
@@ -23,15 +28,24 @@ public class DiscountAdapter extends RecyclerView.Adapter<DiscountAdapter.Discou
     @NonNull
     @Override
     public DiscountViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-        View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.list_product, parent, false);
+        View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.list_discount, parent, false);
         return new DiscountViewHolder(view);
     }
 
     @Override
     public void onBindViewHolder(@NonNull DiscountViewHolder holder, int position) {
         Discount discount = listDiscount.get(position);
-        holder.etName.setText(discount.getName());
-        holder.etValue.setText(discount.getValue());
+        holder.tvName.setText(discount.getName());
+        holder.tvValue.setText(discount.getValue());
+
+        holder.ivEdit.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(holder.itemView.getContext(), EditDiscountActivity.class);
+                intent.putExtra("Item Data", listDiscount.get(holder.getAdapterPosition()));
+                holder.itemView.getContext().startActivity(intent);
+            }
+        });
     }
 
     @Override
@@ -40,12 +54,14 @@ public class DiscountAdapter extends RecyclerView.Adapter<DiscountAdapter.Discou
     }
 
     public class DiscountViewHolder extends RecyclerView.ViewHolder {
-        EditText etName, etValue;
+        TextView tvName, tvValue;
+        ImageView ivEdit;
 
         public DiscountViewHolder(@NonNull View itemView) {
             super(itemView);
-            etName = itemView.findViewById(R.id.et_name);
-            etValue = itemView.findViewById(R.id.et_value);
+            tvName = itemView.findViewById(R.id.tv_name);
+            tvValue = itemView.findViewById(R.id.tv_value);
+            ivEdit = itemView.findViewById(R.id.iv_edit);
         }
     }
 }

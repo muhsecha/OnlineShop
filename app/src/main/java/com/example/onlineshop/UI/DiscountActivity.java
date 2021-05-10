@@ -42,7 +42,7 @@ public class DiscountActivity extends AppCompatActivity {
         setContentView(R.layout.activity_discount);
 
         fabAdd = findViewById(R.id.fab_add);
-//        rvDiscounts = findViewById(R.id.rv_discountss);
+        rvDiscounts = findViewById(R.id.rv_discounts);
 
         progressDialog = new ProgressDialog(this);
         rvDiscounts.setHasFixedSize(true);
@@ -70,10 +70,10 @@ public class DiscountActivity extends AppCompatActivity {
         progressDialog.show();
 
         SharedPreferences sp = getSharedPreferences("online_shop", MODE_PRIVATE);
-        String tokenUser = sp.getString("token_user", "");
+        String tokenShop = sp.getString("token_shop", "");
 
         AndroidNetworking.get(Constants.API + "/discounts")
-                .addHeaders("Authorization", "Bearer " + tokenUser)
+                .addHeaders("Authorization", "Bearer " + tokenShop)
                 .setPriority(Priority.LOW)
                 .build()
                 .getAsJSONObject(new JSONObjectRequestListener() {

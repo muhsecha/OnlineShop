@@ -23,6 +23,7 @@
     </com.google.android.material.appbar.AppBarLayout>
 
     <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/rv_discounts"
         app:layout_constraintTop_toBottomOf="@id/abl2"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
