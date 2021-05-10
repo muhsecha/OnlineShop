@@ -80,6 +80,6 @@
         android:layout_marginHorizontal="20dp"
         android:backgroundTint="@color/red_100"
         android:text="Simpan"
-        app:layout_constraintBottom_toBottomOf="parent" />
+        android:layout_marginBottom="20dp"/>
 
 </androidx.constraintlayout.widget.ConstraintLayout>
