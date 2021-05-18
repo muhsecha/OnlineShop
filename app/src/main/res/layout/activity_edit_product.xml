@@ -8,9 +8,8 @@
 
     <androidx.coordinatorlayout.widget.CoordinatorLayout
         android:id="@+id/coordinatorLayout"
-        app:layout_constraintTop_toTopOf="parent"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_height="match_parent"
         tools:layout_editor_absoluteX="25dp"
         tools:layout_editor_absoluteY="134dp">
 
@@ -25,7 +24,7 @@
                 android:layout_height="?attr/actionBarSize"
                 android:background="@color/red_200"
                 app:navigationIcon="@drawable/ic_baseline_arrow_back_ios_24"
-                app:title="Buat Produk" />
+                app:title="Edit Produk" />
         </com.google.android.material.appbar.AppBarLayout>
     </androidx.coordinatorlayout.widget.CoordinatorLayout>
 
@@ -221,7 +220,6 @@
                 app:smsp_isSearchable="true"
                 app:smsp_searchHeaderBackgroundColor="#D31A43"
                 android:layout_marginHorizontal="20dp"/>
-
         </androidx.constraintlayout.widget.ConstraintLayout>
     </ScrollView>
 

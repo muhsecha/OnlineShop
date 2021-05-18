@@ -30,7 +30,7 @@ public class MainActivity extends AppCompatActivity {
     ImageView iv_logout;
     CircleImageView img_profile;
     TextView tv_username,tv_email;
-    CardView cd_product,cd_profile,cd_trans,cd_setting;
+    CardView cd_product,cd_profile,cd_trans,cd_setting, cdDiscount;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -45,6 +45,7 @@ public class MainActivity extends AppCompatActivity {
         cd_profile = findViewById(R.id.cd_profile);
         cd_trans = findViewById(R.id.cd_trans);
         cd_setting = findViewById(R.id.cd_setting);
+        cdDiscount = findViewById(R.id.cd_discount);
 
         iv_logout.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -77,7 +78,8 @@ public class MainActivity extends AppCompatActivity {
         cd_product.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-
+                Intent intent = new Intent(MainActivity.this, DashboardActivity.class);
+                startActivity(intent);
             }
         });
 
@@ -99,6 +101,14 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 startActivity(new Intent(getApplicationContext(),SettingActivity.class));
+            }
+        });
+
+        cdDiscount.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(MainActivity.this, DiscountActivity.class);
+                startActivity(intent);
             }
         });
     }
