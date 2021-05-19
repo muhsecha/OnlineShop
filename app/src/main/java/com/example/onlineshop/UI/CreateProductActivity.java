@@ -134,7 +134,6 @@ public class CreateProductActivity extends AppCompatActivity implements BottomSh
                                             if (status.equals("success")) {
                                                 Intent intent = new Intent(CreateProductActivity.this, DashboardActivity.class);
                                                 startActivity(intent);
-                                                finish();
                                             }
                                         } catch (JSONException e) {
                                             e.printStackTrace();
