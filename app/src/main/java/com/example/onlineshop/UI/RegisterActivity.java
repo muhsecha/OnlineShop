@@ -129,8 +129,8 @@ public class RegisterActivity extends AppCompatActivity {
 
                                         if (status.equals("success")) {
                                             Intent intent = new Intent(getApplicationContext(), LoginActivity.class);
+                                            intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
                                             startActivity(intent);
-                                            finish();
 
                                             progressDialog.dismiss();
                                         } else {
