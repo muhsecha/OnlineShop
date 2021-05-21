@@ -1,4 +1,4 @@
-package com.example.onlineshop.Fragment;
+package com.example.onlineshop.fragments;
 
 import android.app.ProgressDialog;
 import android.content.Intent;
@@ -21,9 +21,8 @@ import com.androidnetworking.error.ANError;
 import com.androidnetworking.interfaces.JSONObjectRequestListener;
 import com.example.onlineshop.Constants;
 import com.example.onlineshop.R;
-import com.example.onlineshop.UI.CreateCategoryActivity;
+import com.example.onlineshop.activities.CreateCategoryActivity;
 import com.example.onlineshop.adapters.ProductCategoryAdapter;
-import com.example.onlineshop.models.Product;
 import com.example.onlineshop.models.ProductCategory;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 

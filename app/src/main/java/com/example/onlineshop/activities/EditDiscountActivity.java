@@ -1,4 +1,4 @@
-package com.example.onlineshop.UI;
+package com.example.onlineshop.activities;
 
 import androidx.appcompat.app.AppCompatActivity;
 
@@ -18,39 +18,48 @@ import com.androidnetworking.error.ANError;
 import com.androidnetworking.interfaces.JSONObjectRequestListener;
 import com.example.onlineshop.Constants;
 import com.example.onlineshop.R;
-import com.example.onlineshop.models.ProductCategory;
+import com.example.onlineshop.models.Discount;
 
 import org.json.JSONException;
 import org.json.JSONObject;
 
-public class EditCategoryActivity extends AppCompatActivity {
-    private EditText etName;
+public class EditDiscountActivity extends AppCompatActivity {
+    private EditText etName, etValue;
     private Button btnSubmit;
     private ProgressDialog progressDialog;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_edit_category);
+        setContentView(R.layout.activity_edit_discount);
 
         etName = findViewById(R.id.et_name);
+        etValue = findViewById(R.id.et_value);
         btnSubmit = findViewById(R.id.btn_submit);
 
         progressDialog = new ProgressDialog(this);
+
         Intent intent = getIntent();
-        ProductCategory productCategory = intent.getParcelableExtra("Item Data");
-        etName.setText(productCategory.getName());
+        Discount discount = intent.getParcelableExtra("Item Data");
+        etName.setText(discount.getName());
+        etValue.setText(discount.getValue());
 
         btnSubmit.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 String name = etName.getText().toString().trim();
+                String value = etValue.getText().toString().trim();
 
                 boolean isEmpty = false;
 
                 if (name.isEmpty()) {
                     isEmpty = true;
                     etName.setError("Required");
+                }
+
+                if (value.isEmpty()) {
+                    isEmpty = true;
+                    etValue.setError("Required");
                 }
 
                 if (!isEmpty) {
@@ -60,9 +69,10 @@ public class EditCategoryActivity extends AppCompatActivity {
                     SharedPreferences sp = getSharedPreferences("online_shop", MODE_PRIVATE);
                     String tokenShop = sp.getString("token_shop", "");
 
-                    AndroidNetworking.put(Constants.API + "/product-categories/" + productCategory.getId())
+                    AndroidNetworking.put(Constants.API + "/discounts/" + discount.getId())
                             .addHeaders("Authorization", "Bearer " + tokenShop)
                             .addBodyParameter("name", name)
+                            .addBodyParameter("value", value)
                             .setPriority(Priority.MEDIUM)
                             .build()
                             .getAsJSONObject(new JSONObjectRequestListener() {
@@ -72,7 +82,7 @@ public class EditCategoryActivity extends AppCompatActivity {
                                         String status = response.getString("status");
 
                                         if (status.equals("success")) {
-                                            Intent intent = new Intent(EditCategoryActivity.this, DashboardActivity.class);
+                                            Intent intent = new Intent(EditDiscountActivity.this, DiscountActivity.class);
                                             startActivity(intent);
                                             finish();
 
@@ -85,7 +95,7 @@ public class EditCategoryActivity extends AppCompatActivity {
 
                                 @Override
                                 public void onError(ANError anError) {
-                                    Toast.makeText(EditCategoryActivity.this, Constants.ERROR, Toast.LENGTH_SHORT).show();
+                                    Toast.makeText(EditDiscountActivity.this, Constants.ERROR, Toast.LENGTH_SHORT).show();
                                     progressDialog.dismiss();
 
                                     if (anError.getErrorCode() != 0) {

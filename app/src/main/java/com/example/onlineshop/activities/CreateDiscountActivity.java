@@ -1,4 +1,4 @@
-package com.example.onlineshop.UI;
+package com.example.onlineshop.activities;
 
 import androidx.appcompat.app.AppCompatActivity;
 
@@ -21,8 +21,6 @@ import com.example.onlineshop.R;
 
 import org.json.JSONException;
 import org.json.JSONObject;
-
-import java.util.HashMap;
 
 public class CreateDiscountActivity extends AppCompatActivity {
     private EditText etName, etValue;

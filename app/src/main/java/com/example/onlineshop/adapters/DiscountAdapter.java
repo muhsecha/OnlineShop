@@ -4,7 +4,6 @@ import android.content.Intent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.TextView;
 
@@ -12,8 +11,7 @@ import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.onlineshop.R;
-import com.example.onlineshop.UI.EditDiscountActivity;
-import com.example.onlineshop.UI.EditProductActivity;
+import com.example.onlineshop.activities.EditDiscountActivity;
 import com.example.onlineshop.models.Discount;
 
 import java.util.ArrayList;
