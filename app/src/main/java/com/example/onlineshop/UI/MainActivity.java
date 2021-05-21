@@ -4,6 +4,7 @@ import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.cardview.widget.CardView;
 
+import android.app.ProgressDialog;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
@@ -18,6 +19,7 @@ import com.androidnetworking.AndroidNetworking;
 import com.androidnetworking.common.Priority;
 import com.androidnetworking.error.ANError;
 import com.androidnetworking.interfaces.JSONObjectRequestListener;
+import com.example.onlineshop.Constants;
 import com.example.onlineshop.R;
 
 import org.json.JSONException;
@@ -26,7 +28,7 @@ import org.json.JSONObject;
 import de.hdodenhof.circleimageview.CircleImageView;
 
 public class MainActivity extends AppCompatActivity {
-    
+    private ProgressDialog progressDialog;
     ImageView iv_logout;
     CircleImageView img_profile;
     TextView tv_username,tv_email;
@@ -93,7 +95,8 @@ public class MainActivity extends AppCompatActivity {
         cd_profile.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-
+                Intent intent = new Intent(MainActivity.this, ProfileActivity.class);
+                startActivity(intent);
             }
         });
 
@@ -111,5 +114,54 @@ public class MainActivity extends AppCompatActivity {
                 startActivity(intent);
             }
         });
+
+        progressDialog = new ProgressDialog(this);
+
+        getUser();
+    }
+
+    private void getUser() {
+        progressDialog.setTitle("Loading...");
+        progressDialog.show();
+
+        SharedPreferences sp = getSharedPreferences("online_shop", MODE_PRIVATE);
+        String tokenUser = sp.getString("token_user", "");
+
+        AndroidNetworking.get(Constants.API + "/auth-decode")
+                .addHeaders("Authorization", "Bearer " + tokenUser)
+                .addHeaders("Accept", "application/json")
+                .setPriority(Priority.LOW)
+                .build()
+                .getAsJSONObject(new JSONObjectRequestListener() {
+                    @Override
+                    public void onResponse(JSONObject response) {
+                        try {
+                            String name = response.getString("name");
+                            String email = response.getString("email");
+                            String phone = response.getString("phone_number");
+
+                            tv_username.setText(name);
+                            tv_email.setText(email);
+
+                            progressDialog.dismiss();
+                        } catch (JSONException e) {
+                            e.printStackTrace();
+                        }
+                    }
+
+                    @Override
+                    public void onError(ANError anError) {
+                        Toast.makeText(MainActivity.this, Constants.ERROR, Toast.LENGTH_SHORT).show();
+                        progressDialog.dismiss();
+
+                        if (anError.getErrorCode() != 0) {
+                            Log.d("TAG", "onError errorCode : " + anError.getErrorCode());
+                            Log.d("TAG", "onError errorBody : " + anError.getErrorBody());
+                            Log.d("TAG", "onError errorDetail : " + anError.getErrorDetail());
+                        } else {
+                            Log.d("TAG", "onError errorDetail : " + anError.getErrorDetail());
+                        }
+                    }
+                });
     }
 }
