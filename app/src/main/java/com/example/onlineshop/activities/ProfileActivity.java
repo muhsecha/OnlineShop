@@ -1,12 +1,17 @@
 package com.example.onlineshop.activities;
 
 import android.app.ProgressDialog;
+import android.content.DialogInterface;
+import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.View;
+import android.widget.Button;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 
 import com.androidnetworking.AndroidNetworking;
@@ -22,6 +27,7 @@ import org.json.JSONObject;
 public class ProfileActivity extends AppCompatActivity {
     private ProgressDialog progressDialog;
     private TextView tvName, tvPhone, tvEmail, tvNameHeader, tvEmailHeader;
+    private Button btnLogout;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -33,10 +39,32 @@ public class ProfileActivity extends AppCompatActivity {
         tvEmail = findViewById(R.id.tv_email);
         tvNameHeader = findViewById(R.id.tv_name_header);
         tvEmailHeader = findViewById(R.id.tv_email_header);
+        btnLogout = findViewById(R.id.btn_logout);
 
         progressDialog = new ProgressDialog(this);
 
         getUser();
+
+        btnLogout.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                new AlertDialog.Builder(ProfileActivity.this)
+                        .setMessage("Apakah anda yakin ingin keluar ?")
+                        .setNegativeButton("Tidak", null)
+                        .setPositiveButton("Ya", new DialogInterface.OnClickListener() {
+                            public void onClick(DialogInterface arg0, int arg1) {
+                                SharedPreferences sp = getSharedPreferences("online_shop", MODE_PRIVATE);
+                                SharedPreferences.Editor editor = sp.edit();
+                                editor.clear();
+                                editor.apply();
+
+                                Intent intent = new Intent(ProfileActivity.this, LoginActivity.class);
+                                startActivity(intent);
+                                finish();
+                            }
+                        }).create().show();
+            }
+        });
     }
 
     private void getUser() {

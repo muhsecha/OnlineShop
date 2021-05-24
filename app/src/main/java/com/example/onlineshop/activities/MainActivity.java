@@ -28,7 +28,6 @@ import org.json.JSONObject;
 import de.hdodenhof.circleimageview.CircleImageView;
 
 public class MainActivity extends AppCompatActivity {
-    ImageView iv_logout;
     CircleImageView img_profile;
     TextView tv_username, tv_email;
     CardView cd_product, cd_profile, cd_trans, cd_setting, cdDiscount;
@@ -39,7 +38,6 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        iv_logout = findViewById(R.id.iv_logout);
         img_profile = findViewById(R.id.img_profile);
         tv_username = findViewById(R.id.tv_profile_name);
         tv_email = findViewById(R.id.tv_profile_email);
@@ -48,27 +46,6 @@ public class MainActivity extends AppCompatActivity {
         cd_trans = findViewById(R.id.cd_trans);
         cd_setting = findViewById(R.id.cd_setting);
         cdDiscount = findViewById(R.id.cd_discount);
-
-        iv_logout.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                new AlertDialog.Builder(MainActivity.this)
-                        .setMessage("Apakah anda yakin ingin keluar ?")
-                        .setNegativeButton("Tidak", null)
-                        .setPositiveButton("Ya", new DialogInterface.OnClickListener() {
-                            public void onClick(DialogInterface arg0, int arg1) {
-                                SharedPreferences sp = getSharedPreferences("online_shop", MODE_PRIVATE);
-                                SharedPreferences.Editor editor = sp.edit();
-                                editor.clear();
-                                editor.apply();
-
-                                Intent intent = new Intent(MainActivity.this, LoginActivity.class);
-                                startActivity(intent);
-                                finish();
-                            }
-                        }).create().show();
-            }
-        });
 
         img_profile.setOnClickListener(new View.OnClickListener() {
             @Override
