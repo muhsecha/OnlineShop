@@ -68,7 +68,7 @@ public class CreateCategoryActivity extends AppCompatActivity {
                                         String status = response.getString("status");
 
                                         if (status.equals("success")) {
-                                            Intent intent = new Intent(CreateCategoryActivity.this, DashboardActivity.class);
+                                            Intent intent = new Intent(CreateCategoryActivity.this, CategoryActivity.class);
                                             startActivity(intent);
                                             finish();
 

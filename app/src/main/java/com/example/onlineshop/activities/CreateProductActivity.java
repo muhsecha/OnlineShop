@@ -131,7 +131,7 @@ public class CreateProductActivity extends AppCompatActivity implements BottomSh
                                             String status = response.getString("status");
 
                                             if (status.equals("success")) {
-                                                Intent intent = new Intent(CreateProductActivity.this, DashboardActivity.class);
+                                                Intent intent = new Intent(CreateProductActivity.this, ProductActivity.class);
                                                 startActivity(intent);
                                             }
                                         } catch (JSONException e) {
@@ -173,7 +173,7 @@ public class CreateProductActivity extends AppCompatActivity implements BottomSh
                                             String status = response.getString("status");
 
                                             if (status.equals("success")) {
-                                                Intent intent = new Intent(CreateProductActivity.this, DashboardActivity.class);
+                                                Intent intent = new Intent(CreateProductActivity.this, ProductActivity.class);
                                                 startActivity(intent);
                                                 finish();
                                             }

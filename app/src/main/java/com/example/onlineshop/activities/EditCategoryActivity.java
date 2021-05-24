@@ -72,7 +72,7 @@ public class EditCategoryActivity extends AppCompatActivity {
                                         String status = response.getString("status");
 
                                         if (status.equals("success")) {
-                                            Intent intent = new Intent(EditCategoryActivity.this, DashboardActivity.class);
+                                            Intent intent = new Intent(EditCategoryActivity.this, ProductActivity.class);
                                             startActivity(intent);
                                             finish();
 

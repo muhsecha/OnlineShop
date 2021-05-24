@@ -148,7 +148,7 @@ public class EditProductActivity extends AppCompatActivity implements BottomShee
                                             String status = response.getString("status");
 
                                             if (status.equals("success")) {
-                                                Intent intent = new Intent(EditProductActivity.this, DashboardActivity.class);
+                                                Intent intent = new Intent(EditProductActivity.this, ProductActivity.class);
                                                 startActivity(intent);
                                                 finish();
                                             }
@@ -191,7 +191,7 @@ public class EditProductActivity extends AppCompatActivity implements BottomShee
                                             String status = response.getString("status");
 
                                             if (status.equals("success")) {
-                                                Intent intent = new Intent(EditProductActivity.this, DashboardActivity.class);
+                                                Intent intent = new Intent(EditProductActivity.this, ProductActivity.class);
                                                 startActivity(intent);
                                                 finish();
                                             }
