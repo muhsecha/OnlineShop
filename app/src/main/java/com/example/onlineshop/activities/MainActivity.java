@@ -1,9 +1,5 @@
 package com.example.onlineshop.activities;
 
-import androidx.appcompat.app.AlertDialog;
-import androidx.appcompat.app.AppCompatActivity;
-import androidx.cardview.widget.CardView;
-
 import android.app.ProgressDialog;
 import android.content.DialogInterface;
 import android.content.Intent;
@@ -14,6 +10,10 @@ import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
+
+import androidx.appcompat.app.AlertDialog;
+import androidx.appcompat.app.AppCompatActivity;
+import androidx.cardview.widget.CardView;
 
 import com.androidnetworking.AndroidNetworking;
 import com.androidnetworking.common.Priority;
@@ -28,11 +28,11 @@ import org.json.JSONObject;
 import de.hdodenhof.circleimageview.CircleImageView;
 
 public class MainActivity extends AppCompatActivity {
-    private ProgressDialog progressDialog;
     ImageView iv_logout;
     CircleImageView img_profile;
-    TextView tv_username,tv_email;
-    CardView cd_product,cd_profile,cd_trans,cd_setting, cdDiscount;
+    TextView tv_username, tv_email;
+    CardView cd_product, cd_profile, cd_trans, cd_setting, cdDiscount;
+    private ProgressDialog progressDialog;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -80,7 +80,7 @@ public class MainActivity extends AppCompatActivity {
         cd_product.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent intent = new Intent(MainActivity.this, DashboardActivity.class);
+                Intent intent = new Intent(MainActivity.this, ProductActivity.class);
                 startActivity(intent);
             }
         });
@@ -103,7 +103,7 @@ public class MainActivity extends AppCompatActivity {
         cd_setting.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                startActivity(new Intent(getApplicationContext(),SettingActivity.class));
+                startActivity(new Intent(getApplicationContext(), SettingActivity.class));
             }
         });
 
@@ -118,6 +118,7 @@ public class MainActivity extends AppCompatActivity {
         progressDialog = new ProgressDialog(this);
 
         getUser();
+        checkShop();
     }
 
     private void getUser() {
@@ -163,5 +164,21 @@ public class MainActivity extends AppCompatActivity {
                         }
                     }
                 });
+    }
+
+    private void checkShop() {
+        SharedPreferences sp = getSharedPreferences("online_shop", MODE_PRIVATE);
+        String tokenShop = sp.getString("token_shop", "");
+
+        if (tokenShop.isEmpty()) {
+            Intent intent = new Intent(MainActivity.this, ChangeShopActivity.class);
+            startActivity(intent);
+        }
+    }
+
+    @Override
+    protected void onRestart() {
+        super.onRestart();
+        checkShop();
     }
 }

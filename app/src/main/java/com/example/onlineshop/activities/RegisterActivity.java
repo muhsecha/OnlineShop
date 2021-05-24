@@ -1,7 +1,5 @@
 package com.example.onlineshop.activities;
 
-import androidx.appcompat.app.AppCompatActivity;
-
 import android.app.ProgressDialog;
 import android.content.Intent;
 import android.os.Bundle;
@@ -11,21 +9,22 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
 
+import androidx.appcompat.app.AppCompatActivity;
+
 import com.androidnetworking.AndroidNetworking;
 import com.androidnetworking.common.Priority;
 import com.androidnetworking.error.ANError;
 import com.androidnetworking.interfaces.JSONObjectRequestListener;
+import com.example.onlineshop.Constants;
+import com.example.onlineshop.R;
 
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
-import com.example.onlineshop.Constants;
-import com.example.onlineshop.R;
-
 public class RegisterActivity extends AppCompatActivity {
-    private Button btn_register,btn_login;
-    private EditText et_name,et_phone,et_email,et_pass, et_confirm_pass;
+    private Button btn_register, btn_login;
+    private EditText et_name, et_phone, et_email, et_pass, et_confirm_pass;
     private ProgressDialog progressDialog;
 
     @Override

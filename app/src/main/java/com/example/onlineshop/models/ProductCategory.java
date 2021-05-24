@@ -4,17 +4,6 @@ import android.os.Parcel;
 import android.os.Parcelable;
 
 public class ProductCategory implements Parcelable {
-    private String id, name;
-
-    public ProductCategory() {
-
-    }
-
-    protected ProductCategory(Parcel in) {
-        id = in.readString();
-        name = in.readString();
-    }
-
     public static final Creator<ProductCategory> CREATOR = new Creator<ProductCategory>() {
         @Override
         public ProductCategory createFromParcel(Parcel in) {
@@ -26,6 +15,16 @@ public class ProductCategory implements Parcelable {
             return new ProductCategory[size];
         }
     };
+    private String id, name;
+
+    public ProductCategory() {
+
+    }
+
+    protected ProductCategory(Parcel in) {
+        id = in.readString();
+        name = in.readString();
+    }
 
     public String getId() {
         return id;

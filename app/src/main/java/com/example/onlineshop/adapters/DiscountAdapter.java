@@ -17,7 +17,7 @@ import com.example.onlineshop.models.Discount;
 import java.util.ArrayList;
 
 public class DiscountAdapter extends RecyclerView.Adapter<DiscountAdapter.DiscountViewHolder> {
-    private ArrayList<Discount> listDiscount;
+    private final ArrayList<Discount> listDiscount;
 
     public DiscountAdapter(ArrayList<Discount> listDiscount) {
         this.listDiscount = listDiscount;

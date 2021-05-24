@@ -1,7 +1,5 @@
 package com.example.onlineshop.activities;
 
-import androidx.appcompat.app.AppCompatActivity;
-
 import android.app.ProgressDialog;
 import android.content.Intent;
 import android.content.SharedPreferences;
@@ -13,21 +11,22 @@ import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import androidx.appcompat.app.AppCompatActivity;
+
 import com.androidnetworking.AndroidNetworking;
 import com.androidnetworking.common.Priority;
 import com.androidnetworking.error.ANError;
 import com.androidnetworking.interfaces.JSONObjectRequestListener;
+import com.example.onlineshop.Constants;
+import com.example.onlineshop.R;
 
 import org.json.JSONException;
 import org.json.JSONObject;
 
-import com.example.onlineshop.Constants;
-import com.example.onlineshop.R;
-
 public class LoginActivity extends AppCompatActivity {
-    private Button btn_register,btn_login;
+    private Button btn_register, btn_login;
     private TextView tv_frgt_pass;
-    private EditText et_email,et_pass;
+    private EditText et_email, et_pass;
     private ProgressDialog progressDialog;
 
     @Override
@@ -46,7 +45,7 @@ public class LoginActivity extends AppCompatActivity {
         btn_register.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent intent = new Intent(getApplicationContext(),RegisterActivity.class);
+                Intent intent = new Intent(getApplicationContext(), RegisterActivity.class);
                 intent.addFlags(Intent.FLAG_ACTIVITY_NO_ANIMATION);
                 startActivity(intent);
                 finish();

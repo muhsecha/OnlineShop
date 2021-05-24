@@ -1,7 +1,5 @@
 package com.example.onlineshop.activities;
 
-import androidx.appcompat.app.AppCompatActivity;
-
 import android.app.ProgressDialog;
 import android.content.Intent;
 import android.content.SharedPreferences;
@@ -11,6 +9,8 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
+
+import androidx.appcompat.app.AppCompatActivity;
 
 import com.androidnetworking.AndroidNetworking;
 import com.androidnetworking.common.Priority;
@@ -72,7 +72,7 @@ public class EditCategoryActivity extends AppCompatActivity {
                                         String status = response.getString("status");
 
                                         if (status.equals("success")) {
-                                            Intent intent = new Intent(EditCategoryActivity.this, DashboardActivity.class);
+                                            Intent intent = new Intent(EditCategoryActivity.this, ProductActivity.class);
                                             startActivity(intent);
                                             finish();
 

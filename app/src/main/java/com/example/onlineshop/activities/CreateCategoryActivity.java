@@ -18,7 +18,6 @@ import com.androidnetworking.error.ANError;
 import com.androidnetworking.interfaces.JSONObjectRequestListener;
 import com.example.onlineshop.Constants;
 import com.example.onlineshop.R;
-import com.example.onlineshop.fragments.CategoryFragment;
 
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -69,7 +68,9 @@ public class CreateCategoryActivity extends AppCompatActivity {
                                         String status = response.getString("status");
 
                                         if (status.equals("success")) {
-                                            Intent intent = new Intent(CreateCategoryActivity.this, CategoryFragment.class);
+
+                                            Intent intent = new Intent(CreateCategoryActivity.this, CategoryActivity.class);
+
                                             startActivity(intent);
                                             finish();
 
