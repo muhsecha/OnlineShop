@@ -11,8 +11,7 @@ import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.onlineshop.R;
-import com.example.onlineshop.UI.CreateCategoryActivity;
-import com.example.onlineshop.UI.EditCategoryActivity;
+import com.example.onlineshop.activities.EditCategoryActivity;
 import com.example.onlineshop.models.ProductCategory;
 
 import java.util.ArrayList;

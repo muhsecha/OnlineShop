@@ -1,4 +1,4 @@
-package com.example.onlineshop.UI;
+package com.example.onlineshop.activities;
 
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;

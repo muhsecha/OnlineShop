@@ -1,4 +1,4 @@
-package com.example.onlineshop.UI;
+package com.example.onlineshop.activities;
 
 import android.app.ProgressDialog;
 import android.content.Intent;

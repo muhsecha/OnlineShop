@@ -1,4 +1,4 @@
-package com.example.onlineshop.UI;
+package com.example.onlineshop.activities;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
@@ -20,7 +20,6 @@ import com.example.onlineshop.Constants;
 import com.example.onlineshop.R;
 import com.example.onlineshop.adapters.DiscountAdapter;
 import com.example.onlineshop.models.Discount;
-import com.example.onlineshop.models.Shop;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 
 import org.json.JSONArray;

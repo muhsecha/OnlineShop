@@ -1,4 +1,4 @@
-package com.example.onlineshop.UI;
+package com.example.onlineshop.activities;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.viewpager.widget.ViewPager;
@@ -6,8 +6,8 @@ import androidx.viewpager.widget.ViewPager;
 import android.os.Bundle;
 import android.os.Handler;
 
-import com.example.onlineshop.Fragment.CategoryFragment;
-import com.example.onlineshop.Fragment.ProductFragment;
+import com.example.onlineshop.fragments.CategoryFragment;
+import com.example.onlineshop.fragments.ProductFragment;
 import com.example.onlineshop.R;
 import com.example.onlineshop.adapters.ViewPagerAdapter;
 import com.google.android.material.appbar.MaterialToolbar;

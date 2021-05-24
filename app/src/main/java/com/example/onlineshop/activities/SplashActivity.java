@@ -1,16 +1,11 @@
-package com.example.onlineshop.UI;
+package com.example.onlineshop.activities;
 
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.os.Handler;
-import android.util.Log;
 
 import androidx.appcompat.app.AppCompatActivity;
-
-import com.chivorn.smartmaterialspinner.SmartMaterialSpinner;
-
-import java.util.List;
 
 public class SplashActivity extends AppCompatActivity {
 

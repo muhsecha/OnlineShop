@@ -1,4 +1,4 @@
-package com.example.onlineshop.UI;
+package com.example.onlineshop.activities;
 
 import android.app.ProgressDialog;
 import android.content.ContentResolver;
@@ -27,10 +27,12 @@ import com.androidnetworking.AndroidNetworking;
 import com.androidnetworking.common.Priority;
 import com.androidnetworking.error.ANError;
 import com.androidnetworking.interfaces.JSONObjectRequestListener;
+import com.androidnetworking.interfaces.UploadProgressListener;
 import com.bumptech.glide.Glide;
 import com.chivorn.smartmaterialspinner.SmartMaterialSpinner;
 import com.example.onlineshop.Constants;
 import com.example.onlineshop.R;
+import com.example.onlineshop.models.ProductCategory;
 import com.kroegerama.imgpicker.BottomSheetImagePicker;
 import com.kroegerama.imgpicker.ButtonType;
 
@@ -40,50 +42,42 @@ import org.json.JSONObject;
 
 import java.io.File;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 
-public class ShopInfoActivity extends AppCompatActivity implements BottomSheetImagePicker.OnImagesSelectedListener {
-    private SmartMaterialSpinner spCity;
-    private List<String> cityList;
-    private ProgressDialog progressDialog;
-    private EditText etName, etLink;
+public class CreateProductActivity extends AppCompatActivity implements BottomSheetImagePicker.OnImagesSelectedListener {
+    private EditText etName, etDesc, etPrice, etStock;
     private Button btnSubmit;
-    private String city = null;
+    private ProgressDialog progressDialog;
+    private ImageView ivProduct, ivAdd;
     private File file;
-    private ImageView ivLogoShop, ivAdd;
-    private String id;
+    private String productCategoryId;
+    private SmartMaterialSpinner spCategory;
+    private ArrayList<ProductCategory> listProductCategory = new ArrayList<>();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_shop_info);
+        setContentView(R.layout.activity_create_product);
 
-        spCity = findViewById(R.id.sp_city);
         etName = findViewById(R.id.et_name);
-        etLink = findViewById(R.id.et_link);
+        etDesc = findViewById(R.id.et_desc);
+        etPrice = findViewById(R.id.et_price);
+        etStock = findViewById(R.id.et_stock);
         btnSubmit = findViewById(R.id.btn_submit);
-        ivLogoShop = findViewById(R.id.iv_logo_shop);
+        ivProduct = findViewById(R.id.iv_product);
         ivAdd = findViewById(R.id.iv_add);
+        spCategory = findViewById(R.id.sp_category);
 
         progressDialog = new ProgressDialog(this);
-
-        spCity.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
-            @Override
-            public void onItemSelected(AdapterView<?> adapterView, View view, int position, long id) {
-                city = cityList.get(position);
-            }
-
-            @Override
-            public void onNothingSelected(AdapterView<?> adapterView) {
-
-            }
-        });
 
         btnSubmit.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 String name = etName.getText().toString().trim();
-                String link = etLink.getText().toString().trim();
+                String desc = etDesc.getText().toString().trim();
+                String price = etPrice.getText().toString().trim();
+                String stock = etStock.getText().toString().trim();
 
                 boolean isEmpty = false;
 
@@ -92,28 +86,42 @@ public class ShopInfoActivity extends AppCompatActivity implements BottomSheetIm
                     etName.setError("Required");
                 }
 
-                if (link.isEmpty()) {
+                if (desc.isEmpty()) {
                     isEmpty = true;
-                    etLink.setError("Required");
+                    etDesc.setError("Required");
                 }
 
-                if (city == null) {
-                    Toast.makeText(ShopInfoActivity.this, "Required address", Toast.LENGTH_SHORT).show();
+                if (price.isEmpty()) {
+                    isEmpty = true;
+                    etPrice.setError("Required");
                 }
 
-                if (!isEmpty && city != null) {
+                if (stock.isEmpty()) {
+                    isEmpty = true;
+                    etStock.setError("Required");
+                }
+
+                if (!isEmpty) {
                     progressDialog.setTitle("Loading...");
                     progressDialog.show();
 
                     SharedPreferences sp = getSharedPreferences("online_shop", MODE_PRIVATE);
-                    String tokenUser = sp.getString("token_user", "");
+                    String tokenShop = sp.getString("token_shop", "");
+
+                    HashMap<String, String> body = new HashMap<>();
+                    body.put("name", name);
+                    body.put("desc", desc);
+                    body.put("price", price);
+                    body.put("stock", stock);
+
+                    if (productCategoryId != null) {
+                        body.put("product_category_id", productCategoryId);
+                    }
 
                     if (file == null) {
-                        AndroidNetworking.put(Constants.API + "/shops/" + id)
-                                .addHeaders("Authorization", "Bearer " + tokenUser)
-                                .addBodyParameter("name", name)
-                                .addBodyParameter("link", link)
-                                .addBodyParameter("city", city)
+                        AndroidNetworking.post(Constants.API + "/products")
+                                .addHeaders("Authorization", "Bearer " + tokenShop)
+                                .addBodyParameter(body)
                                 .setPriority(Priority.MEDIUM)
                                 .build()
                                 .getAsJSONObject(new JSONObjectRequestListener() {
@@ -123,12 +131,8 @@ public class ShopInfoActivity extends AppCompatActivity implements BottomSheetIm
                                             String status = response.getString("status");
 
                                             if (status.equals("success")) {
-                                                Intent intent = new Intent(ShopInfoActivity.this, SettingActivity.class);
+                                                Intent intent = new Intent(CreateProductActivity.this, DashboardActivity.class);
                                                 startActivity(intent);
-                                                finish();
-                                            } else {
-                                                Toast.makeText(getApplicationContext(), "gagal", Toast.LENGTH_SHORT).show();
-                                                progressDialog.dismiss();
                                             }
                                         } catch (JSONException e) {
                                             e.printStackTrace();
@@ -137,7 +141,7 @@ public class ShopInfoActivity extends AppCompatActivity implements BottomSheetIm
 
                                     @Override
                                     public void onError(ANError anError) {
-                                        Toast.makeText(ShopInfoActivity.this, Constants.ERROR, Toast.LENGTH_SHORT).show();
+                                        Toast.makeText(CreateProductActivity.this, Constants.ERROR, Toast.LENGTH_SHORT).show();
                                         progressDialog.dismiss();
 
                                         if (anError.getErrorCode() != 0) {
@@ -150,14 +154,18 @@ public class ShopInfoActivity extends AppCompatActivity implements BottomSheetIm
                                     }
                                 });
                     } else {
-                        AndroidNetworking.upload(Constants.API + "/shops/" + id + "?_method=PUT")
-                                .addHeaders("Authorization", "Bearer " + tokenUser)
-                                .addMultipartFile("logo", file)
-                                .addMultipartParameter("name", name)
-                                .addMultipartParameter("link", link)
-                                .addMultipartParameter("city", city)
-                                .setPriority(Priority.MEDIUM)
+                        AndroidNetworking.upload(Constants.API + "/products")
+                                .addHeaders("Authorization", "Bearer " + tokenShop)
+                                .addMultipartFile("image", file)
+                                .addMultipartParameter(body)
+                                .setPriority(Priority.HIGH)
                                 .build()
+                                .setUploadProgressListener(new UploadProgressListener() {
+                                    @Override
+                                    public void onProgress(long bytesUploaded, long totalBytes) {
+                                        // do anything with progress
+                                    }
+                                })
                                 .getAsJSONObject(new JSONObjectRequestListener() {
                                     @Override
                                     public void onResponse(JSONObject response) {
@@ -165,12 +173,9 @@ public class ShopInfoActivity extends AppCompatActivity implements BottomSheetIm
                                             String status = response.getString("status");
 
                                             if (status.equals("success")) {
-                                                Intent intent = new Intent(ShopInfoActivity.this, SettingActivity.class);
+                                                Intent intent = new Intent(CreateProductActivity.this, DashboardActivity.class);
                                                 startActivity(intent);
                                                 finish();
-                                            } else {
-                                                Toast.makeText(getApplicationContext(), "gagal", Toast.LENGTH_SHORT).show();
-                                                progressDialog.dismiss();
                                             }
                                         } catch (JSONException e) {
                                             e.printStackTrace();
@@ -179,7 +184,7 @@ public class ShopInfoActivity extends AppCompatActivity implements BottomSheetIm
 
                                     @Override
                                     public void onError(ANError anError) {
-                                        Toast.makeText(ShopInfoActivity.this, Constants.ERROR, Toast.LENGTH_SHORT).show();
+                                        Toast.makeText(CreateProductActivity.this, Constants.ERROR, Toast.LENGTH_SHORT).show();
                                         progressDialog.dismiss();
 
                                         if (anError.getErrorCode() != 0) {
@@ -196,116 +201,20 @@ public class ShopInfoActivity extends AppCompatActivity implements BottomSheetIm
             }
         });
 
-        getShop();
-    }
+        spCategory.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+            @Override
+            public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
+                ProductCategory productCategory = listProductCategory.get(i);
+                productCategoryId = productCategory.getId();
+            }
 
-    public void getCity() {
-        progressDialog.setTitle("Loading...");
-        progressDialog.show();
-        cityList = new ArrayList<>();
+            @Override
+            public void onNothingSelected(AdapterView<?> adapterView) {
 
-        AndroidNetworking.get("https://api.rajaongkir.com/starter/city")
-                .addHeaders("key", "25c806b53d47f38a8327d29cda61b0df")
-                .setPriority(Priority.LOW)
-                .build()
-                .getAsJSONObject(new JSONObjectRequestListener() {
-                    @Override
-                    public void onResponse(JSONObject response) {
-                        try {
-                            JSONObject rajaongkir = response.getJSONObject("rajaongkir");
-                            JSONArray results = rajaongkir.getJSONArray("results");
+            }
+        });
 
-                            for (int i = 0; i < results.length(); i++) {
-                                JSONObject item = results.getJSONObject(i);
-                                cityList.add(item.getString("city_name"));
-                            }
-
-                            spCity.setItem(cityList);
-                            for (int i = 0; i < cityList.size(); i++) {
-                                String name = cityList.get(i);
-                                if (name.equals(city)) {
-                                    spCity.setSelection(i);
-                                }
-                            }
-                            progressDialog.dismiss();
-                        } catch (JSONException e) {
-                            e.printStackTrace();
-                        }
-                    }
-
-                    @Override
-                    public void onError(ANError anError) {
-                        Toast.makeText(ShopInfoActivity.this, Constants.ERROR, Toast.LENGTH_SHORT).show();
-                        progressDialog.dismiss();
-
-                        if (anError.getErrorCode() != 0) {
-                            Log.d("TAG", "onError errorCode : " + anError.getErrorCode());
-                            Log.d("TAG", "onError errorBody : " + anError.getErrorBody());
-                            Log.d("TAG", "onError errorDetail : " + anError.getErrorDetail());
-                        } else {
-                            Log.d("TAG", "onError errorDetail : " + anError.getErrorDetail());
-                        }
-                    }
-                });
-    }
-
-    private void getShop() {
-        progressDialog.setTitle("Loading...");
-        progressDialog.show();
-
-        SharedPreferences sp = getSharedPreferences("online_shop", MODE_PRIVATE);
-        String tokenShop = sp.getString("token_shop", "");
-
-        AndroidNetworking.get(Constants.API + "/auth-decode")
-                .addHeaders("Authorization", "Bearer " + tokenShop)
-                .addHeaders("Accept", "application/json")
-                .setPriority(Priority.LOW)
-                .build()
-                .getAsJSONObject(new JSONObjectRequestListener() {
-                    @Override
-                    public void onResponse(JSONObject response) {
-                        try {
-                            id = response.getString("id");
-                            String name = response.getString("name");
-                            city = response.getString("city");
-                            String link = response.getString("link");
-                            String logo = response.getString("logo");
-
-                            etName.setText(name);
-                            etLink.setText(link);
-
-                            if (!logo.equals("null")) {
-                                ivLogoShop.setBackground(null);
-                                ivAdd.setVisibility(View.GONE);
-
-                                Glide.with(ShopInfoActivity.this)
-                                        .load(Constants.STORAGE + logo)
-                                        .into(ivLogoShop);
-                            }
-
-                            getCity();
-                        } catch (JSONException e) {
-                            e.printStackTrace();
-                        }
-                    }
-
-                    @Override
-                    public void onError(ANError anError) {
-                        if (anError.getErrorCode() == 401) {
-                        } else {
-                            Toast.makeText(ShopInfoActivity.this, Constants.ERROR, Toast.LENGTH_SHORT).show();
-                            progressDialog.dismiss();
-
-                            if (anError.getErrorCode() != 0) {
-                                Log.d("TAG", "onError errorCode : " + anError.getErrorCode());
-                                Log.d("TAG", "onError errorBody : " + anError.getErrorBody());
-                                Log.d("TAG", "onError errorDetail : " + anError.getErrorDetail());
-                            } else {
-                                Log.d("TAG", "onError errorDetail : " + anError.getErrorDetail());
-                            }
-                        }
-                    }
-                });
+        getProductCategories();
     }
 
     public void imagePicker(View view) {
@@ -320,16 +229,69 @@ public class ShopInfoActivity extends AppCompatActivity implements BottomSheetIm
     @Override
     public void onImagesSelected(List<? extends Uri> list, String s) {
         for (Uri uri : list) {
-            Glide.with(this).load(uri).into(ivLogoShop);
+            Glide.with(this).load(uri).into(ivProduct);
             file = new File(getUriRealPath(this, uri));
-            ivLogoShop.setBackground(null);
+            ivProduct.setBackground(null);
             ivAdd.setVisibility(View.GONE);
         }
     }
 
+    private void getProductCategories() {
+        progressDialog.setTitle("Loading...");
+        progressDialog.show();
+
+        SharedPreferences sp = getSharedPreferences("online_shop", MODE_PRIVATE);
+        String tokenShop = sp.getString("token_shop", "");
+
+        AndroidNetworking.get(Constants.API + "/product-categories")
+                .addHeaders("Authorization", "Bearer " + tokenShop)
+                .setPriority(Priority.LOW)
+                .build()
+                .getAsJSONObject(new JSONObjectRequestListener() {
+                    @Override
+                    public void onResponse(JSONObject response) {
+                        try {
+                            String status = response.getString("status");
+
+                            if (status.equals("success")) {
+                                JSONArray data = response.getJSONArray("data");
+
+                                for (int i = 0; i < data.length(); i++) {
+                                    JSONObject item = data.getJSONObject(i);
+
+                                    ProductCategory productCategory = new ProductCategory();
+                                    productCategory.setId(item.getString("id"));
+                                    productCategory.setName(item.getString("name"));
+                                    listProductCategory.add(productCategory);
+                                }
+
+                                spCategory.setItem(listProductCategory);
+                                progressDialog.dismiss();
+                            }
+                        } catch (JSONException e) {
+                            e.printStackTrace();
+                        }
+                    }
+
+                    @Override
+                    public void onError(ANError anError) {
+                        Toast.makeText(CreateProductActivity.this, Constants.ERROR, Toast.LENGTH_SHORT).show();
+                        progressDialog.dismiss();
+
+                        if (anError.getErrorCode() != 0) {
+                            Log.d("TAG", "onError errorCode : " + anError.getErrorCode());
+                            Log.d("TAG", "onError errorBody : " + anError.getErrorBody());
+                            Log.d("TAG", "onError errorDetail : " + anError.getErrorDetail());
+                        } else {
+                            Log.d("TAG", "onError errorDetail : " + anError.getErrorDetail());
+                        }
+                    }
+                });
+    }
+
     /*
-   This method can parse out the real local file path from a file URI.
-   */
+    This method can parse out the real local file path from a file URI.
+    */
     private String getUriRealPath(Context ctx, Uri uri) {
         String ret = "";
         if (isAboveKitKat()) {
