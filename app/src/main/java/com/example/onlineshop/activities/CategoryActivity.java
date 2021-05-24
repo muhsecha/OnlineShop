@@ -1,9 +1,5 @@
 package com.example.onlineshop.activities;
 
-import androidx.appcompat.app.AppCompatActivity;
-import androidx.recyclerview.widget.LinearLayoutManager;
-import androidx.recyclerview.widget.RecyclerView;
-
 import android.app.ProgressDialog;
 import android.content.Intent;
 import android.content.SharedPreferences;
@@ -11,6 +7,10 @@ import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
 import android.widget.Toast;
+
+import androidx.appcompat.app.AppCompatActivity;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 
 import com.androidnetworking.AndroidNetworking;
 import com.androidnetworking.common.Priority;
@@ -31,7 +31,7 @@ import java.util.ArrayList;
 public class CategoryActivity extends AppCompatActivity {
     private FloatingActionButton fabAdd;
     private RecyclerView rvCategories;
-    private ArrayList<ProductCategory> listProductCategory = new ArrayList<>();
+    private final ArrayList<ProductCategory> listProductCategory = new ArrayList<>();
     private ProductCategoryAdapter productCategoryAdapter;
     private ProgressDialog progressDialog;
 

@@ -1,8 +1,8 @@
 package com.example.onlineshop.activities;
 
-import androidx.appcompat.app.AppCompatActivity;
-
 import android.os.Bundle;
+
+import androidx.appcompat.app.AppCompatActivity;
 
 import com.example.onlineshop.R;
 

@@ -1,9 +1,5 @@
 package com.example.onlineshop.activities;
 
-import androidx.appcompat.app.AppCompatActivity;
-import androidx.recyclerview.widget.LinearLayoutManager;
-import androidx.recyclerview.widget.RecyclerView;
-
 import android.app.ProgressDialog;
 import android.content.Intent;
 import android.content.SharedPreferences;
@@ -11,6 +7,10 @@ import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
 import android.widget.Toast;
+
+import androidx.appcompat.app.AppCompatActivity;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 
 import com.androidnetworking.AndroidNetworking;
 import com.androidnetworking.common.Priority;
@@ -32,7 +32,7 @@ public class DiscountActivity extends AppCompatActivity {
     private FloatingActionButton fabAdd;
     private RecyclerView rvDiscounts;
     private DiscountAdapter discountAdapter;
-    private ArrayList<Discount> listDiscount = new ArrayList<>();
+    private final ArrayList<Discount> listDiscount = new ArrayList<>();
     private ProgressDialog progressDialog;
 
     @Override

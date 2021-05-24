@@ -363,7 +363,7 @@ public class ShopInfoActivity extends AppCompatActivity implements BottomSheetIm
                 // Get uri authority.
                 String uriAuthority = uri.getAuthority();
                 if (isMediaDoc(uriAuthority)) {
-                    String idArr[] = documentId.split(":");
+                    String[] idArr = documentId.split(":");
                     if (idArr.length == 2) {
                         // First item is document type.
                         String docType = idArr[0];
@@ -389,7 +389,7 @@ public class ShopInfoActivity extends AppCompatActivity implements BottomSheetIm
                     Uri downloadUriAppendId = ContentUris.withAppendedId(downloadUri, Long.valueOf(documentId));
                     ret = getImageRealPath(getContentResolver(), downloadUriAppendId, null);
                 } else if (isExternalStoreDoc(uriAuthority)) {
-                    String idArr[] = documentId.split(":");
+                    String[] idArr = documentId.split(":");
                     if (idArr.length == 2) {
                         String type = idArr[0];
                         String realDocId = idArr[1];

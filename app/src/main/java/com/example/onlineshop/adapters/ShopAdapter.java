@@ -14,7 +14,7 @@ import com.example.onlineshop.models.Shop;
 import java.util.ArrayList;
 
 public class ShopAdapter extends RecyclerView.Adapter<ShopAdapter.ShopViewHolder> {
-    private ArrayList<Shop> listShop;
+    private final ArrayList<Shop> listShop;
     private OnItemClickCallback onItemClickCallback;
 
     public ShopAdapter(ArrayList<Shop> listShop) {
@@ -54,6 +54,10 @@ public class ShopAdapter extends RecyclerView.Adapter<ShopAdapter.ShopViewHolder
         return listShop.size();
     }
 
+    public interface OnItemClickCallback {
+        void onItemClicked(Shop data);
+    }
+
     public class ShopViewHolder extends RecyclerView.ViewHolder {
         TextView tvName;
 
@@ -61,9 +65,5 @@ public class ShopAdapter extends RecyclerView.Adapter<ShopAdapter.ShopViewHolder
             super(itemView);
             tvName = itemView.findViewById(R.id.tv_name);
         }
-    }
-
-    public interface OnItemClickCallback {
-        void onItemClicked(Shop data);
     }
 }

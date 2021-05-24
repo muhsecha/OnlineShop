@@ -1,33 +1,26 @@
 package com.example.onlineshop.activities;
 
-import androidx.appcompat.app.AppCompatActivity;
-import androidx.recyclerview.widget.LinearLayoutManager;
-import androidx.recyclerview.widget.RecyclerView;
-import androidx.viewpager.widget.ViewPager;
-
 import android.app.ProgressDialog;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
-import android.os.Handler;
 import android.util.Log;
 import android.view.View;
 import android.widget.Toast;
+
+import androidx.appcompat.app.AppCompatActivity;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 
 import com.androidnetworking.AndroidNetworking;
 import com.androidnetworking.common.Priority;
 import com.androidnetworking.error.ANError;
 import com.androidnetworking.interfaces.JSONObjectRequestListener;
 import com.example.onlineshop.Constants;
-import com.example.onlineshop.adapters.ProductAdapter;
-import com.example.onlineshop.fragments.CategoryFragment;
-import com.example.onlineshop.fragments.ProductFragment;
 import com.example.onlineshop.R;
-import com.example.onlineshop.adapters.ViewPagerAdapter;
+import com.example.onlineshop.adapters.ProductAdapter;
 import com.example.onlineshop.models.Product;
-import com.google.android.material.appbar.MaterialToolbar;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
-import com.google.android.material.tabs.TabLayout;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -38,7 +31,7 @@ import java.util.ArrayList;
 public class ProductActivity extends AppCompatActivity {
     private FloatingActionButton fabAdd;
     private RecyclerView rvProducts;
-    private ArrayList<Product> listProduct = new ArrayList<>();
+    private final ArrayList<Product> listProduct = new ArrayList<>();
     private ProductAdapter productAdapter;
     private ProgressDialog progressDialog;
 

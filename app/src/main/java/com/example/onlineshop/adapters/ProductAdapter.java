@@ -19,7 +19,7 @@ import com.example.onlineshop.models.Product;
 import java.util.ArrayList;
 
 public class ProductAdapter extends RecyclerView.Adapter<ProductAdapter.ProductViewHolder> {
-    private ArrayList<Product> listProduct;
+    private final ArrayList<Product> listProduct;
 
     public ProductAdapter(ArrayList<Product> listProduct) {
         this.listProduct = listProduct;

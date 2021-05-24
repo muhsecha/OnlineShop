@@ -17,7 +17,7 @@ import com.example.onlineshop.models.ProductCategory;
 import java.util.ArrayList;
 
 public class ProductCategoryAdapter extends RecyclerView.Adapter<ProductCategoryAdapter.ProductCategoryViewHolder> {
-    private ArrayList<ProductCategory> listProductCategory;
+    private final ArrayList<ProductCategory> listProductCategory;
 
     public ProductCategoryAdapter(ArrayList<ProductCategory> listProductCategory) {
         this.listProductCategory = listProductCategory;

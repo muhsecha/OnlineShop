@@ -1,7 +1,5 @@
 package com.example.onlineshop.activities;
 
-import androidx.appcompat.app.AppCompatActivity;
-
 import android.app.ProgressDialog;
 import android.content.ContentResolver;
 import android.content.ContentUris;
@@ -22,6 +20,8 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.Toast;
+
+import androidx.appcompat.app.AppCompatActivity;
 
 import com.androidnetworking.AndroidNetworking;
 import com.androidnetworking.common.Priority;
@@ -46,7 +46,7 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 
-public class EditProductActivity extends AppCompatActivity implements BottomSheetImagePicker.OnImagesSelectedListener{
+public class EditProductActivity extends AppCompatActivity implements BottomSheetImagePicker.OnImagesSelectedListener {
     private EditText etName, etDesc, etPrice, etStock;
     private Button btnSubmit;
     private ProgressDialog progressDialog;
@@ -54,7 +54,7 @@ public class EditProductActivity extends AppCompatActivity implements BottomShee
     private File file;
     private String productCategoryId;
     private SmartMaterialSpinner spCategory;
-    private ArrayList<ProductCategory> listProductCategory = new ArrayList<>();
+    private final ArrayList<ProductCategory> listProductCategory = new ArrayList<>();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -350,7 +350,7 @@ public class EditProductActivity extends AppCompatActivity implements BottomShee
                 // Get uri authority.
                 String uriAuthority = uri.getAuthority();
                 if (isMediaDoc(uriAuthority)) {
-                    String idArr[] = documentId.split(":");
+                    String[] idArr = documentId.split(":");
                     if (idArr.length == 2) {
                         // First item is document type.
                         String docType = idArr[0];
@@ -376,7 +376,7 @@ public class EditProductActivity extends AppCompatActivity implements BottomShee
                     Uri downloadUriAppendId = ContentUris.withAppendedId(downloadUri, Long.valueOf(documentId));
                     ret = getImageRealPath(getContentResolver(), downloadUriAppendId, null);
                 } else if (isExternalStoreDoc(uriAuthority)) {
-                    String idArr[] = documentId.split(":");
+                    String[] idArr = documentId.split(":");
                     if (idArr.length == 2) {
                         String type = idArr[0];
                         String realDocId = idArr[1];

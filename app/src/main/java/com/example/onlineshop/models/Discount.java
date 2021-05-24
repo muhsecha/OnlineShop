@@ -4,18 +4,6 @@ import android.os.Parcel;
 import android.os.Parcelable;
 
 public class Discount implements Parcelable {
-    private String id, name, value;
-
-    public Discount() {
-
-    }
-
-    protected Discount(Parcel in) {
-        id = in.readString();
-        name = in.readString();
-        value = in.readString();
-    }
-
     public static final Creator<Discount> CREATOR = new Creator<Discount>() {
         @Override
         public Discount createFromParcel(Parcel in) {
@@ -27,6 +15,17 @@ public class Discount implements Parcelable {
             return new Discount[size];
         }
     };
+    private String id, name, value;
+
+    public Discount() {
+
+    }
+
+    protected Discount(Parcel in) {
+        id = in.readString();
+        name = in.readString();
+        value = in.readString();
+    }
 
     public String getId() {
         return id;
