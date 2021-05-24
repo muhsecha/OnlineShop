@@ -59,8 +59,8 @@ public class ProfileActivity extends AppCompatActivity {
                                 editor.apply();
 
                                 Intent intent = new Intent(ProfileActivity.this, LoginActivity.class);
+                                intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_NEW_TASK);
                                 startActivity(intent);
-                                finish();
                             }
                         }).create().show();
             }

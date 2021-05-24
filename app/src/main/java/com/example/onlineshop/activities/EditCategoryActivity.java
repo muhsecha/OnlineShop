@@ -73,8 +73,8 @@ public class EditCategoryActivity extends AppCompatActivity {
 
                                         if (status.equals("success")) {
                                             Intent intent = new Intent(EditCategoryActivity.this, ProductActivity.class);
+                                            intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
                                             startActivity(intent);
-                                            finish();
 
                                             progressDialog.dismiss();
                                         }

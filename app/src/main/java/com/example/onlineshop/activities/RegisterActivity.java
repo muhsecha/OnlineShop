@@ -46,9 +46,8 @@ public class RegisterActivity extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 Intent intent = new Intent(getApplicationContext(), LoginActivity.class);
-                intent.addFlags(Intent.FLAG_ACTIVITY_NO_ANIMATION);
+                intent.addFlags(Intent.FLAG_ACTIVITY_NO_ANIMATION | Intent.FLAG_ACTIVITY_NO_HISTORY);
                 startActivity(intent);
-                finish();
             }
         });
         btn_register.setOnClickListener(new View.OnClickListener() {
@@ -126,7 +125,7 @@ public class RegisterActivity extends AppCompatActivity {
 
                                         if (status.equals("success")) {
                                             Intent intent = new Intent(getApplicationContext(), LoginActivity.class);
-                                            intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
+                                            intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_NEW_TASK);
                                             startActivity(intent);
 
                                             progressDialog.dismiss();

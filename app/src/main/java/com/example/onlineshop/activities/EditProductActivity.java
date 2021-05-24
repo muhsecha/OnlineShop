@@ -149,8 +149,8 @@ public class EditProductActivity extends AppCompatActivity implements BottomShee
 
                                             if (status.equals("success")) {
                                                 Intent intent = new Intent(EditProductActivity.this, ProductActivity.class);
+                                                intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
                                                 startActivity(intent);
-                                                finish();
                                             }
                                         } catch (JSONException e) {
                                             e.printStackTrace();
@@ -192,8 +192,8 @@ public class EditProductActivity extends AppCompatActivity implements BottomShee
 
                                             if (status.equals("success")) {
                                                 Intent intent = new Intent(EditProductActivity.this, ProductActivity.class);
+                                                intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
                                                 startActivity(intent);
-                                                finish();
                                             }
                                         } catch (JSONException e) {
                                             e.printStackTrace();

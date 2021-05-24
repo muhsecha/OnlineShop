@@ -201,8 +201,8 @@ public class CreateShopActivity extends AppCompatActivity {
                                 sp.edit().putString("token_shop", response.getString("data")).apply();
 
                                 Intent intent = new Intent(getApplicationContext(), ChangeShopActivity.class);
+                                intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
                                 startActivity(intent);
-                                finish();
 
                                 progressDialog.dismiss();
                             }

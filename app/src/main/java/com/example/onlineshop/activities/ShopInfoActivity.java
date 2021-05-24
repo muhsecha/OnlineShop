@@ -124,8 +124,8 @@ public class ShopInfoActivity extends AppCompatActivity implements BottomSheetIm
 
                                             if (status.equals("success")) {
                                                 Intent intent = new Intent(ShopInfoActivity.this, SettingActivity.class);
+                                                intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
                                                 startActivity(intent);
-                                                finish();
                                             } else {
                                                 Toast.makeText(getApplicationContext(), "gagal", Toast.LENGTH_SHORT).show();
                                                 progressDialog.dismiss();
@@ -166,8 +166,8 @@ public class ShopInfoActivity extends AppCompatActivity implements BottomSheetIm
 
                                             if (status.equals("success")) {
                                                 Intent intent = new Intent(ShopInfoActivity.this, SettingActivity.class);
+                                                intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
                                                 startActivity(intent);
-                                                finish();
                                             } else {
                                                 Toast.makeText(getApplicationContext(), "gagal", Toast.LENGTH_SHORT).show();
                                                 progressDialog.dismiss();

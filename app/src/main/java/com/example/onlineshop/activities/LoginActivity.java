@@ -46,9 +46,8 @@ public class LoginActivity extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 Intent intent = new Intent(getApplicationContext(), RegisterActivity.class);
-                intent.addFlags(Intent.FLAG_ACTIVITY_NO_ANIMATION);
+                intent.addFlags(Intent.FLAG_ACTIVITY_NO_ANIMATION | Intent.FLAG_ACTIVITY_NO_HISTORY);
                 startActivity(intent);
-                finish();
             }
         });
 
@@ -97,7 +96,7 @@ public class LoginActivity extends AppCompatActivity {
                                             sp.edit().putString("token_user", response.getString("data")).apply();
 
                                             Intent intent = new Intent(getApplicationContext(), MainActivity.class);
-                                            intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
+                                            intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_NEW_TASK);
                                             startActivity(intent);
                                             progressDialog.dismiss();
                                         } else {

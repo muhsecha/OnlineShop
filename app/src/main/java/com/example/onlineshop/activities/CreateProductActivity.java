@@ -132,6 +132,7 @@ public class CreateProductActivity extends AppCompatActivity implements BottomSh
 
                                             if (status.equals("success")) {
                                                 Intent intent = new Intent(CreateProductActivity.this, ProductActivity.class);
+                                                intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
                                                 startActivity(intent);
                                             }
                                         } catch (JSONException e) {
@@ -174,8 +175,8 @@ public class CreateProductActivity extends AppCompatActivity implements BottomSh
 
                                             if (status.equals("success")) {
                                                 Intent intent = new Intent(CreateProductActivity.this, ProductActivity.class);
+                                                intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
                                                 startActivity(intent);
-                                                finish();
                                             }
                                         } catch (JSONException e) {
                                             e.printStackTrace();
