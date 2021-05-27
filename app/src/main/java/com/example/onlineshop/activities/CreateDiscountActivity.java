@@ -22,6 +22,9 @@ import com.example.onlineshop.R;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import static com.example.onlineshop.Constants.SHARED_PREFS;
+import static com.example.onlineshop.Constants.TOKEN_SHOP;
+
 public class CreateDiscountActivity extends AppCompatActivity {
     public static final String TAG = CreateProductActivity.class.getSimpleName();
     private EditText etName, etValue;
@@ -61,8 +64,8 @@ public class CreateDiscountActivity extends AppCompatActivity {
                     progressDialog.setTitle("Loading...");
                     progressDialog.show();
 
-                    SharedPreferences sp = getSharedPreferences("online_shop", MODE_PRIVATE);
-                    String tokenShop = sp.getString("token_shop", "");
+                    SharedPreferences sharedPreferences = getSharedPreferences(SHARED_PREFS, MODE_PRIVATE);
+                    String tokenShop = sharedPreferences.getString(TOKEN_SHOP, "");
 
                     AndroidNetworking.post(Constants.API + "/discounts")
                             .addHeaders("Authorization", "Bearer " + tokenShop)
@@ -94,11 +97,11 @@ public class CreateDiscountActivity extends AppCompatActivity {
                                     progressDialog.dismiss();
 
                                     if (anError.getErrorCode() != 0) {
-                                        Log.d(TAG, "onError errorCode : " + anError.getErrorCode());
-                                        Log.d(TAG, "onError errorBody : " + anError.getErrorBody());
-                                        Log.d(TAG, "onError errorDetail : " + anError.getErrorDetail());
+                                        Log.d("TAG", "onError errorCode : " + anError.getErrorCode());
+                                        Log.d("TAG", "onError errorBody : " + anError.getErrorBody());
+                                        Log.d("TAG", "onError errorDetail : " + anError.getErrorDetail());
                                     } else {
-                                        Log.d(TAG, "onError errorDetail : " + anError.getErrorDetail());
+                                        Log.d("TAG", "onError errorDetail : " + anError.getErrorDetail());
                                     }
                                 }
                             });

@@ -22,6 +22,9 @@ import com.example.onlineshop.R;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import static com.example.onlineshop.Constants.SHARED_PREFS;
+import static com.example.onlineshop.Constants.TOKEN_SHOP;
+
 public class CreateCategoryActivity extends AppCompatActivity {
     public static final String TAG = CreateCategoryActivity.class.getSimpleName();
     private EditText etName;
@@ -54,8 +57,8 @@ public class CreateCategoryActivity extends AppCompatActivity {
                     progressDialog.setTitle("Loading...");
                     progressDialog.show();
 
-                    SharedPreferences sp = getSharedPreferences("online_shop", MODE_PRIVATE);
-                    String tokenShop = sp.getString("token_shop", "");
+                    SharedPreferences sharedPreferences = getSharedPreferences(SHARED_PREFS, MODE_PRIVATE);
+                    String tokenShop = sharedPreferences.getString(TOKEN_SHOP, "");
 
                     AndroidNetworking.post(Constants.API + "/product-categories")
                             .addHeaders("Authorization", "Bearer " + tokenShop)

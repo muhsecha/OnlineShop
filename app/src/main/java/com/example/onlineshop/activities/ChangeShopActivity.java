@@ -28,6 +28,10 @@ import org.json.JSONObject;
 
 import java.util.ArrayList;
 
+import static com.example.onlineshop.Constants.SHARED_PREFS;
+import static com.example.onlineshop.Constants.TOKEN_SHOP;
+import static com.example.onlineshop.Constants.TOKEN_USER;
+
 public class ChangeShopActivity extends AppCompatActivity {
     public static final String TAG = ChangeShopActivity.class.getSimpleName();
     private FloatingActionButton btnAdd;
@@ -35,6 +39,8 @@ public class ChangeShopActivity extends AppCompatActivity {
     private RecyclerView rvShops;
     private final ArrayList<Shop> listShop = new ArrayList<>();
     private ProgressDialog progressDialog;
+    private SharedPreferences sharedPreferences;
+    private String tokenShop, tokenUser;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -46,6 +52,9 @@ public class ChangeShopActivity extends AppCompatActivity {
 
         rvShops.setHasFixedSize(true);
         progressDialog = new ProgressDialog(this);
+        sharedPreferences = getSharedPreferences(SHARED_PREFS, MODE_PRIVATE);
+        tokenUser = sharedPreferences.getString(TOKEN_USER, "");
+        tokenShop = sharedPreferences.getString(TOKEN_SHOP, "");
 
         btnAdd.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -75,9 +84,6 @@ public class ChangeShopActivity extends AppCompatActivity {
     private void getShops(String id) {
         progressDialog.setTitle("Loading...");
         progressDialog.show();
-
-        SharedPreferences sp = getSharedPreferences("online_shop", MODE_PRIVATE);
-        String tokenUser = sp.getString("token_user", "");
 
         AndroidNetworking.get(Constants.API + "/shops")
                 .addHeaders("Authorization", "Bearer " + tokenUser)
@@ -131,9 +137,6 @@ public class ChangeShopActivity extends AppCompatActivity {
         progressDialog.setTitle("Loading...");
         progressDialog.show();
 
-        SharedPreferences sp = getSharedPreferences("online_shop", MODE_PRIVATE);
-        String tokenUser = sp.getString("token_user", "");
-
         AndroidNetworking.post(Constants.API + "/login-shop")
                 .addBodyParameter("shop_id", id)
                 .addHeaders("Authorization", "Bearer " + tokenUser)
@@ -146,8 +149,9 @@ public class ChangeShopActivity extends AppCompatActivity {
                             String status = response.getString("status");
 
                             if (status.equals("success")) {
-                                SharedPreferences sp = getSharedPreferences("online_shop", MODE_PRIVATE);
-                                sp.edit().putString("token_shop", response.getString("data")).apply();
+                                SharedPreferences.Editor editor = sharedPreferences.edit();
+                                editor.putString(TOKEN_SHOP, response.getString("data"));
+                                editor.apply();
 
                                 getShopActive();
                             }
@@ -175,9 +179,6 @@ public class ChangeShopActivity extends AppCompatActivity {
     private void getShopActive() {
         progressDialog.setTitle("Loading...");
         progressDialog.show();
-
-        SharedPreferences sp = getSharedPreferences("online_shop", MODE_PRIVATE);
-        String tokenShop = sp.getString("token_shop", "");
 
         AndroidNetworking.get(Constants.API + "/auth-decode")
                 .addHeaders("Authorization", "Bearer " + tokenShop)

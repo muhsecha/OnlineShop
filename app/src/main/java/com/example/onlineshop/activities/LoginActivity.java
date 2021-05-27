@@ -23,6 +23,9 @@ import com.example.onlineshop.R;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import static com.example.onlineshop.Constants.SHARED_PREFS;
+import static com.example.onlineshop.Constants.TOKEN_USER;
+
 public class LoginActivity extends AppCompatActivity {
     public static final String TAG = LoginActivity.class.getSimpleName();
     private Button btn_register, btn_login;
@@ -93,8 +96,10 @@ public class LoginActivity extends AppCompatActivity {
                                         String message = response.getString("message");
 
                                         if (status.equals("success")) {
-                                            SharedPreferences sp = getSharedPreferences("online_shop", MODE_PRIVATE);
-                                            sp.edit().putString("token_user", response.getString("data")).apply();
+                                            SharedPreferences sharedPreferences = getSharedPreferences(SHARED_PREFS, MODE_PRIVATE);
+                                            SharedPreferences.Editor editor = sharedPreferences.edit();
+                                            editor.putString(TOKEN_USER, response.getString("data"));
+                                            editor.apply();
 
                                             Intent intent = new Intent(getApplicationContext(), MainActivity.class);
                                             intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_NEW_TASK);
