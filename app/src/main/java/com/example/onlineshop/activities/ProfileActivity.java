@@ -24,11 +24,17 @@ import com.example.onlineshop.R;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import static com.example.onlineshop.Constants.SHARED_PREFS;
+import static com.example.onlineshop.Constants.TOKEN_SHOP;
+import static com.example.onlineshop.Constants.TOKEN_USER;
+
 public class ProfileActivity extends AppCompatActivity {
     public static final String TAG = ProfileActivity.class.getSimpleName();
     private ProgressDialog progressDialog;
     private TextView tvName, tvPhone, tvEmail, tvNameHeader, tvEmailHeader;
     private Button btnLogout;
+    private SharedPreferences sharedPreferences;
+    private String tokenUser;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -43,6 +49,8 @@ public class ProfileActivity extends AppCompatActivity {
         btnLogout = findViewById(R.id.btn_logout);
 
         progressDialog = new ProgressDialog(this);
+        sharedPreferences = getSharedPreferences(SHARED_PREFS, MODE_PRIVATE);
+        tokenUser = sharedPreferences.getString(TOKEN_USER, "");
 
         getUser();
 
@@ -54,8 +62,7 @@ public class ProfileActivity extends AppCompatActivity {
                         .setNegativeButton("Tidak", null)
                         .setPositiveButton("Ya", new DialogInterface.OnClickListener() {
                             public void onClick(DialogInterface arg0, int arg1) {
-                                SharedPreferences sp = getSharedPreferences("online_shop", MODE_PRIVATE);
-                                SharedPreferences.Editor editor = sp.edit();
+                                SharedPreferences.Editor editor = sharedPreferences.edit();
                                 editor.clear();
                                 editor.apply();
 
@@ -71,9 +78,6 @@ public class ProfileActivity extends AppCompatActivity {
     private void getUser() {
         progressDialog.setTitle("Loading...");
         progressDialog.show();
-
-        SharedPreferences sp = getSharedPreferences("online_shop", MODE_PRIVATE);
-        String tokenUser = sp.getString("token_user", "");
 
         AndroidNetworking.get(Constants.API + "/auth-decode")
                 .addHeaders("Authorization", "Bearer " + tokenUser)

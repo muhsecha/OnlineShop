@@ -45,6 +45,9 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 
+import static com.example.onlineshop.Constants.SHARED_PREFS;
+import static com.example.onlineshop.Constants.TOKEN_SHOP;
+
 public class CreateProductActivity extends AppCompatActivity implements BottomSheetImagePicker.OnImagesSelectedListener {
     public static final String TAG = CreateProductActivity.class.getSimpleName();
     private EditText etName, etDesc, etPrice, etStock;
@@ -55,6 +58,8 @@ public class CreateProductActivity extends AppCompatActivity implements BottomSh
     private String productCategoryId;
     private SmartMaterialSpinner spCategory;
     private final ArrayList<ProductCategory> listProductCategory = new ArrayList<>();
+    private SharedPreferences sharedPreferences;
+    private String tokenShop;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -71,6 +76,8 @@ public class CreateProductActivity extends AppCompatActivity implements BottomSh
         spCategory = findViewById(R.id.sp_category);
 
         progressDialog = new ProgressDialog(this);
+        sharedPreferences = getSharedPreferences(SHARED_PREFS, MODE_PRIVATE);
+        tokenShop = sharedPreferences.getString(TOKEN_SHOP, "");
 
         btnSubmit.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -105,9 +112,6 @@ public class CreateProductActivity extends AppCompatActivity implements BottomSh
                 if (!isEmpty) {
                     progressDialog.setTitle("Loading...");
                     progressDialog.show();
-
-                    SharedPreferences sp = getSharedPreferences("online_shop", MODE_PRIVATE);
-                    String tokenShop = sp.getString("token_shop", "");
 
                     HashMap<String, String> body = new HashMap<>();
                     body.put("name", name);
@@ -241,9 +245,6 @@ public class CreateProductActivity extends AppCompatActivity implements BottomSh
     private void getProductCategories() {
         progressDialog.setTitle("Loading...");
         progressDialog.show();
-
-        SharedPreferences sp = getSharedPreferences("online_shop", MODE_PRIVATE);
-        String tokenShop = sp.getString("token_shop", "");
 
         AndroidNetworking.get(Constants.API + "/product-categories")
                 .addHeaders("Authorization", "Bearer " + tokenShop)

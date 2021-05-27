@@ -27,12 +27,18 @@ import org.json.JSONObject;
 
 import de.hdodenhof.circleimageview.CircleImageView;
 
+import static com.example.onlineshop.Constants.SHARED_PREFS;
+import static com.example.onlineshop.Constants.TOKEN_SHOP;
+import static com.example.onlineshop.Constants.TOKEN_USER;
+
 public class MainActivity extends AppCompatActivity {
     public static final String TAG = MainActivity.class.getSimpleName();
-    CircleImageView img_profile;
-    TextView tv_username, tv_email;
-    CardView cd_product, cd_profile, cd_trans, cd_setting, cdDiscount,cd_kategori;
+    private CircleImageView img_profile;
+    private TextView tv_username, tv_email;
+    private CardView cd_product, cd_profile, cd_trans, cd_setting, cdDiscount,cd_kategori;
     private ProgressDialog progressDialog;
+    private SharedPreferences sharedPreferences;
+    private String tokenShop, tokenUser;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -48,6 +54,14 @@ public class MainActivity extends AppCompatActivity {
         cd_setting = findViewById(R.id.cd_setting);
         cdDiscount = findViewById(R.id.cd_discount);
         cd_kategori = findViewById(R.id.cd_category);
+
+        progressDialog = new ProgressDialog(this);
+        sharedPreferences = getSharedPreferences(SHARED_PREFS, MODE_PRIVATE);
+        tokenUser = sharedPreferences.getString(TOKEN_USER, "");
+        tokenShop = sharedPreferences.getString(TOKEN_SHOP, "");
+
+        getUser();
+        checkShop();
 
         img_profile.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -111,9 +125,6 @@ public class MainActivity extends AppCompatActivity {
         progressDialog.setTitle("Loading...");
         progressDialog.show();
 
-        SharedPreferences sp = getSharedPreferences("online_shop", MODE_PRIVATE);
-        String tokenUser = sp.getString("token_user", "");
-
         AndroidNetworking.get(Constants.API + "/auth-decode")
                 .addHeaders("Authorization", "Bearer " + tokenUser)
                 .addHeaders("Accept", "application/json")
@@ -153,9 +164,6 @@ public class MainActivity extends AppCompatActivity {
     }
 
     private void checkShop() {
-        SharedPreferences sp = getSharedPreferences("online_shop", MODE_PRIVATE);
-        String tokenShop = sp.getString("token_shop", "");
-
         if (tokenShop.isEmpty()) {
             Intent intent = new Intent(MainActivity.this, ChangeShopActivity.class);
             startActivity(intent);

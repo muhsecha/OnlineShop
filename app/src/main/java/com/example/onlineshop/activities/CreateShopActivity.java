@@ -28,6 +28,10 @@ import org.json.JSONObject;
 import java.util.ArrayList;
 import java.util.List;
 
+import static com.example.onlineshop.Constants.SHARED_PREFS;
+import static com.example.onlineshop.Constants.TOKEN_SHOP;
+import static com.example.onlineshop.Constants.TOKEN_USER;
+
 public class CreateShopActivity extends AppCompatActivity {
     public static final String TAG = CreateShopActivity.class.getSimpleName();
     private SmartMaterialSpinner spCity;
@@ -36,6 +40,8 @@ public class CreateShopActivity extends AppCompatActivity {
     private EditText etName, etLink;
     private Button btnSubmit;
     private String city = null;
+    private SharedPreferences sharedPreferences;
+    private String tokenShop, tokenUser;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -48,6 +54,9 @@ public class CreateShopActivity extends AppCompatActivity {
         btnSubmit = findViewById(R.id.btn_submit);
 
         progressDialog = new ProgressDialog(this);
+        sharedPreferences = getSharedPreferences(SHARED_PREFS, MODE_PRIVATE);
+        tokenShop = sharedPreferences.getString(TOKEN_SHOP, "");
+        tokenUser = sharedPreferences.getString(TOKEN_USER, "");
         getCity();
 
         spCity.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
@@ -86,9 +95,6 @@ public class CreateShopActivity extends AppCompatActivity {
                 if (!isEmpty && city != null) {
                     progressDialog.setTitle("Loading...");
                     progressDialog.show();
-
-                    SharedPreferences sp = getSharedPreferences("online_shop", MODE_PRIVATE);
-                    String tokenUser = sp.getString("token_user", "");
 
                     AndroidNetworking.post(Constants.API + "/shops")
                             .addBodyParameter("name", name)
@@ -183,9 +189,6 @@ public class CreateShopActivity extends AppCompatActivity {
         progressDialog.setTitle("Loading...");
         progressDialog.show();
 
-        SharedPreferences sp = getSharedPreferences("online_shop", MODE_PRIVATE);
-        String tokenUser = sp.getString("token_user", "");
-
         AndroidNetworking.post(Constants.API + "/login-shop")
                 .addBodyParameter("shop_id", id)
                 .addHeaders("Authorization", "Bearer " + tokenUser)
@@ -198,8 +201,9 @@ public class CreateShopActivity extends AppCompatActivity {
                             String status = response.getString("status");
 
                             if (status.equals("success")) {
-                                SharedPreferences sp = getSharedPreferences("online_shop", MODE_PRIVATE);
-                                sp.edit().putString("token_shop", response.getString("data")).apply();
+                                SharedPreferences.Editor editor = sharedPreferences.edit();
+                                editor.putString(TOKEN_SHOP, response.getString("data"));
+                                editor.apply();
 
                                 Intent intent = new Intent(getApplicationContext(), ChangeShopActivity.class);
                                 intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);

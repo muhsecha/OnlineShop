@@ -23,6 +23,10 @@ import com.example.onlineshop.models.Discount;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import static com.example.onlineshop.Constants.SHARED_PREFS;
+import static com.example.onlineshop.Constants.TOKEN_SHOP;
+import static com.example.onlineshop.Constants.TOKEN_USER;
+
 public class EditDiscountActivity extends AppCompatActivity {
     public static final String TAG = EditDiscountActivity.class.getSimpleName();
     private EditText etName, etValue;
@@ -67,8 +71,8 @@ public class EditDiscountActivity extends AppCompatActivity {
                     progressDialog.setTitle("Loading...");
                     progressDialog.show();
 
-                    SharedPreferences sp = getSharedPreferences("online_shop", MODE_PRIVATE);
-                    String tokenShop = sp.getString("token_shop", "");
+                    SharedPreferences sharedPreferences = getSharedPreferences(SHARED_PREFS, MODE_PRIVATE);
+                    String tokenShop = sharedPreferences.getString(TOKEN_SHOP, "");
 
                     AndroidNetworking.put(Constants.API + "/discounts/" + discount.getId())
                             .addHeaders("Authorization", "Bearer " + tokenShop)

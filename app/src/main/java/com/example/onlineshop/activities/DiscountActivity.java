@@ -28,6 +28,10 @@ import org.json.JSONObject;
 
 import java.util.ArrayList;
 
+import static com.example.onlineshop.Constants.SHARED_PREFS;
+import static com.example.onlineshop.Constants.TOKEN_SHOP;
+import static com.example.onlineshop.Constants.TOKEN_USER;
+
 public class DiscountActivity extends AppCompatActivity {
     public static final String TAG = DiscountActivity.class.getSimpleName();
     private FloatingActionButton fabAdd;
@@ -69,8 +73,8 @@ public class DiscountActivity extends AppCompatActivity {
         progressDialog.setTitle("Loading...");
         progressDialog.show();
 
-        SharedPreferences sp = getSharedPreferences("online_shop", MODE_PRIVATE);
-        String tokenShop = sp.getString("token_shop", "");
+        SharedPreferences sharedPreferences = getSharedPreferences(SHARED_PREFS, MODE_PRIVATE);
+        String tokenShop = sharedPreferences.getString(TOKEN_SHOP, "");
 
         AndroidNetworking.get(Constants.API + "/discounts")
                 .addHeaders("Authorization", "Bearer " + tokenShop)

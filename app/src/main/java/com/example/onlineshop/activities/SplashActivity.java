@@ -7,14 +7,18 @@ import android.os.Handler;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import static com.example.onlineshop.Constants.SHARED_PREFS;
+import static com.example.onlineshop.Constants.TOKEN_SHOP;
+import static com.example.onlineshop.Constants.TOKEN_USER;
+
 public class SplashActivity extends AppCompatActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
-        SharedPreferences sp = getSharedPreferences("online_shop", MODE_PRIVATE);
-        String tokenUser = sp.getString("token_user", "");
+        SharedPreferences sharedPreferences = getSharedPreferences(SHARED_PREFS, MODE_PRIVATE);
+        String tokenUser = sharedPreferences.getString(TOKEN_USER, "");
 
         new Handler().postDelayed(new Runnable() {
             @Override
