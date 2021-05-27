@@ -31,7 +31,7 @@ public class MainActivity extends AppCompatActivity {
     public static final String TAG = MainActivity.class.getSimpleName();
     CircleImageView img_profile;
     TextView tv_username, tv_email;
-    CardView cd_product, cd_profile, cd_trans, cd_setting, cdDiscount;
+    CardView cd_product, cd_profile, cd_trans, cd_setting, cdDiscount,cd_kategori;
     private ProgressDialog progressDialog;
 
     @Override
@@ -47,6 +47,7 @@ public class MainActivity extends AppCompatActivity {
         cd_trans = findViewById(R.id.cd_trans);
         cd_setting = findViewById(R.id.cd_setting);
         cdDiscount = findViewById(R.id.cd_discount);
+        cd_kategori = findViewById(R.id.cd_category);
 
         img_profile.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -90,6 +91,13 @@ public class MainActivity extends AppCompatActivity {
             public void onClick(View view) {
                 Intent intent = new Intent(MainActivity.this, DiscountActivity.class);
                 startActivity(intent);
+            }
+        });
+
+        cd_kategori.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                startActivity(new Intent(getApplicationContext(),CategoryActivity.class));
             }
         });
 
