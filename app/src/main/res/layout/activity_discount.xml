@@ -22,13 +22,14 @@
             app:title="Discount" />
     </com.google.android.material.appbar.AppBarLayout>
 
+
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/rv_discounts"
         app:layout_constraintTop_toBottomOf="@id/abl2"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        tools:listitem="@layout/list_discount"
-        android:layout_marginBottom="50dp"/>
+        android:scrollbars="vertical"
+        tools:listitem="@layout/list_discount"/>
 
     <androidx.coordinatorlayout.widget.CoordinatorLayout
         android:layout_width="match_parent"

@@ -6,14 +6,9 @@
     android:layout_height="match_parent"
     tools:context=".activities.CreateProductActivity">
 
-    <androidx.coordinatorlayout.widget.CoordinatorLayout
-        android:id="@+id/coordinatorLayout"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        tools:layout_editor_absoluteX="25dp"
-        tools:layout_editor_absoluteY="134dp">
-
         <com.google.android.material.appbar.AppBarLayout
+            app:layout_constraintTop_toTopOf="parent"
+            android:id="@+id/abl4"
             android:layout_width="match_parent"
             android:layout_height="wrap_content">
 
@@ -26,12 +21,11 @@
                 app:navigationIcon="@drawable/ic_baseline_arrow_back_ios_24"
                 app:title="Edit Produk" />
         </com.google.android.material.appbar.AppBarLayout>
-    </androidx.coordinatorlayout.widget.CoordinatorLayout>
 
     <ScrollView
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        app:layout_constraintTop_toTopOf="parent">
+        android:layout_height="wrap_content"
+        app:layout_constraintTop_toBottomOf="@id/abl4">
 
         <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="match_parent"
@@ -162,7 +156,7 @@
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:background="@color/white"
-                        android:inputType="textLongMessage" />
+                        android:inputType="number"/>
                 </com.google.android.material.textfield.TextInputLayout>
             </LinearLayout>
 
@@ -187,12 +181,12 @@
                 app:layout_constraintTop_toBottomOf="@+id/tv_10">
 
                 <ImageView
-                    android:id="@+id/iv_plus_product"
+                    android:id="@+id/iv_minus_product"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_gravity="center_vertical"
                     android:layout_marginStart="20dp"
-                    android:src="@drawable/ic_baseline_add_circle_outline_24" />
+                    android:src="@drawable/ic_baseline_remove_circle_24" />
 
                 <EditText
                     android:id="@+id/et_stock"
@@ -203,10 +197,10 @@
                     android:hint="1" />
 
                 <ImageView
-                    android:id="@+id/iv_minus_product"
+                    android:id="@+id/iv_plus_product"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:src="@drawable/ic_baseline_remove_circle_24" />
+                    android:src="@drawable/ic_baseline_add_circle_outline_24" />
             </LinearLayout>
 
             <com.chivorn.smartmaterialspinner.SmartMaterialSpinner
@@ -220,6 +214,16 @@
                 app:smsp_isSearchable="true"
                 app:smsp_searchHeaderBackgroundColor="#D31A43"
                 android:layout_marginHorizontal="20dp"/>
+
+            <com.google.android.material.switchmaterial.SwitchMaterial
+                app:layout_constraintTop_toBottomOf="@+id/sp_category"
+                app:layout_constraintLeft_toLeftOf="parent"
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:layout_marginLeft="20dp"
+                android:text="Aktifkan Produk?"
+                app:useMaterialThemeColors="true"/>
+
         </androidx.constraintlayout.widget.ConstraintLayout>
     </ScrollView>
 
@@ -229,7 +233,7 @@
         android:layout_height="wrap_content"
         android:layout_marginHorizontal="20dp"
         android:layout_marginBottom="20dp"
-        android:backgroundTint="@color/red_100"
+        android:backgroundTint="@color/red_200"
         android:text="Simpan"
         app:layout_constraintBottom_toBottomOf="parent" />
 </androidx.constraintlayout.widget.ConstraintLayout>
