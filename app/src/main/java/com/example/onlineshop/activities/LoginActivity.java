@@ -24,6 +24,7 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 public class LoginActivity extends AppCompatActivity {
+    public static final String TAG = LoginActivity.class.getSimpleName();
     private Button btn_register, btn_login;
     private TextView tv_frgt_pass;
     private EditText et_email, et_pass;
@@ -114,11 +115,11 @@ public class LoginActivity extends AppCompatActivity {
                                     progressDialog.dismiss();
 
                                     if (anError.getErrorCode() != 0) {
-                                        Log.d("TAG", "onError errorCode : " + anError.getErrorCode());
-                                        Log.d("TAG", "onError errorBody : " + anError.getErrorBody());
-                                        Log.d("TAG", "onError errorDetail : " + anError.getErrorDetail());
+                                        Log.d(TAG, "onError errorCode : " + anError.getErrorCode());
+                                        Log.d(TAG, "onError errorBody : " + anError.getErrorBody());
+                                        Log.d(TAG, "onError errorDetail : " + anError.getErrorDetail());
                                     } else {
-                                        Log.d("TAG", "onError errorDetail : " + anError.getErrorDetail());
+                                        Log.d(TAG, "onError errorDetail : " + anError.getErrorDetail());
                                     }
                                 }
                             });

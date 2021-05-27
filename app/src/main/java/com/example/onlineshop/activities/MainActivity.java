@@ -28,6 +28,7 @@ import org.json.JSONObject;
 import de.hdodenhof.circleimageview.CircleImageView;
 
 public class MainActivity extends AppCompatActivity {
+    public static final String TAG = MainActivity.class.getSimpleName();
     CircleImageView img_profile;
     TextView tv_username, tv_email;
     CardView cd_product, cd_profile, cd_trans, cd_setting, cdDiscount;
@@ -133,11 +134,11 @@ public class MainActivity extends AppCompatActivity {
                         progressDialog.dismiss();
 
                         if (anError.getErrorCode() != 0) {
-                            Log.d("TAG", "onError errorCode : " + anError.getErrorCode());
-                            Log.d("TAG", "onError errorBody : " + anError.getErrorBody());
-                            Log.d("TAG", "onError errorDetail : " + anError.getErrorDetail());
+                            Log.d(TAG, "onError errorCode : " + anError.getErrorCode());
+                            Log.d(TAG, "onError errorBody : " + anError.getErrorBody());
+                            Log.d(TAG, "onError errorDetail : " + anError.getErrorDetail());
                         } else {
-                            Log.d("TAG", "onError errorDetail : " + anError.getErrorDetail());
+                            Log.d(TAG, "onError errorDetail : " + anError.getErrorDetail());
                         }
                     }
                 });

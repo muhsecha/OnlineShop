@@ -25,6 +25,7 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 public class ProfileActivity extends AppCompatActivity {
+    public static final String TAG = ProfileActivity.class.getSimpleName();
     private ProgressDialog progressDialog;
     private TextView tvName, tvPhone, tvEmail, tvNameHeader, tvEmailHeader;
     private Button btnLogout;
@@ -105,11 +106,11 @@ public class ProfileActivity extends AppCompatActivity {
                         progressDialog.dismiss();
 
                         if (anError.getErrorCode() != 0) {
-                            Log.d("TAG", "onError errorCode : " + anError.getErrorCode());
-                            Log.d("TAG", "onError errorBody : " + anError.getErrorBody());
-                            Log.d("TAG", "onError errorDetail : " + anError.getErrorDetail());
+                            Log.d(TAG, "onError errorCode : " + anError.getErrorCode());
+                            Log.d(TAG, "onError errorBody : " + anError.getErrorBody());
+                            Log.d(TAG, "onError errorDetail : " + anError.getErrorDetail());
                         } else {
-                            Log.d("TAG", "onError errorDetail : " + anError.getErrorDetail());
+                            Log.d(TAG, "onError errorDetail : " + anError.getErrorDetail());
                         }
                     }
                 });

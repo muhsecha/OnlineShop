@@ -29,6 +29,7 @@ import org.json.JSONObject;
 import java.util.ArrayList;
 
 public class CategoryActivity extends AppCompatActivity {
+    public static final String TAG = CategoryActivity.class.getSimpleName();
     private FloatingActionButton fabAdd;
     private RecyclerView rvCategories;
     private final ArrayList<ProductCategory> listProductCategory = new ArrayList<>();
@@ -107,11 +108,11 @@ public class CategoryActivity extends AppCompatActivity {
                         progressDialog.dismiss();
 
                         if (anError.getErrorCode() != 0) {
-                            Log.d("TAG", "onError errorCode : " + anError.getErrorCode());
-                            Log.d("TAG", "onError errorBody : " + anError.getErrorBody());
-                            Log.d("TAG", "onError errorDetail : " + anError.getErrorDetail());
+                            Log.d(TAG, "onError errorCode : " + anError.getErrorCode());
+                            Log.d(TAG, "onError errorBody : " + anError.getErrorBody());
+                            Log.d(TAG, "onError errorDetail : " + anError.getErrorDetail());
                         } else {
-                            Log.d("TAG", "onError errorDetail : " + anError.getErrorDetail());
+                            Log.d(TAG, "onError errorDetail : " + anError.getErrorDetail());
                         }
                     }
                 });

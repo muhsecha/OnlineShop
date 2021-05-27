@@ -46,6 +46,7 @@ import java.util.HashMap;
 import java.util.List;
 
 public class CreateProductActivity extends AppCompatActivity implements BottomSheetImagePicker.OnImagesSelectedListener {
+    public static final String TAG = CreateProductActivity.class.getSimpleName();
     private EditText etName, etDesc, etPrice, etStock;
     private Button btnSubmit;
     private ProgressDialog progressDialog;
@@ -146,11 +147,11 @@ public class CreateProductActivity extends AppCompatActivity implements BottomSh
                                         progressDialog.dismiss();
 
                                         if (anError.getErrorCode() != 0) {
-                                            Log.d("TAG", "onError errorCode : " + anError.getErrorCode());
-                                            Log.d("TAG", "onError errorBody : " + anError.getErrorBody());
-                                            Log.d("TAG", "onError errorDetail : " + anError.getErrorDetail());
+                                            Log.d(TAG, "onError errorCode : " + anError.getErrorCode());
+                                            Log.d(TAG, "onError errorBody : " + anError.getErrorBody());
+                                            Log.d(TAG, "onError errorDetail : " + anError.getErrorDetail());
                                         } else {
-                                            Log.d("TAG", "onError errorDetail : " + anError.getErrorDetail());
+                                            Log.d(TAG, "onError errorDetail : " + anError.getErrorDetail());
                                         }
                                     }
                                 });
@@ -189,11 +190,11 @@ public class CreateProductActivity extends AppCompatActivity implements BottomSh
                                         progressDialog.dismiss();
 
                                         if (anError.getErrorCode() != 0) {
-                                            Log.d("TAG", "onError errorCode : " + anError.getErrorCode());
-                                            Log.d("TAG", "onError errorBody : " + anError.getErrorBody());
-                                            Log.d("TAG", "onError errorDetail : " + anError.getErrorDetail());
+                                            Log.d(TAG, "onError errorCode : " + anError.getErrorCode());
+                                            Log.d(TAG, "onError errorBody : " + anError.getErrorBody());
+                                            Log.d(TAG, "onError errorDetail : " + anError.getErrorDetail());
                                         } else {
-                                            Log.d("TAG", "onError errorDetail : " + anError.getErrorDetail());
+                                            Log.d(TAG, "onError errorDetail : " + anError.getErrorDetail());
                                         }
                                     }
                                 });
@@ -280,11 +281,11 @@ public class CreateProductActivity extends AppCompatActivity implements BottomSh
                         progressDialog.dismiss();
 
                         if (anError.getErrorCode() != 0) {
-                            Log.d("TAG", "onError errorCode : " + anError.getErrorCode());
-                            Log.d("TAG", "onError errorBody : " + anError.getErrorBody());
-                            Log.d("TAG", "onError errorDetail : " + anError.getErrorDetail());
+                            Log.d(TAG, "onError errorCode : " + anError.getErrorCode());
+                            Log.d(TAG, "onError errorBody : " + anError.getErrorBody());
+                            Log.d(TAG, "onError errorDetail : " + anError.getErrorDetail());
                         } else {
-                            Log.d("TAG", "onError errorDetail : " + anError.getErrorDetail());
+                            Log.d(TAG, "onError errorDetail : " + anError.getErrorDetail());
                         }
                     }
                 });
