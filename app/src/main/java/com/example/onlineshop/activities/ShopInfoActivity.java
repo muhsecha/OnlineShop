@@ -43,6 +43,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class ShopInfoActivity extends AppCompatActivity implements BottomSheetImagePicker.OnImagesSelectedListener {
+    public static final String TAG = ShopInfoActivity.class.getSimpleName();
     private SmartMaterialSpinner spCity;
     private List<String> cityList;
     private ProgressDialog progressDialog;
@@ -124,8 +125,8 @@ public class ShopInfoActivity extends AppCompatActivity implements BottomSheetIm
 
                                             if (status.equals("success")) {
                                                 Intent intent = new Intent(ShopInfoActivity.this, SettingActivity.class);
+                                                intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
                                                 startActivity(intent);
-                                                finish();
                                             } else {
                                                 Toast.makeText(getApplicationContext(), "gagal", Toast.LENGTH_SHORT).show();
                                                 progressDialog.dismiss();
@@ -141,11 +142,11 @@ public class ShopInfoActivity extends AppCompatActivity implements BottomSheetIm
                                         progressDialog.dismiss();
 
                                         if (anError.getErrorCode() != 0) {
-                                            Log.d("TAG", "onError errorCode : " + anError.getErrorCode());
-                                            Log.d("TAG", "onError errorBody : " + anError.getErrorBody());
-                                            Log.d("TAG", "onError errorDetail : " + anError.getErrorDetail());
+                                            Log.d(TAG, "onError errorCode : " + anError.getErrorCode());
+                                            Log.d(TAG, "onError errorBody : " + anError.getErrorBody());
+                                            Log.d(TAG, "onError errorDetail : " + anError.getErrorDetail());
                                         } else {
-                                            Log.d("TAG", "onError errorDetail : " + anError.getErrorDetail());
+                                            Log.d(TAG, "onError errorDetail : " + anError.getErrorDetail());
                                         }
                                     }
                                 });
@@ -166,8 +167,8 @@ public class ShopInfoActivity extends AppCompatActivity implements BottomSheetIm
 
                                             if (status.equals("success")) {
                                                 Intent intent = new Intent(ShopInfoActivity.this, SettingActivity.class);
+                                                intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
                                                 startActivity(intent);
-                                                finish();
                                             } else {
                                                 Toast.makeText(getApplicationContext(), "gagal", Toast.LENGTH_SHORT).show();
                                                 progressDialog.dismiss();
@@ -183,11 +184,11 @@ public class ShopInfoActivity extends AppCompatActivity implements BottomSheetIm
                                         progressDialog.dismiss();
 
                                         if (anError.getErrorCode() != 0) {
-                                            Log.d("TAG", "onError errorCode : " + anError.getErrorCode());
-                                            Log.d("TAG", "onError errorBody : " + anError.getErrorBody());
-                                            Log.d("TAG", "onError errorDetail : " + anError.getErrorDetail());
+                                            Log.d(TAG, "onError errorCode : " + anError.getErrorCode());
+                                            Log.d(TAG, "onError errorBody : " + anError.getErrorBody());
+                                            Log.d(TAG, "onError errorDetail : " + anError.getErrorDetail());
                                         } else {
-                                            Log.d("TAG", "onError errorDetail : " + anError.getErrorDetail());
+                                            Log.d(TAG, "onError errorDetail : " + anError.getErrorDetail());
                                         }
                                     }
                                 });
@@ -239,11 +240,11 @@ public class ShopInfoActivity extends AppCompatActivity implements BottomSheetIm
                         progressDialog.dismiss();
 
                         if (anError.getErrorCode() != 0) {
-                            Log.d("TAG", "onError errorCode : " + anError.getErrorCode());
-                            Log.d("TAG", "onError errorBody : " + anError.getErrorBody());
-                            Log.d("TAG", "onError errorDetail : " + anError.getErrorDetail());
+                            Log.d(TAG, "onError errorCode : " + anError.getErrorCode());
+                            Log.d(TAG, "onError errorBody : " + anError.getErrorBody());
+                            Log.d(TAG, "onError errorDetail : " + anError.getErrorDetail());
                         } else {
-                            Log.d("TAG", "onError errorDetail : " + anError.getErrorDetail());
+                            Log.d(TAG, "onError errorDetail : " + anError.getErrorDetail());
                         }
                     }
                 });
@@ -297,11 +298,11 @@ public class ShopInfoActivity extends AppCompatActivity implements BottomSheetIm
                             progressDialog.dismiss();
 
                             if (anError.getErrorCode() != 0) {
-                                Log.d("TAG", "onError errorCode : " + anError.getErrorCode());
-                                Log.d("TAG", "onError errorBody : " + anError.getErrorBody());
-                                Log.d("TAG", "onError errorDetail : " + anError.getErrorDetail());
+                                Log.d(TAG, "onError errorCode : " + anError.getErrorCode());
+                                Log.d(TAG, "onError errorBody : " + anError.getErrorBody());
+                                Log.d(TAG, "onError errorDetail : " + anError.getErrorDetail());
                             } else {
-                                Log.d("TAG", "onError errorDetail : " + anError.getErrorDetail());
+                                Log.d(TAG, "onError errorDetail : " + anError.getErrorDetail());
                             }
                         }
                     }

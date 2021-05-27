@@ -24,6 +24,7 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 public class EditDiscountActivity extends AppCompatActivity {
+    public static final String TAG = EditDiscountActivity.class.getSimpleName();
     private EditText etName, etValue;
     private Button btnSubmit;
     private ProgressDialog progressDialog;
@@ -83,8 +84,8 @@ public class EditDiscountActivity extends AppCompatActivity {
 
                                         if (status.equals("success")) {
                                             Intent intent = new Intent(EditDiscountActivity.this, DiscountActivity.class);
+                                            intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
                                             startActivity(intent);
-                                            finish();
 
                                             progressDialog.dismiss();
                                         }
@@ -99,11 +100,11 @@ public class EditDiscountActivity extends AppCompatActivity {
                                     progressDialog.dismiss();
 
                                     if (anError.getErrorCode() != 0) {
-                                        Log.d("TAG", "onError errorCode : " + anError.getErrorCode());
-                                        Log.d("TAG", "onError errorBody : " + anError.getErrorBody());
-                                        Log.d("TAG", "onError errorDetail : " + anError.getErrorDetail());
+                                        Log.d(TAG, "onError errorCode : " + anError.getErrorCode());
+                                        Log.d(TAG, "onError errorBody : " + anError.getErrorBody());
+                                        Log.d(TAG, "onError errorDetail : " + anError.getErrorDetail());
                                     } else {
-                                        Log.d("TAG", "onError errorDetail : " + anError.getErrorDetail());
+                                        Log.d(TAG, "onError errorDetail : " + anError.getErrorDetail());
                                     }
                                 }
                             });

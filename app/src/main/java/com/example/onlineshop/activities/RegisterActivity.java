@@ -23,6 +23,7 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 public class RegisterActivity extends AppCompatActivity {
+    public static final String TAG = RegisterActivity.class.getSimpleName();
     private Button btn_register, btn_login;
     private EditText et_name, et_phone, et_email, et_pass, et_confirm_pass;
     private ProgressDialog progressDialog;
@@ -46,9 +47,8 @@ public class RegisterActivity extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 Intent intent = new Intent(getApplicationContext(), LoginActivity.class);
-                intent.addFlags(Intent.FLAG_ACTIVITY_NO_ANIMATION);
+                intent.addFlags(Intent.FLAG_ACTIVITY_NO_ANIMATION | Intent.FLAG_ACTIVITY_NO_HISTORY);
                 startActivity(intent);
-                finish();
             }
         });
         btn_register.setOnClickListener(new View.OnClickListener() {
@@ -126,7 +126,7 @@ public class RegisterActivity extends AppCompatActivity {
 
                                         if (status.equals("success")) {
                                             Intent intent = new Intent(getApplicationContext(), LoginActivity.class);
-                                            intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
+                                            intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_NEW_TASK);
                                             startActivity(intent);
 
                                             progressDialog.dismiss();
@@ -162,11 +162,11 @@ public class RegisterActivity extends AppCompatActivity {
                                     progressDialog.dismiss();
 
                                     if (anError.getErrorCode() != 0) {
-                                        Log.d("TAG", "onError errorCode : " + anError.getErrorCode());
-                                        Log.d("TAG", "onError errorBody : " + anError.getErrorBody());
-                                        Log.d("TAG", "onError errorDetail : " + anError.getErrorDetail());
+                                        Log.d(TAG, "onError errorCode : " + anError.getErrorCode());
+                                        Log.d(TAG, "onError errorBody : " + anError.getErrorBody());
+                                        Log.d(TAG, "onError errorDetail : " + anError.getErrorDetail());
                                     } else {
-                                        Log.d("TAG", "onError errorDetail : " + anError.getErrorDetail());
+                                        Log.d(TAG, "onError errorDetail : " + anError.getErrorDetail());
                                     }
                                 }
                             });

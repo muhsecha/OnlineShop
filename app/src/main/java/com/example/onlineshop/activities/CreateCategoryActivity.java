@@ -23,6 +23,7 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 public class CreateCategoryActivity extends AppCompatActivity {
+    public static final String TAG = CreateCategoryActivity.class.getSimpleName();
     private EditText etName;
     private Button btnSubmit;
     private ProgressDialog progressDialog;
@@ -71,8 +72,11 @@ public class CreateCategoryActivity extends AppCompatActivity {
 
                                             Intent intent = new Intent(CreateCategoryActivity.this, CategoryActivity.class);
 
+
+
+                                            intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+
                                             startActivity(intent);
-                                            finish();
 
                                             progressDialog.dismiss();
                                         }
@@ -87,11 +91,11 @@ public class CreateCategoryActivity extends AppCompatActivity {
                                     progressDialog.dismiss();
 
                                     if (anError.getErrorCode() != 0) {
-                                        Log.d("TAG", "onError errorCode : " + anError.getErrorCode());
-                                        Log.d("TAG", "onError errorBody : " + anError.getErrorBody());
-                                        Log.d("TAG", "onError errorDetail : " + anError.getErrorDetail());
+                                        Log.d(TAG, "onError errorCode : " + anError.getErrorCode());
+                                        Log.d(TAG, "onError errorBody : " + anError.getErrorBody());
+                                        Log.d(TAG, "onError errorDetail : " + anError.getErrorDetail());
                                     } else {
-                                        Log.d("TAG", "onError errorDetail : " + anError.getErrorDetail());
+                                        Log.d(TAG, "onError errorDetail : " + anError.getErrorDetail());
                                     }
                                 }
                             });

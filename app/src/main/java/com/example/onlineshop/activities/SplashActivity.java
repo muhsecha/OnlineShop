@@ -21,12 +21,12 @@ public class SplashActivity extends AppCompatActivity {
             public void run() {
                 if (tokenUser.isEmpty()) {
                     Intent intent = new Intent(SplashActivity.this, LoginActivity.class);
+                    intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_NEW_TASK);
                     startActivity(intent);
-                    finish();
                 } else {
                     Intent intent = new Intent(SplashActivity.this, MainActivity.class);
+                    intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_NEW_TASK);
                     startActivity(intent);
-                    finish();
                 }
             }
         }, 500);
