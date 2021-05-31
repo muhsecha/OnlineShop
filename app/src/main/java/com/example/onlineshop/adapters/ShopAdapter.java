@@ -1,5 +1,6 @@
 package com.example.onlineshop.adapters;
 
+import android.graphics.Color;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -12,6 +13,7 @@ import com.example.onlineshop.R;
 import com.example.onlineshop.models.Shop;
 
 import java.util.ArrayList;
+
 
 public class ShopAdapter extends RecyclerView.Adapter<ShopAdapter.ShopViewHolder> {
     private final ArrayList<Shop> listShop;
@@ -36,7 +38,8 @@ public class ShopAdapter extends RecyclerView.Adapter<ShopAdapter.ShopViewHolder
     public void onBindViewHolder(@NonNull ShopViewHolder holder, int position) {
         Shop shop = listShop.get(position);
         if (shop.getActive()) {
-            holder.tvName.setText(shop.getName() + " active");
+            holder.tvName.setText(shop.getName()+" active");
+            holder.tvName.setTextColor(Color.parseColor("#25FF62"));
         } else {
             holder.tvName.setText(shop.getName());
         }
