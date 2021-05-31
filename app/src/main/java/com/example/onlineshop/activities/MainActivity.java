@@ -82,7 +82,7 @@ public class MainActivity extends AppCompatActivity {
         cd_trans.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-
+                Toast.makeText(MainActivity.this, "Coming Soon", Toast.LENGTH_SHORT).show();
             }
         });
 

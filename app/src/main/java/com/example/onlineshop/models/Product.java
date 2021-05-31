@@ -4,18 +4,8 @@ import android.os.Parcel;
 import android.os.Parcelable;
 
 public class Product implements Parcelable {
-    public static final Creator<Product> CREATOR = new Creator<Product>() {
-        @Override
-        public Product createFromParcel(Parcel in) {
-            return new Product(in);
-        }
-
-        @Override
-        public Product[] newArray(int size) {
-            return new Product[size];
-        }
-    };
     private String id, name, desc, price, stock, image, productCategoryId;
+    private boolean show;
 
     public Product() {
 
@@ -29,23 +19,20 @@ public class Product implements Parcelable {
         stock = in.readString();
         image = in.readString();
         productCategoryId = in.readString();
+        show = in.readByte() != 0;
     }
 
-    @Override
-    public void writeToParcel(Parcel dest, int flags) {
-        dest.writeString(id);
-        dest.writeString(name);
-        dest.writeString(desc);
-        dest.writeString(price);
-        dest.writeString(stock);
-        dest.writeString(image);
-        dest.writeString(productCategoryId);
-    }
+    public static final Creator<Product> CREATOR = new Creator<Product>() {
+        @Override
+        public Product createFromParcel(Parcel in) {
+            return new Product(in);
+        }
 
-    @Override
-    public int describeContents() {
-        return 0;
-    }
+        @Override
+        public Product[] newArray(int size) {
+            return new Product[size];
+        }
+    };
 
     public String getId() {
         return id;
@@ -101,5 +88,30 @@ public class Product implements Parcelable {
 
     public void setProductCategoryId(String productCategoryId) {
         this.productCategoryId = productCategoryId;
+    }
+
+    public boolean isShow() {
+        return show;
+    }
+
+    public void setShow(boolean show) {
+        this.show = show;
+    }
+
+    @Override
+    public int describeContents() {
+        return 0;
+    }
+
+    @Override
+    public void writeToParcel(Parcel parcel, int i) {
+        parcel.writeString(id);
+        parcel.writeString(name);
+        parcel.writeString(desc);
+        parcel.writeString(price);
+        parcel.writeString(stock);
+        parcel.writeString(image);
+        parcel.writeString(productCategoryId);
+        parcel.writeByte((byte) (show ? 1 : 0));
     }
 }

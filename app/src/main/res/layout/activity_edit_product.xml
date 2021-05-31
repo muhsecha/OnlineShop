@@ -218,6 +218,7 @@
             <com.google.android.material.switchmaterial.SwitchMaterial
                 app:layout_constraintTop_toBottomOf="@+id/sp_category"
                 app:layout_constraintLeft_toLeftOf="parent"
+                android:id="@+id/switch_show"
                 android:layout_width="wrap_content"
                 android:layout_height="match_parent"
                 android:layout_marginLeft="20dp"

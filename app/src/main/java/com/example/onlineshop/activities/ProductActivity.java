@@ -99,6 +99,11 @@ public class ProductActivity extends AppCompatActivity {
                                     product.setStock(item.getString("stock"));
                                     product.setImage(item.getString("image"));
                                     product.setProductCategoryId(item.getString("product_category_id"));
+
+                                    if (item.getInt("show") != 0) {
+                                        product.setShow(true);
+                                    }
+
                                     listProduct.add(product);
                                 }
 
