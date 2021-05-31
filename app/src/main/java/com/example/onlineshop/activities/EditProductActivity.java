@@ -80,8 +80,6 @@ public class EditProductActivity extends AppCompatActivity implements BottomShee
         switchShow = findViewById(R.id.switch_show);
 
         progressDialog = new ProgressDialog(this);
-        ivProduct.setBackground(null);
-        ivAdd.setVisibility(View.GONE);
         sharedPreferences = getSharedPreferences(SHARED_PREFS, MODE_PRIVATE);
         tokenShop = sharedPreferences.getString(TOKEN_SHOP, "");
 
@@ -95,6 +93,9 @@ public class EditProductActivity extends AppCompatActivity implements BottomShee
         productCategoryId = product.getProductCategoryId().equals("null") ? null : product.getProductCategoryId();
 
         if (!product.getImage().equals("null")) {
+            ivProduct.setBackground(null);
+            ivAdd.setVisibility(View.GONE);
+
             Glide.with(this)
                     .load(Constants.STORAGE + product.getImage())
                     .into(ivProduct);
