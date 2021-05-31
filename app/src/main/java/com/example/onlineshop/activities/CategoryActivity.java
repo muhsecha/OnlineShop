@@ -1,6 +1,7 @@
 package com.example.onlineshop.activities;
 
 import android.app.ProgressDialog;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
@@ -8,6 +9,7 @@ import android.util.Log;
 import android.view.View;
 import android.widget.Toast;
 
+import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
@@ -35,9 +37,11 @@ public class CategoryActivity extends AppCompatActivity {
     public static final String TAG = CategoryActivity.class.getSimpleName();
     private FloatingActionButton fabAdd;
     private RecyclerView rvCategories;
-    private final ArrayList<ProductCategory> listProductCategory = new ArrayList<>();
+    private ArrayList<ProductCategory> listProductCategory = new ArrayList<>();
     private ProductCategoryAdapter productCategoryAdapter;
     private ProgressDialog progressDialog;
+    private SharedPreferences sharedPreferences;
+    private String tokenShop;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -49,6 +53,8 @@ public class CategoryActivity extends AppCompatActivity {
 
         rvCategories.setHasFixedSize(true);
         progressDialog = new ProgressDialog(this);
+        sharedPreferences = getSharedPreferences(SHARED_PREFS, MODE_PRIVATE);
+        tokenShop = sharedPreferences.getString(TOKEN_SHOP, "");
 
         fabAdd.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -64,16 +70,13 @@ public class CategoryActivity extends AppCompatActivity {
 
     private void showProductCategories() {
         rvCategories.setLayoutManager(new LinearLayoutManager(this));
-        productCategoryAdapter = new ProductCategoryAdapter(listProductCategory);
+        productCategoryAdapter = new ProductCategoryAdapter(listProductCategory, this);
         rvCategories.setAdapter(productCategoryAdapter);
     }
 
     private void getProductCategories() {
         progressDialog.setTitle("Loading...");
         progressDialog.show();
-
-        SharedPreferences sharedPreferences = getSharedPreferences(SHARED_PREFS, MODE_PRIVATE);
-        String tokenShop = sharedPreferences.getString(TOKEN_SHOP, "");
 
         AndroidNetworking.get(Constants.API + "/product-categories")
                 .addHeaders("Authorization", "Bearer " + tokenShop)
@@ -86,6 +89,7 @@ public class CategoryActivity extends AppCompatActivity {
                             String status = response.getString("status");
 
                             if (status.equals("success")) {
+                                listProductCategory.clear();
                                 JSONArray data = response.getJSONArray("data");
 
                                 for (int i = 0; i < data.length(); i++) {
@@ -119,5 +123,51 @@ public class CategoryActivity extends AppCompatActivity {
                         }
                     }
                 });
+    }
+
+    public void deleteCategory(String id) {
+        new AlertDialog.Builder(this)
+                .setMessage("Delete ?")
+                .setNegativeButton("No", null)
+                .setPositiveButton("Yes", new DialogInterface.OnClickListener() {
+                    public void onClick(DialogInterface arg0, int arg1) {
+                        AndroidNetworking.delete(Constants.API + "/product-categories/" + id)
+                                .addHeaders("Authorization", "Bearer " + tokenShop)
+                                .setPriority(Priority.MEDIUM)
+                                .build()
+                                .getAsJSONObject(new JSONObjectRequestListener() {
+                                    @Override
+                                    public void onResponse(JSONObject response) {
+                                        try {
+                                            String status = response.getString("status");
+                                            String message = response.getString("message");
+
+                                            if (status.equals("success")) {
+                                                progressDialog.dismiss();
+
+                                                Toast.makeText(CategoryActivity.this, message, Toast.LENGTH_SHORT).show();
+                                                getProductCategories();
+                                            }
+                                        } catch (JSONException e) {
+                                            e.printStackTrace();
+                                        }
+                                    }
+
+                                    @Override
+                                    public void onError(ANError anError) {
+                                        Toast.makeText(CategoryActivity.this, Constants.ERROR, Toast.LENGTH_SHORT).show();
+                                        progressDialog.dismiss();
+
+                                        if (anError.getErrorCode() != 0) {
+                                            Log.d(TAG, "onError errorCode : " + anError.getErrorCode());
+                                            Log.d(TAG, "onError errorBody : " + anError.getErrorBody());
+                                            Log.d(TAG, "onError errorDetail : " + anError.getErrorDetail());
+                                        } else {
+                                            Log.d(TAG, "onError errorDetail : " + anError.getErrorDetail());
+                                        }
+                                    }
+                                });
+                    }
+                }).create().show();
     }
 }

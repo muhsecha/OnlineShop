@@ -1,5 +1,6 @@
 package com.example.onlineshop.adapters;
 
+import android.app.Activity;
 import android.content.Intent;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -11,16 +12,19 @@ import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.onlineshop.R;
+import com.example.onlineshop.activities.CategoryActivity;
 import com.example.onlineshop.activities.EditCategoryActivity;
 import com.example.onlineshop.models.ProductCategory;
 
 import java.util.ArrayList;
 
 public class ProductCategoryAdapter extends RecyclerView.Adapter<ProductCategoryAdapter.ProductCategoryViewHolder> {
-    private final ArrayList<ProductCategory> listProductCategory;
+    private ArrayList<ProductCategory> listProductCategory;
+    private CategoryActivity categoryActivity;
 
-    public ProductCategoryAdapter(ArrayList<ProductCategory> listProductCategory) {
+    public ProductCategoryAdapter(ArrayList<ProductCategory> listProductCategory, Activity categoryActivity) {
         this.listProductCategory = listProductCategory;
+        this.categoryActivity = (CategoryActivity) categoryActivity;
     }
 
     @NonNull
@@ -35,12 +39,19 @@ public class ProductCategoryAdapter extends RecyclerView.Adapter<ProductCategory
         ProductCategory productCategory = listProductCategory.get(position);
         holder.tvName.setText(productCategory.getName());
 
-        holder.itemView.setOnClickListener(new View.OnClickListener() {
+        holder.ivEdit.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 Intent intent = new Intent(holder.itemView.getContext(), EditCategoryActivity.class);
                 intent.putExtra("Item Data", listProductCategory.get(holder.getAdapterPosition()));
                 holder.itemView.getContext().startActivity(intent);
+            }
+        });
+
+        holder.ivDelete.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                categoryActivity.deleteCategory(productCategory.getId());
             }
         });
     }
@@ -53,11 +64,13 @@ public class ProductCategoryAdapter extends RecyclerView.Adapter<ProductCategory
     public class ProductCategoryViewHolder extends RecyclerView.ViewHolder {
         TextView tvName;
         ImageView ivEdit;
+        ImageView ivDelete;
 
         public ProductCategoryViewHolder(@NonNull View itemView) {
             super(itemView);
             tvName = itemView.findViewById(R.id.tv_name);
             ivEdit = itemView.findViewById(R.id.iv_edit);
+            ivDelete = itemView.findViewById(R.id.iv_delete);
         }
     }
 }
