@@ -34,6 +34,7 @@ import com.example.onlineshop.Constants;
 import com.example.onlineshop.R;
 import com.example.onlineshop.models.Product;
 import com.example.onlineshop.models.ProductCategory;
+import com.google.android.material.switchmaterial.SwitchMaterial;
 import com.kroegerama.imgpicker.BottomSheetImagePicker;
 import com.kroegerama.imgpicker.ButtonType;
 
@@ -61,6 +62,7 @@ public class EditProductActivity extends AppCompatActivity implements BottomShee
     private final ArrayList<ProductCategory> listProductCategory = new ArrayList<>();
     private SharedPreferences sharedPreferences;
     private String tokenShop;
+    private SwitchMaterial switchShow;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -75,10 +77,9 @@ public class EditProductActivity extends AppCompatActivity implements BottomShee
         ivProduct = findViewById(R.id.iv_product);
         ivAdd = findViewById(R.id.iv_add);
         spCategory = findViewById(R.id.sp_category);
+        switchShow = findViewById(R.id.switch_show);
 
         progressDialog = new ProgressDialog(this);
-        ivProduct.setBackground(null);
-        ivAdd.setVisibility(View.GONE);
         sharedPreferences = getSharedPreferences(SHARED_PREFS, MODE_PRIVATE);
         tokenShop = sharedPreferences.getString(TOKEN_SHOP, "");
 
@@ -88,9 +89,13 @@ public class EditProductActivity extends AppCompatActivity implements BottomShee
         etDesc.setText(product.getDesc());
         etPrice.setText(product.getPrice());
         etStock.setText(product.getStock());
+        switchShow.setChecked(product.isShow());
         productCategoryId = product.getProductCategoryId().equals("null") ? null : product.getProductCategoryId();
 
         if (!product.getImage().equals("null")) {
+            ivProduct.setBackground(null);
+            ivAdd.setVisibility(View.GONE);
+
             Glide.with(this)
                     .load(Constants.STORAGE + product.getImage())
                     .into(ivProduct);
@@ -103,6 +108,11 @@ public class EditProductActivity extends AppCompatActivity implements BottomShee
                 String desc = etDesc.getText().toString().trim();
                 String price = etPrice.getText().toString().trim();
                 String stock = etStock.getText().toString().trim();
+                String show = "1";
+
+                if (!switchShow.isChecked()) {
+                    show = "0";
+                }
 
                 boolean isEmpty = false;
 
@@ -135,6 +145,7 @@ public class EditProductActivity extends AppCompatActivity implements BottomShee
                     body.put("desc", desc);
                     body.put("price", price);
                     body.put("stock", stock);
+                    body.put("show", show);
 
                     if (productCategoryId != null) {
                         body.put("product_category_id", productCategoryId);
@@ -153,6 +164,8 @@ public class EditProductActivity extends AppCompatActivity implements BottomShee
                                             String status = response.getString("status");
 
                                             if (status.equals("success")) {
+                                                progressDialog.dismiss();
+
                                                 Intent intent = new Intent(EditProductActivity.this, ProductActivity.class);
                                                 intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
                                                 startActivity(intent);
