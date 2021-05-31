@@ -18,7 +18,7 @@
             android:layout_height="?attr/actionBarSize"
             android:background="@color/red_200"
             app:navigationIcon="@drawable/ic_baseline_arrow_back_ios_24"
-            app:title="Discount" />
+            app:title="Produk" />
     </com.google.android.material.appbar.AppBarLayout>
 
     <androidx.recyclerview.widget.RecyclerView

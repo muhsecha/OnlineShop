@@ -21,6 +21,7 @@ import com.androidnetworking.error.ANError;
 import com.androidnetworking.interfaces.JSONObjectRequestListener;
 import com.example.onlineshop.Constants;
 import com.example.onlineshop.R;
+import com.example.onlineshop.models.Product;
 
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -73,7 +74,7 @@ public class MainActivity extends AppCompatActivity {
         cd_product.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent intent = new Intent(MainActivity.this, CategoryActivity.class);
+                Intent intent = new Intent(MainActivity.this, ProductActivity.class);
                 startActivity(intent);
             }
         });
