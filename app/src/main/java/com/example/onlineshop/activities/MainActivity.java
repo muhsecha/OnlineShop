@@ -114,11 +114,6 @@ public class MainActivity extends AppCompatActivity {
                 startActivity(new Intent(getApplicationContext(),CategoryActivity.class));
             }
         });
-
-        progressDialog = new ProgressDialog(this);
-
-        getUser();
-        checkShop();
     }
 
     private void getUser() {
@@ -136,7 +131,6 @@ public class MainActivity extends AppCompatActivity {
                         try {
                             String name = response.getString("name");
                             String email = response.getString("email");
-                            String phone = response.getString("phone_number");
 
                             tv_username.setText(name);
                             tv_email.setText(email);

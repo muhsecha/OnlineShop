@@ -54,7 +54,6 @@ public class ChangeShopActivity extends AppCompatActivity {
         progressDialog = new ProgressDialog(this);
         sharedPreferences = getSharedPreferences(SHARED_PREFS, MODE_PRIVATE);
         tokenUser = sharedPreferences.getString(TOKEN_USER, "");
-        tokenShop = sharedPreferences.getString(TOKEN_SHOP, "");
 
         btnAdd.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -149,11 +148,15 @@ public class ChangeShopActivity extends AppCompatActivity {
                             String status = response.getString("status");
 
                             if (status.equals("success")) {
+                                progressDialog.dismiss();
+
                                 SharedPreferences.Editor editor = sharedPreferences.edit();
                                 editor.putString(TOKEN_SHOP, response.getString("data"));
                                 editor.apply();
 
-                                getShopActive();
+                                Intent intent = new Intent(ChangeShopActivity.this, MainActivity.class);
+                                intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+                                startActivity(intent);
                             }
                         } catch (JSONException e) {
                             e.printStackTrace();
