@@ -54,6 +54,7 @@ public class ChangeShopActivity extends AppCompatActivity {
         progressDialog = new ProgressDialog(this);
         sharedPreferences = getSharedPreferences(SHARED_PREFS, MODE_PRIVATE);
         tokenUser = sharedPreferences.getString(TOKEN_USER, "");
+        tokenShop = sharedPreferences.getString(TOKEN_SHOP, "");
 
         btnAdd.setOnClickListener(new View.OnClickListener() {
             @Override
