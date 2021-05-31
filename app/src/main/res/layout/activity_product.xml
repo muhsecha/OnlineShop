@@ -7,17 +7,17 @@
     tools:context=".activities.ProductActivity">
 
     <com.google.android.material.appbar.AppBarLayout
-        android:id="@+id/app_bar"
+        android:id="@+id/abl5"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         app:layout_constraintTop_toTopOf="parent">
 
         <com.google.android.material.appbar.MaterialToolbar
+            android:id="@+id/app_bar"
             style="@style/Widget.MaterialComponents.Toolbar.Primary"
             android:layout_width="match_parent"
             android:layout_height="?attr/actionBarSize"
             android:background="@color/red_200"
-            app:navigationIcon="@drawable/ic_baseline_arrow_back_ios_24"
             app:title="Produk" />
     </com.google.android.material.appbar.AppBarLayout>
 
@@ -26,7 +26,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:scrollbars="horizontal"
-        app:layout_constraintTop_toBottomOf="@id/app_bar"
+        app:layout_constraintTop_toBottomOf="@id/abl5"
         tools:listitem="@layout/list_product" />
 
     <androidx.coordinatorlayout.widget.CoordinatorLayout

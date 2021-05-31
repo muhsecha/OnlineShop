@@ -39,7 +39,7 @@ public class ShopAdapter extends RecyclerView.Adapter<ShopAdapter.ShopViewHolder
         Shop shop = listShop.get(position);
         if (shop.getActive()) {
             holder.tvName.setText(shop.getName()+" active");
-            holder.tvName.setTextColor(Color.parseColor("#25FF62"));
+            holder.tvName.setTextColor(Color.parseColor("#27B735"));
         } else {
             holder.tvName.setText(shop.getName());
         }
