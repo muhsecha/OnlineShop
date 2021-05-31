@@ -191,6 +191,7 @@ public class ChangeShopActivity extends AppCompatActivity {
                         try {
                             String id = response.getString("id");
                             getShops(id);
+
                         } catch (JSONException e) {
                             e.printStackTrace();
                         }
