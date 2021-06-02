@@ -109,6 +109,11 @@ public class ChangeShopActivity extends AppCompatActivity {
                                     listShop.add(shop);
                                 }
 
+                                if (data.length() == 0) {
+                                    Intent intent = new Intent(ChangeShopActivity.this, CreateShopActivity.class);
+                                    startActivity(intent);
+                                }
+
                                 shopAdapter.notifyDataSetChanged();
                                 progressDialog.dismiss();
                             }

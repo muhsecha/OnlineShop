@@ -159,6 +159,7 @@ public class MainActivity extends AppCompatActivity {
     }
 
     private void checkShop() {
+        tokenShop = sharedPreferences.getString(TOKEN_SHOP, "");
         if (tokenShop.isEmpty()) {
             Intent intent = new Intent(MainActivity.this, ChangeShopActivity.class);
             startActivity(intent);
