@@ -14,6 +14,7 @@ import android.os.Environment;
 import android.provider.DocumentsContract;
 import android.provider.MediaStore;
 import android.util.Log;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.Button;
@@ -21,6 +22,7 @@ import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.Toast;
 
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
 import com.androidnetworking.AndroidNetworking;
@@ -34,6 +36,7 @@ import com.example.onlineshop.Constants;
 import com.example.onlineshop.R;
 import com.example.onlineshop.models.Product;
 import com.example.onlineshop.models.ProductCategory;
+import com.google.android.material.appbar.MaterialToolbar;
 import com.google.android.material.switchmaterial.SwitchMaterial;
 import com.kroegerama.imgpicker.BottomSheetImagePicker;
 import com.kroegerama.imgpicker.ButtonType;
@@ -69,6 +72,7 @@ public class EditProductActivity extends AppCompatActivity implements BottomShee
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_edit_product);
 
+        MaterialToolbar toolbar = findViewById(R.id.toolbar);
         etName = findViewById(R.id.et_name);
         etDesc = findViewById(R.id.et_desc);
         etPrice = findViewById(R.id.et_price);
@@ -79,6 +83,10 @@ public class EditProductActivity extends AppCompatActivity implements BottomShee
         spCategory = findViewById(R.id.sp_category);
         switchShow = findViewById(R.id.switch_show);
 
+        setSupportActionBar(toolbar);
+        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+        getSupportActionBar().setDisplayShowHomeEnabled(true);
+        getSupportActionBar().setHomeAsUpIndicator(R.drawable.ic_baseline_arrow_back_ios_24);
         progressDialog = new ProgressDialog(this);
         sharedPreferences = getSharedPreferences(SHARED_PREFS, MODE_PRIVATE);
         tokenShop = sharedPreferences.getString(TOKEN_SHOP, "");
@@ -513,5 +521,16 @@ public class EditProductActivity extends AppCompatActivity implements BottomShee
             }
         }
         return ret;
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(@NonNull MenuItem item) {
+        switch (item.getItemId()) {
+            case android.R.id.home:
+                onBackPressed();
+                return true;
+            default:
+                return super.onOptionsItemSelected(item);
+        }
     }
 }
