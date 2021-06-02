@@ -44,6 +44,12 @@ public class ProductAdapter extends RecyclerView.Adapter<ProductAdapter.ProductV
                     .into(holder.ivProduct);
         }
 
+        if (!product.getProductCategoryId().equals("null")) {
+            holder.tvCategory.setText(product.getNameCategory());
+        } else {
+            holder.tvCategory.setVisibility(View.GONE);
+        }
+
         holder.ivEdit.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -60,7 +66,7 @@ public class ProductAdapter extends RecyclerView.Adapter<ProductAdapter.ProductV
     }
 
     public class ProductViewHolder extends RecyclerView.ViewHolder {
-        TextView tvName, tvPrice;
+        TextView tvName, tvPrice, tvCategory;
         ImageView ivProduct, ivEdit;
 
         public ProductViewHolder(@NonNull View itemView) {
@@ -69,6 +75,7 @@ public class ProductAdapter extends RecyclerView.Adapter<ProductAdapter.ProductV
             tvPrice = itemView.findViewById(R.id.tv_price);
             ivProduct = itemView.findViewById(R.id.iv_product);
             ivEdit = itemView.findViewById(R.id.iv_edit);
+            tvCategory = itemView.findViewById(R.id.tv_category);
         }
     }
 }

@@ -4,7 +4,7 @@ import android.os.Parcel;
 import android.os.Parcelable;
 
 public class Product implements Parcelable {
-    private String id, name, desc, price, stock, image, productCategoryId;
+    private String id, name, desc, price, stock, image, productCategoryId, nameCategory;
     private boolean show;
 
     public Product() {
@@ -19,6 +19,7 @@ public class Product implements Parcelable {
         stock = in.readString();
         image = in.readString();
         productCategoryId = in.readString();
+        nameCategory = in.readString();
         show = in.readByte() != 0;
     }
 
@@ -90,6 +91,14 @@ public class Product implements Parcelable {
         this.productCategoryId = productCategoryId;
     }
 
+    public String getNameCategory() {
+        return nameCategory;
+    }
+
+    public void setNameCategory(String nameCategory) {
+        this.nameCategory = nameCategory;
+    }
+
     public boolean isShow() {
         return show;
     }
@@ -112,6 +121,7 @@ public class Product implements Parcelable {
         parcel.writeString(stock);
         parcel.writeString(image);
         parcel.writeString(productCategoryId);
+        parcel.writeString(nameCategory);
         parcel.writeByte((byte) (show ? 1 : 0));
     }
 }

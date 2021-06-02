@@ -6,9 +6,11 @@ import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.Toast;
 
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
@@ -22,6 +24,7 @@ import com.example.onlineshop.Constants;
 import com.example.onlineshop.R;
 import com.example.onlineshop.adapters.ProductCategoryAdapter;
 import com.example.onlineshop.models.ProductCategory;
+import com.google.android.material.appbar.MaterialToolbar;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 
 import org.json.JSONArray;
@@ -48,9 +51,14 @@ public class CategoryActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_category);
 
+        MaterialToolbar toolbar = findViewById(R.id.toolbar);
         fabAdd = findViewById(R.id.fab_add);
         rvCategories = findViewById(R.id.rv_categories);
 
+        setSupportActionBar(toolbar);
+        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+        getSupportActionBar().setDisplayShowHomeEnabled(true);
+        getSupportActionBar().setHomeAsUpIndicator(R.drawable.ic_baseline_arrow_back_ios_24);
         rvCategories.setHasFixedSize(true);
         progressDialog = new ProgressDialog(this);
         sharedPreferences = getSharedPreferences(SHARED_PREFS, MODE_PRIVATE);
@@ -169,5 +177,16 @@ public class CategoryActivity extends AppCompatActivity {
                                 });
                     }
                 }).create().show();
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(@NonNull MenuItem item) {
+        switch (item.getItemId()) {
+            case android.R.id.home:
+                onBackPressed();
+                return true;
+            default:
+                return super.onOptionsItemSelected(item);
+        }
     }
 }

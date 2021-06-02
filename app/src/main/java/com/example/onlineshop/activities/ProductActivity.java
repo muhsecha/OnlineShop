@@ -47,15 +47,14 @@ public class ProductActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_product);
 
-        MaterialToolbar toolbar = findViewById(R.id.app_bar);
-        setSupportActionBar(toolbar);
-
-        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
-        getSupportActionBar().setDisplayShowHomeEnabled(true);
-
+        MaterialToolbar toolbar = findViewById(R.id.toolbar);
         fabAdd = findViewById(R.id.fab_add);
         rvProducts = findViewById(R.id.rv_products);
 
+        setSupportActionBar(toolbar);
+        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+        getSupportActionBar().setDisplayShowHomeEnabled(true);
+        getSupportActionBar().setHomeAsUpIndicator(R.drawable.ic_baseline_arrow_back_ios_24);
         rvProducts.setHasFixedSize(true);
         progressDialog = new ProgressDialog(this);
 
@@ -71,26 +70,11 @@ public class ProductActivity extends AppCompatActivity {
         getProducts();
     }
 
-
-    @Override
-    public boolean onOptionsItemSelected(@NonNull MenuItem item) {
-        switch (item.getItemId()) {
-            case android.R.id.home:
-                onBackPressed();
-                return true;
-            default:
-                return super.onOptionsItemSelected(item);
-        }
-    }
-
-
     private void showProducts() {
         rvProducts.setLayoutManager(new LinearLayoutManager(this));
         productAdapter = new ProductAdapter(listProduct);
         rvProducts.setAdapter(productAdapter);
     }
-
-
 
     private void getProducts() {
         progressDialog.setTitle("Loading...");
@@ -122,7 +106,14 @@ public class ProductActivity extends AppCompatActivity {
                                     product.setPrice(item.getString("price"));
                                     product.setStock(item.getString("stock"));
                                     product.setImage(item.getString("image"));
-                                    product.setProductCategoryId(item.getString("product_category_id"));
+
+                                    String categoryId = item.getString("product_category_id");
+                                    product.setProductCategoryId(categoryId);
+
+                                    if (!categoryId.equals("null")) {
+                                        JSONObject category = item.getJSONObject("category");
+                                        product.setNameCategory(category.getString("name"));
+                                    }
 
                                     if (item.getInt("show") != 0) {
                                         product.setShow(true);
@@ -153,5 +144,16 @@ public class ProductActivity extends AppCompatActivity {
                         }
                     }
                 });
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(@NonNull MenuItem item) {
+        switch (item.getItemId()) {
+            case android.R.id.home:
+                onBackPressed();
+                return true;
+            default:
+                return super.onOptionsItemSelected(item);
+        }
     }
 }
