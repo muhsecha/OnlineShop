@@ -205,7 +205,7 @@ public class CreateShopActivity extends AppCompatActivity {
                                 editor.putString(TOKEN_SHOP, response.getString("data"));
                                 editor.apply();
 
-                                Intent intent = new Intent(getApplicationContext(), ChangeShopActivity.class);
+                                Intent intent = new Intent(getApplicationContext(), MainActivity.class);
                                 intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
                                 startActivity(intent);
 
