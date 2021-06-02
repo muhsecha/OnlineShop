@@ -122,7 +122,14 @@ public class ProductActivity extends AppCompatActivity {
                                     product.setPrice(item.getString("price"));
                                     product.setStock(item.getString("stock"));
                                     product.setImage(item.getString("image"));
-                                    product.setProductCategoryId(item.getString("product_category_id"));
+
+                                    String categoryId = item.getString("product_category_id");
+                                    product.setProductCategoryId(categoryId);
+
+                                    if (!categoryId.equals("null")) {
+                                        JSONObject category = item.getJSONObject("category");
+                                        product.setNameCategory(category.getString("name"));
+                                    }
 
                                     if (item.getInt("show") != 0) {
                                         product.setShow(true);
