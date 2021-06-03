@@ -36,7 +36,6 @@
                 android:layout_height="95dp"
                 android:layout_marginTop="75dp"
                 android:background="@drawable/bg_btn_white"
-                android:onClick="imagePicker"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent" />

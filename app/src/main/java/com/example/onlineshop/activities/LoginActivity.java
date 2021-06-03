@@ -8,7 +8,6 @@ import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
-import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
@@ -29,7 +28,6 @@ import static com.example.onlineshop.Constants.TOKEN_USER;
 public class LoginActivity extends AppCompatActivity {
     public static final String TAG = LoginActivity.class.getSimpleName();
     private Button btn_register, btn_login;
-    private TextView tv_frgt_pass;
     private EditText et_email, et_pass;
     private ProgressDialog progressDialog;
 
@@ -38,7 +36,6 @@ public class LoginActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login);
 
-        tv_frgt_pass = findViewById(R.id.tv_frgt_pass);
         et_email = findViewById(R.id.et_login_email);
         et_pass = findViewById(R.id.et_login_pass);
         btn_register = findViewById(R.id.btn_register);

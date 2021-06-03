@@ -109,6 +109,8 @@ public class EditProductActivity extends AppCompatActivity implements BottomShee
                     .into(ivProduct);
         }
 
+        getProductCategories();
+
         btnSubmit.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -258,16 +260,17 @@ public class EditProductActivity extends AppCompatActivity implements BottomShee
             }
         });
 
-        getProductCategories();
-    }
-
-    public void imagePicker(View view) {
-        new BottomSheetImagePicker.Builder(getString(R.string.file_provider))
-                .cameraButton(ButtonType.Button)
-                .galleryButton(ButtonType.Button)
-                .singleSelectTitle(R.string.pick_single)
-                .requestTag("single")
-                .show(getSupportFragmentManager(), null);
+        ivProduct.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                new BottomSheetImagePicker.Builder(getString(R.string.file_provider))
+                        .cameraButton(ButtonType.Button)
+                        .galleryButton(ButtonType.Button)
+                        .singleSelectTitle(R.string.pick_single)
+                        .requestTag("single")
+                        .show(getSupportFragmentManager(), null);
+            }
+        });
     }
 
     @Override

@@ -86,6 +86,8 @@ public class CreateProductActivity extends AppCompatActivity implements BottomSh
         sharedPreferences = getSharedPreferences(SHARED_PREFS, MODE_PRIVATE);
         tokenShop = sharedPreferences.getString(TOKEN_SHOP, "");
 
+        getProductCategories();
+
         btnSubmit.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -227,16 +229,17 @@ public class CreateProductActivity extends AppCompatActivity implements BottomSh
             }
         });
 
-        getProductCategories();
-    }
-
-    public void imagePicker(View view) {
-        new BottomSheetImagePicker.Builder(getString(R.string.file_provider))
-                .cameraButton(ButtonType.Button)
-                .galleryButton(ButtonType.Button)
-                .singleSelectTitle(R.string.pick_single)
-                .requestTag("single")
-                .show(getSupportFragmentManager(), null);
+        ivProduct.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                new BottomSheetImagePicker.Builder(getString(R.string.file_provider))
+                        .cameraButton(ButtonType.Button)
+                        .galleryButton(ButtonType.Button)
+                        .singleSelectTitle(R.string.pick_single)
+                        .requestTag("single")
+                        .show(getSupportFragmentManager(), null);
+            }
+        });
     }
 
     @Override

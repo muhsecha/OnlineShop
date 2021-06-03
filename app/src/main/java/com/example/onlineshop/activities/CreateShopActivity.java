@@ -41,7 +41,7 @@ public class CreateShopActivity extends AppCompatActivity {
     private Button btnSubmit;
     private String city = null;
     private SharedPreferences sharedPreferences;
-    private String tokenShop, tokenUser;
+    private String tokenUser;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -55,7 +55,6 @@ public class CreateShopActivity extends AppCompatActivity {
 
         progressDialog = new ProgressDialog(this);
         sharedPreferences = getSharedPreferences(SHARED_PREFS, MODE_PRIVATE);
-        tokenShop = sharedPreferences.getString(TOKEN_SHOP, "");
         tokenUser = sharedPreferences.getString(TOKEN_USER, "");
         getCity();
 

@@ -77,6 +77,8 @@ public class ShopInfoActivity extends AppCompatActivity implements BottomSheetIm
         tokenUser = sharedPreferences.getString(TOKEN_USER, "");
         tokenShop = sharedPreferences.getString(TOKEN_SHOP, "");
 
+        getShop();
+
         spCity.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
             public void onItemSelected(AdapterView<?> adapterView, View view, int position, long id) {
@@ -203,7 +205,17 @@ public class ShopInfoActivity extends AppCompatActivity implements BottomSheetIm
             }
         });
 
-        getShop();
+        ivLogoShop.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                new BottomSheetImagePicker.Builder(getString(R.string.file_provider))
+                        .cameraButton(ButtonType.Button)
+                        .galleryButton(ButtonType.Button)
+                        .singleSelectTitle(R.string.pick_single)
+                        .requestTag("single")
+                        .show(getSupportFragmentManager(), null);
+            }
+        });
     }
 
     public void getCity() {
@@ -310,15 +322,6 @@ public class ShopInfoActivity extends AppCompatActivity implements BottomSheetIm
                         }
                     }
                 });
-    }
-
-    public void imagePicker(View view) {
-        new BottomSheetImagePicker.Builder(getString(R.string.file_provider))
-                .cameraButton(ButtonType.Button)
-                .galleryButton(ButtonType.Button)
-                .singleSelectTitle(R.string.pick_single)
-                .requestTag("single")
-                .show(getSupportFragmentManager(), null);
     }
 
     @Override
