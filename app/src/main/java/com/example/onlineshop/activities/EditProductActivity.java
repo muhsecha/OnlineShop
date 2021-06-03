@@ -278,6 +278,8 @@ public class EditProductActivity extends AppCompatActivity implements BottomShee
         for (Uri uri : list) {
             Glide.with(this).load(uri).into(ivProduct);
             file = new File(getUriRealPath(this, uri));
+            ivProduct.setBackground(null);
+            ivAdd.setVisibility(View.GONE);
         }
     }
 
