@@ -37,19 +37,19 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="@+id/view" >
+        app:layout_constraintTop_toTopOf="@+id/view">
 
         <TextView
             android:id="@+id/tv_register"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="REGISTER"
-            android:textSize="16dp"
-            android:layout_marginEnd="80dp"
-            android:textStyle="bold"
-            android:textColor="@color/red_500"
             android:layout_alignParentRight="true"
-            android:layout_centerVertical="true"/>
+            android:layout_centerVertical="true"
+            android:layout_marginEnd="80dp"
+            android:text="REGISTER"
+            android:textColor="@color/red_500"
+            android:textSize="16dp"
+            android:textStyle="bold" />
 
         <Button
             android:id="@+id/btn_log_register"
@@ -58,17 +58,17 @@
             android:layout_alignParentLeft="true"
             android:layout_centerVertical="true"
             android:layout_marginStart="50dp"
+            android:background="@drawable/btn_stroke_white"
             android:text="LOGIN"
-            android:textColor="@color/white"
-            android:background="@drawable/btn_stroke_white"/>
+            android:textColor="@color/white" />
     </RelativeLayout>
 
     <androidx.cardview.widget.CardView
         android:id="@+id/cd_login"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:layout_marginTop="70dp"
         android:layout_marginStart="24dp"
+        android:layout_marginTop="70dp"
         android:layout_marginEnd="24dp"
         app:cardCornerRadius="24dp"
         app:layout_constraintBottom_toBottomOf="parent"
@@ -91,9 +91,9 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="30dp"
+                    android:background="@color/white"
                     android:hint="Name"
-                    android:inputType="textEmailAddress"
-                    android:background="@color/white"/>
+                    android:inputType="textEmailAddress" />
             </com.google.android.material.textfield.TextInputLayout>
 
             <com.google.android.material.textfield.TextInputLayout
@@ -106,9 +106,9 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="6dp"
+                    android:background="@color/white"
                     android:hint="Number Phone"
-                    android:inputType="textEmailAddress"
-                    android:background="@color/white"/>
+                    android:inputType="textEmailAddress" />
             </com.google.android.material.textfield.TextInputLayout>
 
             <com.google.android.material.textfield.TextInputLayout
@@ -121,9 +121,9 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="6dp"
+                    android:background="@color/white"
                     android:hint="Email"
-                    android:inputType="textEmailAddress"
-                    android:background="@color/white"/>
+                    android:inputType="textEmailAddress" />
             </com.google.android.material.textfield.TextInputLayout>
 
             <com.google.android.material.textfield.TextInputLayout
@@ -138,9 +138,9 @@
                     android:layout_height="wrap_content"
                     android:layout_marginTop="6dp"
                     android:layout_marginBottom="6dp"
+                    android:background="@color/white"
                     android:hint="Password"
-                    android:inputType="textPassword"
-                    android:background="@color/white"/>
+                    android:inputType="textPassword" />
 
             </com.google.android.material.textfield.TextInputLayout>
 
@@ -155,9 +155,9 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginBottom="70dp"
+                    android:background="@color/white"
                     android:hint="Confirmation Password"
-                    android:inputType="textPassword"
-                    android:background="@color/white"/>
+                    android:inputType="textPassword" />
 
             </com.google.android.material.textfield.TextInputLayout>
         </LinearLayout>

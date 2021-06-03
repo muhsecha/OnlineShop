@@ -30,7 +30,7 @@
                 android:layout_gravity="right"
                 android:layout_margin="15dp"
                 android:src="@drawable/logout_white"
-                android:visibility="gone"/>
+                android:visibility="gone" />
 
             <de.hdodenhof.circleimageview.CircleImageView
                 android:id="@+id/profile_img"
@@ -38,7 +38,7 @@
                 android:layout_height="96dp"
                 android:layout_gravity="center"
                 android:layout_marginTop="55dp"
-                android:src="@drawable/profile"/>
+                android:src="@drawable/profile" />
 
             <TextView
                 android:id="@+id/tv_name_header"
@@ -46,7 +46,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginTop="15dp"
                 android:gravity="center"
-                android:text="Aji Suryawan"
+                android:text="Loading..."
                 android:textColor="@color/white"
                 android:textSize="20dp"
                 android:textStyle="bold" />
@@ -58,7 +58,6 @@
                 android:layout_marginTop="5dp"
                 android:layout_marginBottom="85dp"
                 android:gravity="center"
-                android:text="suryawan@gmail.com"
                 android:textColor="@color/white"
                 android:textSize="15dp" />
         </LinearLayout>
@@ -107,7 +106,7 @@
                     android:id="@+id/tv_name"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="Aji Suryawan" />
+                    android:text="Loading..." />
             </LinearLayout>
         </LinearLayout>
 
@@ -143,7 +142,7 @@
                     android:id="@+id/tv_phone"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="Aji Suryawan" />
+                    android:text="Loading..." />
             </LinearLayout>
         </LinearLayout>
 
@@ -179,7 +178,7 @@
                     android:id="@+id/tv_email"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="Aji Suryawan" />
+                    android:text="Loading..." />
             </LinearLayout>
         </LinearLayout>
     </androidx.constraintlayout.widget.ConstraintLayout>

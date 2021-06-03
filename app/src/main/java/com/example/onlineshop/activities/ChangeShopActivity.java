@@ -34,10 +34,10 @@ import static com.example.onlineshop.Constants.TOKEN_USER;
 
 public class ChangeShopActivity extends AppCompatActivity {
     public static final String TAG = ChangeShopActivity.class.getSimpleName();
+    private final ArrayList<Shop> listShop = new ArrayList<>();
     private FloatingActionButton btnAdd;
     private ShopAdapter shopAdapter;
     private RecyclerView rvShops;
-    private final ArrayList<Shop> listShop = new ArrayList<>();
     private ProgressDialog progressDialog;
     private SharedPreferences sharedPreferences;
     private String tokenShop, tokenUser;

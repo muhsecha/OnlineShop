@@ -25,7 +25,6 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 import static com.example.onlineshop.Constants.SHARED_PREFS;
-import static com.example.onlineshop.Constants.TOKEN_SHOP;
 import static com.example.onlineshop.Constants.TOKEN_USER;
 
 public class ProfileActivity extends AppCompatActivity {

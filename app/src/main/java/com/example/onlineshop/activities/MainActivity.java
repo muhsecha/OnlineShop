@@ -1,17 +1,14 @@
 package com.example.onlineshop.activities;
 
 import android.app.ProgressDialog;
-import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
-import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.cardview.widget.CardView;
 
@@ -21,7 +18,6 @@ import com.androidnetworking.error.ANError;
 import com.androidnetworking.interfaces.JSONObjectRequestListener;
 import com.example.onlineshop.Constants;
 import com.example.onlineshop.R;
-import com.example.onlineshop.models.Product;
 
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -36,7 +32,7 @@ public class MainActivity extends AppCompatActivity {
     public static final String TAG = MainActivity.class.getSimpleName();
     private CircleImageView img_profile;
     private TextView tv_username, tv_email;
-    private CardView cd_product, cd_profile, cd_trans, cd_setting, cdDiscount,cd_kategori;
+    private CardView cd_product, cd_profile, cd_trans, cd_setting, cdDiscount, cd_kategori;
     private ProgressDialog progressDialog;
     private SharedPreferences sharedPreferences;
     private String tokenShop, tokenUser;
@@ -112,7 +108,7 @@ public class MainActivity extends AppCompatActivity {
         cd_kategori.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                startActivity(new Intent(getApplicationContext(),CategoryActivity.class));
+                startActivity(new Intent(getApplicationContext(), CategoryActivity.class));
             }
         });
     }

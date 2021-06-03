@@ -55,6 +55,7 @@ import static com.example.onlineshop.Constants.TOKEN_SHOP;
 
 public class EditProductActivity extends AppCompatActivity implements BottomSheetImagePicker.OnImagesSelectedListener {
     public static final String TAG = EditProductActivity.class.getSimpleName();
+    private final ArrayList<ProductCategory> listProductCategory = new ArrayList<>();
     private EditText etName, etDesc, etPrice, etStock;
     private Button btnSubmit;
     private ProgressDialog progressDialog;
@@ -62,7 +63,6 @@ public class EditProductActivity extends AppCompatActivity implements BottomShee
     private File file;
     private String productCategoryId;
     private SmartMaterialSpinner spCategory;
-    private final ArrayList<ProductCategory> listProductCategory = new ArrayList<>();
     private SharedPreferences sharedPreferences;
     private String tokenShop;
     private SwitchMaterial switchShow;

@@ -33,14 +33,13 @@ import java.util.ArrayList;
 
 import static com.example.onlineshop.Constants.SHARED_PREFS;
 import static com.example.onlineshop.Constants.TOKEN_SHOP;
-import static com.example.onlineshop.Constants.TOKEN_USER;
 
 public class DiscountActivity extends AppCompatActivity {
     public static final String TAG = DiscountActivity.class.getSimpleName();
+    private final ArrayList<Discount> listDiscount = new ArrayList<>();
     private FloatingActionButton fabAdd;
     private RecyclerView rvDiscounts;
     private DiscountAdapter discountAdapter;
-    private final ArrayList<Discount> listDiscount = new ArrayList<>();
     private ProgressDialog progressDialog;
 
     @Override
