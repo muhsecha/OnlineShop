@@ -10,7 +10,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import com.example.onlineshop.R;
 
 public class SettingActivity extends AppCompatActivity {
-    private LinearLayout ln_info, ln_ganti, ln_logout;
+    private LinearLayout ln_info, ln_ganti;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -19,7 +19,6 @@ public class SettingActivity extends AppCompatActivity {
 
         ln_info = findViewById(R.id.ln_info);
         ln_ganti = findViewById(R.id.ln_ganti);
-        ln_logout = findViewById(R.id.ln_logout);
 
         ln_ganti.setOnClickListener(new View.OnClickListener() {
             @Override
