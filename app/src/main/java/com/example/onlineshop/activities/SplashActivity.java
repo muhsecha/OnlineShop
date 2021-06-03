@@ -8,7 +8,6 @@ import android.os.Handler;
 import androidx.appcompat.app.AppCompatActivity;
 
 import static com.example.onlineshop.Constants.SHARED_PREFS;
-import static com.example.onlineshop.Constants.TOKEN_SHOP;
 import static com.example.onlineshop.Constants.TOKEN_USER;
 
 public class SplashActivity extends AppCompatActivity {

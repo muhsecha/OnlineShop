@@ -28,7 +28,6 @@ import org.json.JSONObject;
 
 import static com.example.onlineshop.Constants.SHARED_PREFS;
 import static com.example.onlineshop.Constants.TOKEN_SHOP;
-import static com.example.onlineshop.Constants.TOKEN_USER;
 
 public class EditDiscountActivity extends AppCompatActivity {
     public static final String TAG = EditDiscountActivity.class.getSimpleName();

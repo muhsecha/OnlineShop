@@ -36,9 +36,9 @@ import static com.example.onlineshop.Constants.TOKEN_SHOP;
 
 public class ProductActivity extends AppCompatActivity {
     public static final String TAG = ProductActivity.class.getSimpleName();
+    private final ArrayList<Product> listProduct = new ArrayList<>();
     private FloatingActionButton fabAdd;
     private RecyclerView rvProducts;
-    private final ArrayList<Product> listProduct = new ArrayList<>();
     private ProductAdapter productAdapter;
     private ProgressDialog progressDialog;
 

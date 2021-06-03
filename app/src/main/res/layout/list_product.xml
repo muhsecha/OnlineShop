@@ -27,8 +27,8 @@
                     android:id="@+id/iv_product"
                     android:layout_width="60dp"
                     android:layout_height="60dp"
-                    android:src="@drawable/image_red200"
                     android:layout_marginLeft="10dp"
+                    android:src="@drawable/image_red200"
                     app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintLeft_toLeftOf="parent"
                     app:layout_constraintTop_toTopOf="parent" />
