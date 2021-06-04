@@ -30,9 +30,9 @@ import static com.example.onlineshop.Constants.TOKEN_USER;
 
 public class MainActivity extends AppCompatActivity {
     public static final String TAG = MainActivity.class.getSimpleName();
-    private CircleImageView img_profile;
-    private TextView tv_username, tv_email;
-    private CardView cd_product, cd_profile, cd_trans, cd_setting, cdDiscount, cd_kategori;
+
+
+    private CardView cd_product, cd_profile, cd_trans, cd_setting, cdDiscount, cd_kategori,cd_karyawan;
     private ProgressDialog progressDialog;
     private SharedPreferences sharedPreferences;
     private String tokenShop, tokenUser;
@@ -42,30 +42,23 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        img_profile = findViewById(R.id.img_profile);
-        tv_username = findViewById(R.id.tv_profile_name);
-        tv_email = findViewById(R.id.tv_profile_email);
+
         cd_product = findViewById(R.id.cd_product);
         cd_profile = findViewById(R.id.cd_profile);
         cd_trans = findViewById(R.id.cd_trans);
         cd_setting = findViewById(R.id.cd_setting);
         cdDiscount = findViewById(R.id.cd_discount);
         cd_kategori = findViewById(R.id.cd_category);
+        cd_karyawan = findViewById(R.id.cd_pegawai);
 
         progressDialog = new ProgressDialog(this);
         sharedPreferences = getSharedPreferences(SHARED_PREFS, MODE_PRIVATE);
         tokenUser = sharedPreferences.getString(TOKEN_USER, "");
         tokenShop = sharedPreferences.getString(TOKEN_SHOP, "");
 
-        getUser();
+//        getUser();
         checkShop();
 
-        img_profile.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Toast.makeText(MainActivity.this, "Image", Toast.LENGTH_SHORT).show();
-            }
-        });
 
         cd_product.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -78,7 +71,7 @@ public class MainActivity extends AppCompatActivity {
         cd_trans.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Toast.makeText(MainActivity.this, "Coming Soon", Toast.LENGTH_SHORT).show();
+                startActivity(new Intent(getApplicationContext(),OrdersActivity.class));
             }
         });
 
@@ -111,48 +104,52 @@ public class MainActivity extends AppCompatActivity {
                 startActivity(new Intent(getApplicationContext(), CategoryActivity.class));
             }
         });
+
+        cd_karyawan.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Toast.makeText(MainActivity.this, "COMING SOON", Toast.LENGTH_SHORT).show();
+            }
+        });
     }
 
-    private void getUser() {
-        progressDialog.setTitle("Loading...");
-        progressDialog.show();
-
-        AndroidNetworking.get(Constants.API + "/auth-decode")
-                .addHeaders("Authorization", "Bearer " + tokenUser)
-                .addHeaders("Accept", "application/json")
-                .setPriority(Priority.LOW)
-                .build()
-                .getAsJSONObject(new JSONObjectRequestListener() {
-                    @Override
-                    public void onResponse(JSONObject response) {
-                        try {
-                            String name = response.getString("name");
-                            String email = response.getString("email");
-
-                            tv_username.setText(name);
-                            tv_email.setText(email);
-
-                            progressDialog.dismiss();
-                        } catch (JSONException e) {
-                            e.printStackTrace();
-                        }
-                    }
-
-                    @Override
-                    public void onError(ANError anError) {
-                        Toast.makeText(MainActivity.this, Constants.ERROR, Toast.LENGTH_SHORT).show();
-                        progressDialog.dismiss();
-
-                        if (anError.getErrorCode() != 0) {
-                            Log.d(TAG, "onError errorCode : " + anError.getErrorCode());
-                            Log.d(TAG, "onError errorBody : " + anError.getErrorBody());
-                            Log.d(TAG, "onError errorDetail : " + anError.getErrorDetail());
-                        } else {
-                            Log.d(TAG, "onError errorDetail : " + anError.getErrorDetail());
-                        }
-                    }
-                });
-    }
+//    private void getUser() {
+//        progressDialog.setTitle("Loading...");
+//        progressDialog.show();
+//
+//        AndroidNetworking.get(Constants.API + "/auth-decode")
+//                .addHeaders("Authorization", "Bearer " + tokenUser)
+//                .addHeaders("Accept", "application/json")
+//                .setPriority(Priority.LOW)
+//                .build()
+//                .getAsJSONObject(new JSONObjectRequestListener() {
+//                    @Override
+//                    public void onResponse(JSONObject response) {
+//                        try {
+//                            String name = response.getString("name");
+//                            String email = response.getString("email");
+//
+//                            progressDialog.dismiss();
+//                        } catch (JSONException e) {
+//                            e.printStackTrace();
+//                        }
+//                    }
+//
+//                    @Override
+//                    public void onError(ANError anError) {
+//                        Toast.makeText(MainActivity.this, Constants.ERROR, Toast.LENGTH_SHORT).show();
+//                        progressDialog.dismiss();
+//
+//                        if (anError.getErrorCode() != 0) {
+//                            Log.d(TAG, "onError errorCode : " + anError.getErrorCode());
+//                            Log.d(TAG, "onError errorBody : " + anError.getErrorBody());
+//                            Log.d(TAG, "onError errorDetail : " + anError.getErrorDetail());
+//                        } else {
+//                            Log.d(TAG, "onError errorDetail : " + anError.getErrorDetail());
+//                        }
+//                    }
+//                });
+//    }
 
     private void checkShop() {
         tokenShop = sharedPreferences.getString(TOKEN_SHOP, "");
