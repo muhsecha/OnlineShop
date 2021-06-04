@@ -11,7 +11,8 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/Theme.OnlineShop">
-        <activity android:name=".activities.OrdersActivity"></activity>
+        <activity android:name=".activities.EmployeeActivity"></activity>
+        <activity android:name=".activities.OrdersActivity" />
         <activity android:name=".activities.EditDiscountActivity" />
         <activity android:name=".activities.CategoryActivity" />
         <activity android:name=".activities.HistoryActivity" />
