@@ -108,7 +108,7 @@ public class MainActivity extends AppCompatActivity {
         cd_karyawan.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Toast.makeText(MainActivity.this, "COMING SOON", Toast.LENGTH_SHORT).show();
+                startActivity(new Intent(getApplicationContext(),EmployeeActivity.class));
             }
         });
     }
